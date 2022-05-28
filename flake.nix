@@ -10,7 +10,7 @@
     packages.x86_64-linux = {
       proxmox = nixos-generators.nixosGenerate {
         modules = [
-        	./template.nix
+        	./template
         ];
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         format = "proxmox-lxc";

@@ -1,7 +1,7 @@
 { lib, pkgs, config, modulesPath, ... }:
 {
   imports = [
-    ../template.nix
+    ../template
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_5_17;
