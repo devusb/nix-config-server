@@ -15,7 +15,6 @@
     group = "media";
   };
 
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ 
     (linuxKernel.packages.linux_5_17.nvidia_x11_legacy470.override {libsOnly = false;})
   ];
