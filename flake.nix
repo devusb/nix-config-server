@@ -8,7 +8,7 @@
   };
   outputs = { self, nixpkgs, nixos-generators, ... }: {
     packages.x86_64-linux = {
-      proxmox = nixos-generators.nixosGenerate {
+      proxmox-lxc = nixos-generators.nixosGenerate {
         modules = [
         	./template
         ];
@@ -23,7 +23,6 @@
         };
       };
 
-      # Also see the non-Flakes hive.nix example above.
       plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
         imports = [
           ./lxc/plex.nix

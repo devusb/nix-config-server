@@ -20,7 +20,6 @@ resource "proxmox_lxc" "plex" {
   ostype       = "nixos"
   cmode        = "console"
 
-  // Terraform will crash without rootfs defined
   rootfs {
     storage = "local-zfs"
     size    = "20G"
