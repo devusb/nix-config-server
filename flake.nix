@@ -6,34 +6,38 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, ... }: {
-    packages.x86_64-linux = {
-      proxmox-lxc = nixos-generators.nixosGenerate {
-        modules = [
-        	./template
-        ];
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        format = "proxmox-lxc";
-      };
-    };
-    colmena = {
-      meta = {
-        nixpkgs = import nixpkgs {
-          system = "x86_64-linux";
+  outputs = { self, nixpkgs, nixos-generators, ... }:
+    let overlay = import ./overlay;
+    in 
+    {
+      packages.x86_64-linux = {
+        proxmox-lxc = nixos-generators.nixosGenerate {
+          modules = [
+            ./template
+          ];
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          format = "proxmox-lxc";
         };
       };
-      blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
-        imports = [
-          ./lxc/blocky.nix
-        ];
-      };
-      plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
-        imports = [
-          ./lxc/plex.nix
-        ];
+      colmena = {
+        meta = {
+          nixpkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ overlay ];
+          };
+        };
+        blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/blocky.nix
+          ];
+        };
+        plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/plex.nix
+          ];
+        };
       };
     };
-  };
 }
 
 
