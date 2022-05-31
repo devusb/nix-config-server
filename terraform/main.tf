@@ -67,7 +67,9 @@ resource "proxmox_lxc" "plex" {
   mountpoint {
     key     = "0"
     slot    = 0
-    storage = "/r2d2_0/media"
+    # uncomment below to init new instance
+    # storage = "/r2d2_0/media"
+    storage = ""
     volume  = "/r2d2_0/media"
     mp      = "/media"
     size    = "256G"
