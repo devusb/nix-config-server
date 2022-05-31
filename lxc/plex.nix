@@ -7,7 +7,7 @@
   system.stateVersion = "22.05";
   
   deployment = {
-    targetHost = "192.168.20.10";
+    targetHost = "192.168.20.51";
     targetPort = 22;
     targetUser = "root";
     replaceUnknownProfiles = true;

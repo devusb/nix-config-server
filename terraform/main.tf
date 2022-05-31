@@ -78,7 +78,7 @@ resource "proxmox_lxc" "plex" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.10/24"
+    ip     = "192.168.20.51/24"
     tag    = 20
     gw     = "192.168.20.1"
     ip6    = "manual"
