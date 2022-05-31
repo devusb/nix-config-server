@@ -22,17 +22,15 @@
           system = "x86_64-linux";
         };
       };
-
       blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
         imports = [
           ./lxc/blocky.nix
         ];
-        deployment = {
-          targetHost = "192.168.20.120";
-          targetPort = 22;
-          targetUser = "root";
-          replaceUnknownProfiles = true;
-        };
+      };
+      plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
+        imports = [
+          ./lxc/plex.nix
+        ];
       };
     };
   };

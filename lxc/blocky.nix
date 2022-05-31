@@ -4,6 +4,15 @@
     ../template
   ];
 
+  system.stateVersion = "22.05";
+
+  deployment = {
+    targetHost = "192.168.20.120";
+    targetPort = 22;
+    targetUser = "root";
+    replaceUnknownProfiles = true;
+  };
+
   services.resolved.enable = false;
 
   services.blocky = {

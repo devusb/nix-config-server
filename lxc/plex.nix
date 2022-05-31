@@ -3,8 +3,15 @@
   imports = [
     ../template
   ];
-
-  boot.kernelPackages = pkgs.linuxPackages_5_17;
+  
+  system.stateVersion = "22.05";
+  
+  deployment = {
+    targetHost = "192.168.20.10";
+    targetPort = 22;
+    targetUser = "root";
+    replaceUnknownProfiles = true;
+  };
 
   users.groups = {
     media.gid = 1002;
@@ -16,7 +23,7 @@
   };
 
   environment.systemPackages = with pkgs; [ 
-    (linuxKernel.packages.linux_5_17.nvidia_x11_legacy470.override {libsOnly = false;})
+    pkgs.linuxPackages.nvidia_x11_legacy470
   ];
 
   services.plex = {
