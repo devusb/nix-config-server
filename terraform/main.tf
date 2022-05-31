@@ -11,9 +11,9 @@ provider "proxmox" {
     pm_api_url = "https://192.168.99.101:8006/api2/json"
 }
 
-resource "proxmox_lxc" "plex" {
+resource "proxmox_lxc" "blocky" {
   target_node  = "r2d2"
-  hostname     = "plex"
+  hostname     = "blocky"
   ostemplate   = "local:vztmpl/nixos-system-x86_64-linux.tar.xz"
   password     = "nixos"
   unprivileged = true
@@ -22,16 +22,16 @@ resource "proxmox_lxc" "plex" {
 
   rootfs {
     storage = "local-zfs"
-    size    = "20G"
+    size    = "5G"
   }
-  memory = 8192
-  swap   = 2048
-  cores = 4
+  memory = 512
+  swap   = 512
+  cores = 1
 
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.10/24"
+    ip     = "192.168.20.120/24"
     tag    = 20
     gw     = "192.168.20.1"
     ip6    = "manual"
@@ -40,15 +40,6 @@ resource "proxmox_lxc" "plex" {
 
   features {
     nesting     = true
-  }
-
-  mountpoint {
-    key     = "0"
-    slot    = 0
-    storage = "/r2d2_0/media"
-    volume  = "/r2d2_0/media"
-    mp      = "/media"
-    size    = "256G"
   }
 
   ssh_public_keys = <<-EOT

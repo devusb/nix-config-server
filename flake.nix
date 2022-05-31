@@ -23,12 +23,12 @@
         };
       };
 
-      plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
+      blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
         imports = [
-          ./lxc/plex.nix
+          ./lxc/blocky.nix
         ];
         deployment = {
-          targetHost = "192.168.20.10";
+          targetHost = "192.168.20.120";
           targetPort = 22;
           targetUser = "root";
           replaceUnknownProfiles = true;
