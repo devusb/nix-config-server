@@ -55,14 +55,24 @@ resource "proxmox_lxc" "plex" {
   ostype       = "nixos"
   cmode        = "console"
 
-  rootfs {
-    storage = "local-zfs"
-    size    = "40G"
-  }
   memory = 8192
   swap   = 4096
   cores = 4
 
+  rootfs {
+    storage = "local-zfs"
+    size    = "40G"
+  }
+
+  mountpoint {
+    key     = "0"
+    slot    = 0
+    storage = "/r2d2_0/media"
+    volume  = "/r2d2_0/media"
+    mp      = "/media"
+    size    = "256G"
+  }
+  
   network {
     name   = "eth0"
     bridge = "vmbr0"
