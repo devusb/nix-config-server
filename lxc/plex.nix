@@ -23,9 +23,12 @@
   environment.systemPackages = with pkgs; [ 
     linuxPackages.nvidia_x11_legacy470 
     (deployBackup { 
-      backup_name = "plex"; 
-      backup_files_list = "/test"; 
-      backup_url = "http://test/test";
+      backup_name = "plex-nix"; 
+      backup_files_list = [ 
+        ''"$(find "/var/lib/plex/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+        ''"$(find "/var/lib/plex/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+      ]; 
+      backup_url = "http://192.168.20.133:25478/upload?token=59af2e561fc9f80a9bb9";
     })
   ];
 
