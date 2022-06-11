@@ -7,7 +7,7 @@
     };
   };
   outputs = { self, nixpkgs, nixos-generators, ... }:
-    let overlay = import ./overlay;
+    let overlay = import ./overlay { inherit nixpkgs; };
     in 
     {
       packages.x86_64-linux = {

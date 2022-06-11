@@ -1,9 +1,7 @@
-{ lib, pkgs, config, modulesPath, ... }:
-{
+{ lib, pkgs, config, modulesPath, ... }: {
   imports = [
     ../template
   ];
-  
   system.stateVersion = "22.05";
   
   deployment = {
@@ -23,7 +21,12 @@
   };
 
   environment.systemPackages = with pkgs; [ 
-    pkgs.linuxPackages.nvidia_x11_legacy470
+    linuxPackages.nvidia_x11_legacy470 
+    (deployBackup { 
+      backup_name = "plex"; 
+      backup_files_list = "/test"; 
+      backup_url = "http://test/test";
+    })
   ];
 
   services.plex = {
