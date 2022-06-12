@@ -37,10 +37,10 @@
     group = "media";
     package = (pkgs.plex.override {
       plexRaw = pkgs.plexRaw.overrideAttrs(old: rec {
-        version = "1.26.2.5797-5bd057d2b";
+        version = "1.27.0.5889-6a2ff9c39";
         src = pkgs.fetchurl {
           url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-          sha256 = "sha256-TbjRItXTJPZXwiNV3RFzAAC/AiFqXd9JNM6QEdPF2CI=";
+          sha1 = "d2f24c23ac03776791e5e7869f2c0ddf6dfb2fe5";
         };
       });
     }); 
