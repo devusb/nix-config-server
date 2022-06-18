@@ -5,6 +5,12 @@ terraform {
       version = "2.9.10"
     }
   }
+  cloud {
+    organization = "devusb"
+    workspaces {
+      name = "r2d2"
+    }
+  }
 }
 
 provider "proxmox" {
@@ -25,6 +31,7 @@ resource "proxmox_lxc" "blocky" {
   unprivileged = true
   ostype       = "nixos"
   cmode        = "console"
+  onboot       = true
 
   rootfs {
     storage = "local-zfs"
@@ -72,11 +79,19 @@ resource "proxmox_lxc" "plex" {
     key     = "0"
     slot    = 0
     # uncomment below to init new instance
-    # storage = "/r2d2_0/media"
+    #storage = "/r2d2_0/media"
     storage = ""
     volume  = "/r2d2_0/media"
     mp      = "/media"
     size    = "256G"
+  }
+
+  mountpoint {
+    key     = "1"
+    slot    = 1
+    storage = "media"
+    mp      = "/mnt/plex_data"
+    size    = "50G"
   }
   
   network {

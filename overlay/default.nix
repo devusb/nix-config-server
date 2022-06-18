@@ -1,4 +1,4 @@
-{ ... }: final: prev: rec {
+{ ... }: final: prev: {
   deployBackup = { backup_name, backup_files_list, backup_url ? http://192.168.20.133:25478/upload?token=59af2e561fc9f80a9bb9 }: 
     prev.writeShellScriptBin "deployBackup" ''
       tar cvzf /tmp/${backup_name}.tar.gz ${prev.lib.strings.concatMapStrings (x: " " + x) backup_files_list}

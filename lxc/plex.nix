@@ -35,6 +35,7 @@
     enable = true;
     user = "media";
     group = "media";
+    dataDir = "/mnt/plex_data";
     package = (pkgs.plex.override {
       plexRaw = pkgs.plexRaw.overrideAttrs(old: rec {
         version = "1.27.0.5889-6a2ff9c39";
