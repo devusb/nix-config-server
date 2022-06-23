@@ -51,6 +51,8 @@ resource "proxmox_lxc" "blocky" {
     firewall = false
   }
 
+  nameserver = "1.1.1.1"
+  
   features {
     nesting     = true
   }
