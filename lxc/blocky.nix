@@ -13,9 +13,6 @@
     replaceUnknownProfiles = true;
   };
 
-  services.resolved.enable = false;
-  networking.resolvconf.enable = false;
-
   services.blocky = {
     enable = true;
     settings = {

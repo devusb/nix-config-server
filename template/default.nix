@@ -15,6 +15,10 @@
   services.openssh.permitRootLogin = lib.mkDefault "yes";
   services.getty.autologinUser = lib.mkDefault "root";
 
+  # required to allow proxmox to set DNS
+  networking.resolvconf.enable = false;
+  services.resolved.enable = false;
+
   systemd.suppressedSystemUnits = [
     "sys-kernel-debug.mount"
   ];
