@@ -30,10 +30,12 @@
       blocking = {
         blackLists = {
           ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
-          smart_home = [''
-            n-devs.tplinkcloud.com
-            n-deventry.tplinkcloud.com
-          ''];
+          smart_home = [
+            ''
+              n-devs.tplinkcloud.com
+              n-deventry.tplinkcloud.com
+            ''
+          ];
         };
         clientGroupsBlock = {
           default = [ "ads" "smart_home" ];

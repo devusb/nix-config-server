@@ -8,7 +8,7 @@
   };
   outputs = { self, nixpkgs, nixos-generators, ... }:
     let overlay = import ./overlay { inherit nixpkgs; };
-    in 
+    in
     {
       packages.x86_64-linux = {
         proxmox-lxc = nixos-generators.nixosGenerate {

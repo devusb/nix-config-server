@@ -10,7 +10,7 @@
   services.sshd.enable = true;
   networking.firewall.enable = false;
   time.timeZone = "America/Chicago";
-  
+
   users.users.root.password = "nixos";
   services.openssh.permitRootLogin = lib.mkDefault "yes";
   services.getty.autologinUser = lib.mkDefault "root";
@@ -24,7 +24,7 @@
   ];
 
   services.syslogd.enable = true;
-  
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -35,7 +35,10 @@
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    vim wget curl logger
+    vim
+    wget
+    curl
+    logger
   ];
 
 }
