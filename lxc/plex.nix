@@ -37,6 +37,13 @@
     })
   ];
 
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "0 0 * * 1     root    deployBackup"
+    ];
+  };
+
   services.plex = {
     enable = true;
     user = "media";
