@@ -7,7 +7,6 @@
   #deployment.buildOnTarget = true;
 
   system.stateVersion = "22.05";
-  services.sshd.enable = true;
   networking.firewall.enable = false;
   time.timeZone = "America/Chicago";
 
