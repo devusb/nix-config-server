@@ -13,8 +13,14 @@ terraform {
   }
 }
 
+data "vault_generic_secret" "proxmox" {
+  path = "secret/proxmox"
+}
+
 provider "proxmox" {
     pm_api_url = "https://192.168.99.101:8006/api2/json"
+    pm_user = data.vault_generic_secret.proxmox.data.username
+    pm_password = data.vault_generic_secret.proxmox.data.password
 }
 
 locals {
