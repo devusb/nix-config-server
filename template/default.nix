@@ -4,7 +4,7 @@
     "${modulesPath}/virtualisation/proxmox-lxc.nix"
   ];
 
-  deployment.buildOnTarget = true;
+  #deployment.buildOnTarget = true;
 
   system.stateVersion = "22.05";
   services.sshd.enable = true;

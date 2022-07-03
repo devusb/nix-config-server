@@ -63,7 +63,7 @@ resource "proxmox_lxc" "blocky" {
 resource "proxmox_lxc" "plex" {
   target_node  = "r2d2"
   hostname     = "plex"
-  ostemplate   = "local:vztmpl/nixos-system-x86_64-linux.tar.xz"
+  ostemplate   = "local:vztmpl/nixos-22_05-070322.tar.xz"
   unprivileged = true
   ostype       = "nixos"
   cmode        = "console"
@@ -74,7 +74,7 @@ resource "proxmox_lxc" "plex" {
 
   rootfs {
     storage = "local-zfs"
-    size    = "40G"
+    size    = "10G"
   }
 
   mountpoint {
@@ -93,13 +93,13 @@ resource "proxmox_lxc" "plex" {
     slot    = 1
     storage = "media"
     mp      = "/mnt/plex_data"
-    size    = "50G"
+    size    = "30G"
   }
   
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.51/24"
+    ip     = "192.168.20.130/24"
     tag    = 20
     gw     = "192.168.20.1"
     ip6    = "manual"
