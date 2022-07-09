@@ -118,3 +118,38 @@ resource "proxmox_lxc" "plex" {
 
   ssh_public_keys = local.ssh_key
 }
+
+resource "proxmox_lxc" "unifi" {
+  target_node  = "r2d2"
+  hostname     = "unifi"
+  ostemplate   = "local:vztmpl/nixos-22_05-070322.tar.xz"
+  password     = "nixos"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = true
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "8G"
+  }
+  memory = 2048
+  swap   = 1024
+  cores = 1
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "192.168.20.105/24"
+    tag    = 20
+    gw     = "192.168.20.1"
+    ip6    = "manual"
+    firewall = false
+  }
+  
+  features {
+    nesting     = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}

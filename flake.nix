@@ -36,6 +36,11 @@
             ./lxc/plex.nix
           ];
         };
+        unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/unifi.nix
+          ];
+        };
       };
     };
 }
