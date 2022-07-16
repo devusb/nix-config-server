@@ -23,6 +23,7 @@
           format = "proxmox-lxc";
         };
       };
+
       colmena = {
         meta = {
           nixpkgs = import nixpkgs {
@@ -37,6 +38,7 @@
             ./tailscale
           ];
         };
+
         blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/blocky.nix
