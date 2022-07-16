@@ -10,6 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs = { self, nixpkgs, nixos-generators, sops-nix, ... }:
     let overlay = import ./overlay { inherit nixpkgs; };
     in
