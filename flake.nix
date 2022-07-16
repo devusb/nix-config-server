@@ -5,8 +5,12 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, nixos-generators, ... }:
+  outputs = { self, nixpkgs, nixos-generators, sops-nix, ... }:
     let overlay = import ./overlay { inherit nixpkgs; };
     in
     {
@@ -29,16 +33,22 @@
         blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/blocky.nix
+            sops-nix.nixosModules.sops
+            ./tailscale.nix
           ];
         };
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/plex.nix
+            sops-nix.nixosModules.sops
+            ./tailscale.nix
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/unifi.nix
+            sops-nix.nixosModules.sops
+            ./tailscale.nix
           ];
         };
       };
