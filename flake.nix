@@ -30,25 +30,26 @@
             overlays = [ overlay ];
           };
         };
+        defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./template
+            sops-nix.nixosModules.sops
+            ./tailscale
+          ];
+        };
         blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/blocky.nix
-            sops-nix.nixosModules.sops
-            ./tailscale
           ];
         };
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/plex.nix
-            sops-nix.nixosModules.sops
-            ./tailscale
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/unifi.nix
-            sops-nix.nixosModules.sops
-            ./tailscale
           ];
         };
       };

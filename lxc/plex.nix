@@ -1,7 +1,5 @@
 { lib, pkgs, config, modulesPath, ... }: {
-  imports = [
-    ../template
-  ];
+
   system.stateVersion = "22.05";
 
   deployment = {
