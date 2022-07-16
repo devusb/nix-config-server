@@ -34,21 +34,21 @@
           imports = [
             ./lxc/blocky.nix
             sops-nix.nixosModules.sops
-            ./tailscale.nix
+            ./tailscale
           ];
         };
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/plex.nix
             sops-nix.nixosModules.sops
-            ./tailscale.nix
+            ./tailscale
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/unifi.nix
             sops-nix.nixosModules.sops
-            ./tailscale.nix
+            ./tailscale
           ];
         };
       };

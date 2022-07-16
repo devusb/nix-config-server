@@ -1,6 +1,7 @@
 { config, pkgs, sops, ... }: {
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets.ts_key = { };
+  sops.secrets.ts_key = {
+    sopsFile = ./secrets.yaml;
+  };
 
   services.tailscale.enable = true;
   systemd.services.tailscale-autoconnect = {
