@@ -1,0 +1,216 @@
+# See detailed configuration settings : https://www.pomerium.com/docs/reference/
+
+
+# this is the domain the identity provider will callback after a user authenticates
+authenticate_service_url: https://authenticate.devusb.us
+
+certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVuakNDQTRhZ0F3SUJBZ0lVZm9kQ015bk5VUm1UaEZlRGtHLzBLWlJXT0ZVd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZc3hDekFKQmdOVkJBWVRBbFZUTVJrd0Z3WURWUVFLRXhCRGJHOTFaRVpzWVhKbExDQkpibU11TVRRdwpNZ1lEVlFRTEV5dERiRzkxWkVac1lYSmxJRTl5YVdkcGJpQlRVMHdnUTJWeWRHbG1hV05oZEdVZ1FYVjBhRzl5CmFYUjVNUll3RkFZRFZRUUhFdzFUWVc0Z1JuSmhibU5wYzJOdk1STXdFUVlEVlFRSUV3cERZV3hwWm05eWJtbGgKTUI0WERUSXhNVEl5TURBeE16VXdNRm9YRFRNMk1USXhOakF4TXpVd01Gb3dZakVaTUJjR0ExVUVDaE1RUTJ4dgpkV1JHYkdGeVpTd2dTVzVqTGpFZE1Cc0dBMVVFQ3hNVVEyeHZkV1JHYkdGeVpTQlBjbWxuYVc0Z1EwRXhKakFrCkJnTlZCQU1USFVOc2IzVmtSbXhoY21VZ1QzSnBaMmx1SUVObGNuUnBabWxqWVhSbE1JSUJJakFOQmdrcWhraUcKOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTRPb3c4WGsxblFTOERjR1A4QWZUeVI5RVNCeUh1OWJhMDAxagpNRlgvOWVpVW1XMEJseXNsRCtvK3doRjNHemNsVWJYK0RDeVd5WjV1OE1jenRsUmZtUHMvRFduVXR4VkhkaUNjCjQ1MFF1eHRNcTgyekh4d2IxbEtWbTZSdWQ0am9DNXZIT2hsMUd4ZUwzVjJBbE1GaFFlMHhNU0FpeHVGZEJLUjkKeVdrSjJnR1V6WllhN2dZSElEaW5NUytGdEYvTEVhK1hvTmpibS8yT1cydWlwalp3cWtMSnBnVHhvckFJcnkzQQp2Q2ZSSEl0L05ZM1ZiZ1VFZUo3bmVqZVd1cWlsR2Y2SVdxZ2JpQUlyVHRJamM3bGx6VHFObHl1aFZQWGdXZ3U5CmZwRDhnVjdBdkJodzNJL2tTL09Kb0JuOW1oTlU2VmJSbGpIV3Y5dE1BTURERVdBeTZ3SURBUUFCbzRJQklEQ0MKQVJ3d0RnWURWUjBQQVFIL0JBUURBZ1dnTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjRApBVEFNQmdOVkhSTUJBZjhFQWpBQU1CMEdBMVVkRGdRV0JCUThrRXl5T2EzZEo1bDczZEVpbEpWdkxrcnVhREFmCkJnTlZIU01FR0RBV2dCUWs2Rk5YWFh3MFFJZXA2NVRidXVFV2VQd3BwREJBQmdnckJnRUZCUWNCQVFRME1ESXcKTUFZSUt3WUJCUVVITUFHR0pHaDBkSEE2THk5dlkzTndMbU5zYjNWa1pteGhjbVV1WTI5dEwyOXlhV2RwYmw5agpZVEFoQmdOVkhSRUVHakFZZ2dzcUxtUmxkblZ6WWk1MWM0SUpaR1YyZFhOaUxuVnpNRGdHQTFVZEh3UXhNQzh3CkxhQXJvQ21HSjJoMGRIQTZMeTlqY213dVkyeHZkV1JtYkdGeVpTNWpiMjB2YjNKcFoybHVYMk5oTG1OeWJEQU4KQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBdmhqemU5YWdiSkxHSnhseitQOC9COERLRXdKd3kvREtNNDkvQTNVbwpNVFJaMlE3dWhQcCs5TzBzVnJjYUEvMlBRemFOVjVibzdRUjd5bGx3QWRUUXRxYktaRGNBUDlTT1dEK0hxWXM4CmJaUE5XOVZVOUtpSlRvUjRqRWVreGNzSTcxTW5TSDRCZjZ3S1UvSGZubjF3RGVWYkphaWF6cWtOUVRteHduajcKeldWWnpxWTRIZzZWcGVwSUdRdmIrOGxBTE5DSXJIckhCQy94RGpqR3g4NjlTeVlJL1NSY1JZSlBvK0tnVHJWaApaYTlEbVpyRkVKdkkzbEtiSXVXcVpEMHJ5TTIrWFFVKzkvVDlBaTZIbHFFcnR5L0FtSXorMDJaY0MvUEV4NUMvClRBSzVIRlFKQTdDVFBaa1BYV0kydVZDeWs4Z1JHaGo5V0pYMUxWSWtiem54anc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+certificate_key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRRGc2akR4ZVRXZEJMd04Kd1kvd0I5UEpIMFJJSEllNzF0clRUV013VmYvMTZKU1piUUdYS3lVUDZqN0NFWGNiTnlWUnRmNE1MSmJKbm03dwp4ek8yVkYrWSt6OE5hZFMzRlVkMklKempuUkM3RzB5cnpiTWZIQnZXVXBXYnBHNTNpT2dMbThjNkdYVWJGNHZkClhZQ1V3V0ZCN1RFeElDTEc0VjBFcEgzSmFRbmFBWlRObGhydUJnY2dPS2N4TDRXMFg4c1JyNWVnMk51Yi9ZNWIKYTZLbU5uQ3FRc21tQlBHaXNBaXZMY0M4SjlFY2kzODFqZFZ1QlFSNG51ZDZONWE2cUtVWi9vaGFxQnVJQWl0TwowaU56dVdYTk9vMlhLNkZVOWVCYUM3MStrUHlCWHNDOEdIRGNqK1JMODRtZ0dmMmFFMVRwVnRHV01kYS8yMHdBCndNTVJZRExyQWdNQkFBRUNnZ0VBQU16eGd0UjlLNzNoaDFZeStyait5N0srRUlWZE1oTE00L0xCNUtiUEw4M0wKREgyUUNpMFZ3dEY4bGhwby9LZ25nNWpoaTIxMkFvQTN4U0xwZ01MN01PK2pYMkx5U1JGWnJvd2Y3S2o5YnpZdQo5Q0RLTm5rSjNsUEVzbmd3TzJJbGYvYlZHUXlKVXVJU3owS0IvQ3pjb2ZINTJMZU8wZlM4a3g2bG5DWFNoWHFvCmhETUQzenpWV28wTkNpNGd1ay9hRmZvVHZQaFVFWjBMbEdPaXBPdnV3U2NPRnRjeVRUL0dLaHk1UFR6anExdjUKQTJTMHNCbGpQOWVVNWcyVHZIK1grSzk1NWFCaXRxSG5mV294b0RQU3pMQ3A5TDFjdlVIdGZsN2ErZC9Yd3Z0Nwo0NXZqbFdWVlFtNWtLWmdlK2tISDdDWkFEcW9pOFptZnBYZkYrZlZ3Q1FLQmdRRDBYL1ZPK2Rwdm0vUEVLNy9ECkYyWDRVbTA5MHVGVXlNZ1FaZDQzU1o1SEVrbXdmYVhnZDlzRCtjTUhIVnNpdkhuRE5HUmpDWEhhbW1valpRQUkKOFRwb2VnOENqa1NyekhubEpyVHcxNGpveU9idVRmN3A5alcvNFo1d2tVc0Ewd3dDTEhwaGpZYzJ1elZrUDM2bgpRdDV1K1kwUGpQUmRxdDJhMHBYWjZUTm5pUUtCZ1FEcm5UN0NHNG44ZTJ2R1lQY1dBZEJLY0ljQXNueW9pS2FuCkNsbkJXZkNTaHJxaXNSeVM3NHVhd2czbEx6aVU0WHBJeVZGN05vdFBrRmJTRHFzdDByYmZxWm02QkJFTGV3eW0KWEh1MG5aVk9NcE1McHY0akUyU21HMWNBR0Z2TlBkaWJ3OHZpQlV5TzA1UVNQSU45aklZWUdhcTA3bmU2MEFudApOU2h6STk2MTB3S0JnQlE0cUlUYmVlN0lXZGgrd2tSemVEV2ZKSGo4TFRjbDBpQkJQYTBYZzJoZ0pBYmRyczh2Ck84bE5ib3oxS2VocTdpeHY5bXFYaW50TFVjTVNCWG0zOUZ4VzFVMGgxcDdjc2ExN2tYZG9ibVRNMHdjZkh4dmYKQ3IyUS90cFR1NEFhOXFCcmE4a012QWFVWVN1bGNXYUh5djRsMmoxU0xacGVuQzNHaFMzZDlTbjVBb0dBRWxCSQpub0hSZWVTRi9nZHZiVEI2NWk1VThBTHZtWkgxa2lwRnk3ZVg4V3V6ZWczV01MMloxaytiRU9OWXZJbkNIWUk0CmFTRldOcnI3Wkp4clJjYUpIRjFzYTM4QmJDa0dWSy8vbFl4aUhJL2x5aFFTME5zakNaNDZadkY5d1RnN2EvQU8KR3VWYWpBZDZET2pUTjZFQ2swRDdlZERIVWFmMS9aQVNNdERvOEswQ2dZQjdSMU5yNVFVaTJCc3o4RDNrU2ZmZQp2cVVnQzNSNEh5azdjb3JzTnRHbmRpcmhmaFJXVkRWZGtnSG5YNGIrMDBBSisrQ1duZkxXQXlzMWdiK1RvekJaCmJESUt1cnFzNmVCMlI0RkxpTkExNWRHRUxIVExUN2JBOXhNWFo5c3NVSnVVYUdkSlRiVzJnQmY2RnVsTENPNDEKYTN2Y1dFNFVzRzVIUmJWelRRalJ3Zz09Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
+client_ca: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdDakNDQS9LZ0F3SUJBZ0lJVjVHNmxWYkNMbUV3RFFZSktvWklodmNOQVFFTkJRQXdnWkF4Q3pBSkJnTlYKQkFZVEFsVlRNUmt3RndZRFZRUUtFeEJEYkc5MVpFWnNZWEpsTENCSmJtTXVNUlF3RWdZRFZRUUxFd3RQY21sbgphVzRnVUhWc2JERVdNQlFHQTFVRUJ4TU5VMkZ1SUVaeVlXNWphWE5qYnpFVE1CRUdBMVVFQ0JNS1EyRnNhV1p2CmNtNXBZVEVqTUNFR0ExVUVBeE1hYjNKcFoybHVMWEIxYkd3dVkyeHZkV1JtYkdGeVpTNXVaWFF3SGhjTk1Ua3gKTURFd01UZzBOVEF3V2hjTk1qa3hNVEF4TVRjd01EQXdXakNCa0RFTE1Ba0dBMVVFQmhNQ1ZWTXhHVEFYQmdOVgpCQW9URUVOc2IzVmtSbXhoY21Vc0lFbHVZeTR4RkRBU0JnTlZCQXNUQzA5eWFXZHBiaUJRZFd4c01SWXdGQVlEClZRUUhFdzFUWVc0Z1JuSmhibU5wYzJOdk1STXdFUVlEVlFRSUV3cERZV3hwWm05eWJtbGhNU013SVFZRFZRUUQKRXhwdmNtbG5hVzR0Y0hWc2JDNWpiRzkxWkdac1lYSmxMbTVsZERDQ0FpSXdEUVlKS29aSWh2Y05BUUVCQlFBRApnZ0lQQURDQ0Fnb0NnZ0lCQU4yeTJ6b2pZZmwwYktmaHAwQUpCRmVWK2pRcWJDdzNzSG12RVB3TG1xRExxeW5JCjQydFpYUjV5OTE0WkI5WnJ3YkwvSzVPNDZleGQvTHVqSm5WMmIzZHpjeDVydGlRenNvMHh6bGpxYm5iUVQyMGUKaWh4L1dyRjRPa1pLeWRaenNkYUpzV0FQdXBsREg1UDdKODJxM3JlODhqUWRnRTVocWpxRlozY2xDRzdseG9CdwpoTGFhem0zTkpKbFVmemRrOTdvdVJ2bkZHQXVYZDVjUVZ4OGpZT09lVTYwc1dxbU1lNFFIZE92cHFCOTFiSm9ZClFTS1ZGalVnSGVUcE44dE5wS0pmYjlMSW4zcHVuM2JDOU5LTkh0UktNTlgzS2wvc0FQcTdxL0FsbmR2QTJLdzMKRGt1bTJtSFFVR2R6VkhxY09nZWE5QkdqTEsyaDdTdVg5M3pUV0wwMnU3OTlkcjZYa3JhZC9XU2hIY2hmampSbgphTDM1bmlKVURyMDJZSnRQZ3hXT2JzcmZPVTYzQjhqdUxVcGhXLzRCT2pqSnlBRzVsOWoxLy9hVUdFaS9zRWU1CmxxVnYwUDc4UXJ4b3hSK01NWGlKd1FhYjVGQjhURy9hYzZtUkhnRjlDbWtYOTB1YVJoK09DMDdYalRkZlNLR1IKUHBNOWhCMlpoTG9sL25mOHFtb0xkb0Q1SHZPRFp1S3UyK211S2VWSFhndzIvQTZ3TTdPd3JpbnhaaXlCazVIaApDdmFBREg3UFpwVTZ6L3p2NU5VNUhTdlhpS3RDekZ1RHU0L1pmaTM0UmZIWGVDVWZIQWI0S2ZOUlhKd01zeFVhCis0WnBTQVgyRzZSbkdVNW1ldVhwVTUvVitEUUpwL2U2OVh5eVk2UlhEb015d2FFRmxJbFhCcWpSUkEycEFnTUIKQUFHalpqQmtNQTRHQTFVZER3RUIvd1FFQXdJQkJqQVNCZ05WSFJNQkFmOEVDREFHQVFIL0FnRUNNQjBHQTFVZApEZ1FXQkJSRFdVc3JhWXVBNFJFemFsZk5Wemphbm4zRjZ6QWZCZ05WSFNNRUdEQVdnQlJEV1VzcmFZdUE0UkV6CmFsZk5Wemphbm4zRjZ6QU5CZ2txaGtpRzl3MEJBUTBGQUFPQ0FnRUFrUStUOW5xY1NsQXVXLzkwRGVZbVFPVzEKUWhxT29yNXBzQkVHdnhiTkdWMmhkTEpZOGg2UVVxNDhCQ2V2Y01DaGcvTDFDa3puQk5JNDBpMy82aGVEbjNJUwp6VkV3WEtmMzRwUEZDQUNXVk1aeGJRamtOUlRpSDhpUnVyOUVzYU5RNW9YQ1BKa2h3ZzIrSUZ5b1BBQVlVUm9YClZjSTlTQ0RVYTQ1Y2xtWUhKL1hZd1YxaWNHVkk4LzliMkpVcWtsbk9UYTV0dWd3SVVpNXNUZmlwTmNKWEhoZ3oKNkJLWURsMC9VUDBsTEtic1VFVFhlVEdEaURweFpZSWdiY0ZyUkREa0hDNkJTdmRXVkVpSDViOW1IMkJPTjYwegowTzBqOEVFS1R3aTlqbmFmVnRaUVhQL0Q4eW9Wb3dkRkRqWGNLa09QRi8xZ0loOXFyRlI2R2RvUFZnQjNTa0xjCjV1bEJxWmFDSG01NjNqc3ZXYi9rWEpubEZ4VysxYnNPOUJERDZEd2VCY0dkTnVyZ21INjI1d0JYa3NTZEQ3eS8KZmFrazhEYWdqYmpLU2hZbFBFRk9BcUVjbGl3akY0NWVhYkwwdDI3TUpWNjFPL2pIekhMM2RrblhlRTRCRGEyagpiQStKYnlKZVVNdFU3S01zeHZ4ODJSbWhxQkVKSkRCQ0ozc2NWcHR2aERNUnJ0cURCVzVKU2h4b0FPY3BGUUdtCmlZV2ljbjQ2blBEamdUVTBiWDFaUHBUcHJ5WGJ2Y2lWTDVSa1ZCdXlYMm50Y09MRFBsWldneFpDQnA5NngwN0YKQW5PektnWms0UnpaUE5BeENYRVJWeGFqbi9GTGNPaGdsVkFLbzVIMGFjK0FpdGxRMGlwNTVEMi9tZjhvNzJ0TQpmVlE2VnB5akVYZGlJWFdVcS9vPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+
+# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+log_level: info
+proxy_log_level: info
+
+databroker_storage_type: redis
+databroker_storage_connection_string: redis://localhost:6379/0
+
+jwt_claims_headers:
+  - email
+skip_xff_append: false
+
+metrics_address: :9090
+
+routes:
+  # - from: https://verify.devusb.us
+  #   to: http://verify:8000
+  #   allowed_users:
+  #     - mhelton@gmail.com
+  #     - ilona.molotoka@gmail.com
+  #   pass_identity_headers: true
+
+  - from: https://rss.devusb.us
+    to: http://192.168.20.133:8080
+    allowed_users:
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://homer.devusb.us
+    to: http://192.168.20.133:8081
+    allowed_users:
+      - mhelton@gmail.com
+
+  - from: https://proxmox.devusb.us
+    to: https://192.168.99.101:8006
+    tls_skip_verify: true
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://portainer.devusb.us
+    to: http://192.168.20.133:9000
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://sonarr.devusb.us
+    to: http://192.168.20.133:8989
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic c29uYXJyOktNQTM2Nw==
+
+  - from: https://radarr.devusb.us
+    to: http://192.168.20.133:7878
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic cmFkYXJyOktNQTM2Nw==
+
+  - from: https://nzbget.devusb.us
+    to: http://192.168.20.133:6789
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic bnpiZ2V0OktNQTM2Nw==
+
+  - from: https://unifi.devusb.us
+    to: https://192.168.20.105:8443
+    tls_skip_verify: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://hass.devusb.us
+    to: https://hass-local.devusb.us
+    allow_websockets: true
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://plex.devusb.us
+    to: https://192.168.20.130:32400
+    tls_skip_verify: true
+    allow_websockets: true
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+
+  - from: https://pwrctl.devusb.us
+    to: http://192.168.99.13
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://grafana.devusb.us
+    to: http://192.168.20.133:3000
+    allow_websockets: true
+    allowed_users:
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://hass-auth.devusb.us
+    to: https://hass-local.devusb.us
+    allow_public_unauthenticated_access: true
+    path: /auth/token
+
+  - from: https://code.devusb.us
+    to: https://code.gaia.devusb.us
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://books.devusb.us
+    to: http://192.168.20.133:8085
+    allow_websockets: true
+    allowed_users:
+      - mhelton@gmail.com
+      - ilona.molotoka@gmail.com
