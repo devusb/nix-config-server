@@ -7,6 +7,7 @@ keys:
   - &blocky age1c4zgcemg330ajaekh23c9v97ehv78auy338dr0tf06hst4p00g5scjlgah
   - &plex age1hdpn83swtm7rr4ex4x6kh9k3ffqq23qug9n0ztq8wgaqlu02xekqku588k
   - &unifi age102uzctt5y5qgqn9tz0njv0uh3f8yc7ssr3y8uxc3gd2n4lvu35es66euf4
+  - &aws-proxy age1zmye9v3dmws9vtvkm8gfgknedggql0hnl74k427wqup9d0rq3esqfgthua
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -15,3 +16,4 @@ creation_rules:
       - *blocky
       - *plex
       - *unifi
+      - *aws-proxy
