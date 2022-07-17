@@ -1,0 +1,258 @@
+# See detailed configuration settings : https://www.pomerium.com/docs/reference/
+
+
+# this is the domain the identity provider will callback after a user authenticates
+authenticate_service_url: https://authenticate.devusb.us
+
+####################################################################################
+# Certificate settings:  https://www.pomerium.com/docs/reference/certificates.html #
+# The example below assumes a certificate and key file will be mounted to a volume #
+# available to the  Docker image.                                                  #
+####################################################################################
+#certificate_file: /pomerium/cert.pem
+#certificate_key_file: /pomerium/key.pem
+#client_ca_file: /pomerium/cloudflare.pem
+
+##################################################################################
+# Identity provider settings : https://www.pomerium.com/docs/identity-providers/ #
+# The keys required in this section vary depending on your IdP. See the          #
+# appropriate docs for your IdP to configure Pomerium accordingly.               #
+##################################################################################
+idp_provider: google
+idp_client_id: 832068041810-lbm8ql8malq111jbquqfirgo7dl7omkc.apps.googleusercontent.com
+idp_client_secret: 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
+
+# Generate 256 bit random keys  e.g. `head -c32 /dev/urandom | base64`
+cookie_secret: WN3yoVZlX22C04D3UJNWY8N8d9MmbeYhTuJmVy4oqMk=
+signing_key: LS0tLS1CRUdJTiBFQyBQUklWQVRFIEtFWS0tLS0tCk1IY0NBUUVFSUk0WXNTWUx6YWRjMUd4aGl1UTdGdlZSZmprQlJSWEpPbzdsWWhVVEdEdFBvQW9HQ0NxR1NNNDkKQXdFSG9VUURRZ0FFKzBUL2tqNXU1UGtPY0hIY2kyZ1dTUzRqTXRMY3YvUnUvQ0t3UVhqYlNvTGNYYzVuQ2plcQpHYXBocXYyQlNHQWZZdmZiajl6S2tBM0U0eGNSYzk0eVdBPT0KLS0tLS1FTkQgRUMgUFJJVkFURSBLRVktLS0tLQo=
+log_level: info
+proxy_log_level: info
+
+#databroker_storage_type: redis
+#databroker_storage_connection_string: redis://redis:6379/0
+#shared_secret: hSpvQG9JPRZy+gCjlTo1ROtpSCHY198Z4LZEu3HFG2A=
+
+jwt_claims_headers:
+  - email
+skip_xff_append: false
+
+metrics_address: :9090
+
+# https://pomerium.com/reference/#routes
+routes:
+  # - from: https://verify.devusb.us
+  #   to: http://verify:8000
+  #   allowed_users:
+  #     - mhelton@gmail.com
+  #     - ilona.molotoka@gmail.com
+  #   pass_identity_headers: true
+
+  - from: https://rss.devusb.us
+    to: http://192.168.20.133:8080
+    allowed_users:
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://homer.devusb.us
+    to: http://192.168.20.133:8081
+    allowed_users:
+      - mhelton@gmail.com
+
+  - from: https://proxmox.devusb.us
+    to: https://192.168.99.101:8006
+    tls_skip_verify: true
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://portainer.devusb.us
+    to: http://192.168.20.133:9000
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://sonarr.devusb.us
+    to: http://192.168.20.133:8989
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic c29uYXJyOktNQTM2Nw==
+
+  - from: https://radarr.devusb.us
+    to: http://192.168.20.133:7878
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic cmFkYXJyOktNQTM2Nw==
+
+  - from: https://nzbget.devusb.us
+    to: http://192.168.20.133:6789
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    set_request_headers:
+      Authorization: Basic bnpiZ2V0OktNQTM2Nw==
+
+  - from: https://unifi.devusb.us
+    to: https://192.168.20.105:8443
+    tls_skip_verify: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://hass.devusb.us
+    to: https://hass-local.devusb.us
+    allow_websockets: true
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://plex.devusb.us
+    to: https://192.168.20.130:32400
+    tls_skip_verify: true
+    allow_websockets: true
+    allowed_users:
+      - ilona.molotoka@gmail.com
+      - mhelton@gmail.com
+
+  - from: https://pwrctl.devusb.us
+    to: http://192.168.99.13
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://grafana.devusb.us
+    to: http://192.168.20.133:3000
+    allow_websockets: true
+    allowed_users:
+      - mhelton@gmail.com
+    pass_identity_headers: true
+
+  - from: https://hass-auth.devusb.us
+    to: https://hass-local.devusb.us
+    allow_public_unauthenticated_access: true
+    path: /auth/token
+
+  # - from: https://guacamole.devusb.us
+    # to: http://guacamole:8080
+    # allow_websockets: true
+    # policy:
+      # - allow:
+          # and:
+            # - email:
+                # is: mhelton@gmail.com
+            # - device:
+                  # is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      # - allow:
+          # and:
+            # - email:
+                # is: mhelton@gmail.com
+            # - device:
+                # is: 83GH23eC85tBJowYtYQ6zkieGhF
+      # - allow:
+          # and:
+            # - email:
+                # is: mhelton@gmail.com
+            # - device:
+                # is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+    # pass_identity_headers: true
+
+  - from: https://code.devusb.us
+    to: https://code.gaia.devusb.us
+    allow_websockets: true
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 83GH23eC85tBJowYtYQ6zkieGhF
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+
+  - from: https://books.devusb.us
+    to: http://192.168.20.133:8085
+    allow_websockets: true
+    allowed_users:
+      - mhelton@gmail.com
+      - ilona.molotoka@gmail.com

@@ -6,4 +6,5 @@
       rm /tmp/${backup_name}.tar.gz
       logger "${backup_name} backup completed $(date)"
     '';
+  envoy = prev.callPackage ./envoy {};
 }
