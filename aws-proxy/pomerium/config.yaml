@@ -1,6 +1,5 @@
 # See detailed configuration settings : https://www.pomerium.com/docs/reference/
 
-
 # this is the domain the identity provider will callback after a user authenticates
 authenticate_service_url: https://authenticate.devusb.us
 
@@ -22,13 +21,6 @@ skip_xff_append: false
 metrics_address: :9090
 
 routes:
-  # - from: https://verify.devusb.us
-  #   to: http://verify:8000
-  #   allowed_users:
-  #     - mhelton@gmail.com
-  #     - ilona.molotoka@gmail.com
-  #   pass_identity_headers: true
-
   - from: https://rss.devusb.us
     to: http://192.168.20.133:8080
     allowed_users:
@@ -50,19 +42,19 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 83GH23eC85tBJowYtYQ6zkieGhF
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://portainer.devusb.us
     to: http://192.168.20.133:9000
@@ -73,19 +65,19 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 83GH23eC85tBJowYtYQ6zkieGhF
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://sonarr.devusb.us
     to: http://192.168.20.133:8989
@@ -120,19 +112,19 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 83GH23eC85tBJowYtYQ6zkieGhF
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://hass.devusb.us
     to: https://hass-local.devusb.us
@@ -159,19 +151,19 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 83GH23eC85tBJowYtYQ6zkieGhF
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://grafana.devusb.us
     to: http://192.168.20.133:3000
@@ -194,19 +186,19 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: KTRhRXdLuoa7b23Bf4veYifiQyM3bbW3NBYAaepXjKYC8yyxYd5Sbzp1FCJy4iwd3BrVgjd2zqyK6b1aUuuq5KHEUiTcvBC7ehLBQVuUGzBr
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 83GH23eC85tBJowYtYQ6zkieGhF
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: 52EScV79bxaFhx6EWJPffreMYzZL1LdiwdrtiB16KZfyobR9NKNitVkVuvVfwsytChB4gz587MvuKYRuxqDBhHSg
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://books.devusb.us
     to: http://192.168.20.133:8085
