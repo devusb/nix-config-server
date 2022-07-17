@@ -34,7 +34,6 @@
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
-            ./template
             sops-nix.nixosModules.sops
             ./tailscale
           ];
@@ -42,16 +41,19 @@
 
         blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
+            ./lxc/template.nix
             ./lxc/blocky.nix
           ];
         };
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
+            ./lxc/template.nix
             ./lxc/plex.nix
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
+            ./lxc/template.nix
             ./lxc/unifi.nix
           ];
         };
