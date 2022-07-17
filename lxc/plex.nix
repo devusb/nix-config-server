@@ -1,10 +1,11 @@
 { lib, pkgs, config, modulesPath, ... }:
 let
+  plexData = "/mnt/plex_data";
   deployedBackup = pkgs.deployBackup {
     backup_name = "plex";
     backup_files_list = [
-      ''"$(find "/mnt/plex_data//Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
-      ''"$(find "/mnt/plex_data//Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
     ];
   };
 in
@@ -46,7 +47,7 @@ in
     enable = true;
     user = "media";
     group = "media";
-    dataDir = "/mnt/plex_data";
+    dataDir = plexData;
     package = (pkgs.plex.override {
       plexRaw = pkgs.plexRaw.overrideAttrs (old: rec {
         version = "1.27.2.5929-a806c5905";
