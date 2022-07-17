@@ -15,7 +15,6 @@ in
     targetHost = "192.168.20.105";
     targetPort = 22;
     targetUser = "root";
-    replaceUnknownProfiles = true;
   };
 
   services.cron = {

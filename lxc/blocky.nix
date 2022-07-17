@@ -6,7 +6,6 @@
     targetHost = "192.168.20.120";
     targetPort = 22;
     targetUser = "root";
-    replaceUnknownProfiles = true;
   };
 
   services.blocky = {

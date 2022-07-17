@@ -17,7 +17,6 @@ in
     targetHost = "192.168.20.130";
     targetPort = 22;
     targetUser = "root";
-    replaceUnknownProfiles = true;
   };
 
   hardware.opengl = {
