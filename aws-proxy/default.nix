@@ -58,13 +58,13 @@ in
   sops.secrets.pomerium_secrets = {
     sopsFile = ./secrets.yaml;
   };
-   services.pomerium = {
-     enable = true;
-     configFile = pomeriumConfig;
-     secretsFile = config.sops.secrets.pomerium_secrets.path;
-   };
-   services.redis = {
+  services.pomerium = {
     enable = true;
-   };
+    configFile = pomeriumConfig;
+    secretsFile = config.sops.secrets.pomerium_secrets.path;
+  };
+  services.redis = {
+    enable = true;
+  };
 
 }
