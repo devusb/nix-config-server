@@ -33,7 +33,7 @@
             overlays = [ overlay ];
           };
           nodeNixpkgs = {
-            aws-proxy = import nixpkgs-stable { system = "x86_64-linux"; };
+            aws-proxy = import nixpkgs-stable { system = "x86_64-linux"; overlays = [ overlay ]; };
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {

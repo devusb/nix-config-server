@@ -17,10 +17,11 @@ in
   # networking
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [ 80 443 9090 9091 ];
   };
   networking.hostName = "aws-proxy";
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  networking.enableIPv6 = true;
 
   # tailscale
   sops.secrets.ts_key = {
