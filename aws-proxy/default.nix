@@ -16,7 +16,7 @@ in
 
   # networking
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPorts = [ 80 443 9090 9091 ];
   };
   networking.hostName = "aws-proxy";
