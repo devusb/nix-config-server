@@ -68,15 +68,4 @@ in
     enable = true;
   };
 
-  # promtail
-  # services.promtail = {
-  #   enable = true;
-  #   configuration = {
-  #     clients.url = "http://192.168.20.133:3100/loki/api/v1/push";
-  #     scrape_configs = {
-
-  #     };
-  #   };
-  # }
-
 }
