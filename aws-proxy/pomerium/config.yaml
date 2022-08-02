@@ -12,8 +12,11 @@ client_ca: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdDakNDQS9LZ0F3SUJBZ0lJVjVH
 log_level: info
 proxy_log_level: info
 pomerium_debug: true
+#grpc_insecure: true
+services: all
 
 databroker_storage_type: memory
+databroker_storage_tls_skip_verify: true
 #databroker_storage_type: redis
 #databroker_storage_connection_string: redis://localhost:6379/0
 

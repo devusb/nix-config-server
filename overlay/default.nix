@@ -7,20 +7,22 @@
       logger "${backup_name} backup completed $(date)"
     '';
 
+  # pomerium = prev.callPackage ./pomerium.nix {};
+
   pomerium = prev.pomerium.overrideAttrs (old: rec {
-    version = "0.17.3";
+    version = "0.17-git";
     src = prev.fetchFromGitHub {
       owner = "pomerium";
       repo = "pomerium";
-      rev = "v0.17.3";
-      sha256 = "sha256-p6bMFlvFbe9AXhujVHwf2zAxnN5b2ep7zbD1PQ4QKYQ=";
+      rev = "0-17-0";
+      sha256 = "sha256-fDg+O1qPhLGBKARb1Fm/DfAUxkfe1Hq0cfklv4ax8WA=";
     };
     ldflags =
       let
         # Set a variety of useful meta variables for stamping the build with.
         setVars = {
           "github.com/pomerium/pomerium/internal/version" = {
-            Version = "v0.17.3";
+            Version = "v0.17-git";
             BuildMeta = "nixpkgs";
             ProjectName = "pomerium";
             ProjectURL = "github.com/pomerium/pomerium";
