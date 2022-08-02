@@ -19,10 +19,17 @@
       packages.x86_64-linux = {
         proxmox-lxc = nixos-generators.nixosGenerate {
           modules = [
-            ./template
+            ./lxc/template.nix
           ];
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           format = "proxmox-lxc";
+        };
+        router = nixos-generators.nixosGenerate {
+          modules = [
+            ./router/template.nix
+          ];
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          format = "sd-aarch64-installer";
         };
       };
 
@@ -34,6 +41,7 @@
           };
           nodeNixpkgs = {
             aws-proxy = import nixpkgs-stable { system = "x86_64-linux"; overlays = [ overlay ]; };
+            router = import nixpkgs { system = "aarch64-linux"; overlays = [ overlay ]; };
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
@@ -66,6 +74,12 @@
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./aws-proxy
+          ];
+        };
+        router = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./router/template.nix
+            ./router
           ];
         };
       };
