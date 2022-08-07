@@ -22,7 +22,6 @@ right: e4:5f:01:d3:28:e9 (eth0)
 
   system.stateVersion = "22.05";
   time.timeZone = "America/Chicago";
-  services.syslogd.enable = true;
 
   nix = {
     package = pkgs.nixFlakes;

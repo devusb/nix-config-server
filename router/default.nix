@@ -2,10 +2,10 @@
 {
 
   deployment = {
-    targetHost = "10.42.42.42";
+    targetHost = "192.168.10.245";
     targetPort = 22;
     targetUser = "nixos";
-    buildOnTarget = true;
+    # buildOnTarget = true;
   };
 
   systemd.network.links."10-wan" = {
