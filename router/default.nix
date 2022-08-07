@@ -2,15 +2,18 @@
 {
 
   deployment = {
-    targetHost = "192.168.10.245";
+    targetHost = "10.42.42.42";
     targetPort = 22;
     targetUser = "nixos";
+    buildOnTarget = true;
   };
 
   systemd.network.links."10-wan" = {
     matchConfig.PermanentMACAddress = "e4:5f:01:d3:28:e9";
     linkConfig.Name = "wan0";
   };
+
+  services.openssh.openFirewall = false;
 
   networking = {
     hostName = "sophia";
@@ -24,7 +27,7 @@
       enable = true;
       trustedInterfaces = [ "lan" "server" ];
       interfaces = {
-        wan0.allowedTCPPorts = [];
+        wan0.allowedTCPPorts = [ 22 ];
       };
     };
 
