@@ -2,9 +2,9 @@
 {
 
   deployment = {
-    targetHost = "sophia";
+    targetHost = "192.168.10.245";
     targetPort = 22;
-    targetUser = "nixos";
+    targetUser = "mhelton";
     # buildOnTarget = true;
   };
 
@@ -19,7 +19,7 @@
     hostName = "sophia";
     dhcpcd = {
       enable = true;
-      allowInterfaces = [ "wan0" ];
+      allowInterfaces = [ "wan0" "eth0" "eth1" ];
     };
     usePredictableInterfaceNames = true;
 
