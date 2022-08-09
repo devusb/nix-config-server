@@ -78,6 +78,7 @@
           range 10.43.43.100 10.43.43.199;
           option subnet-mask 255.255.255.0;
           option routers 10.43.43.43;
+          option vendor-encapsulated-options 01:04:c0:a8:14:69;
           interface server;
       }
       '';
