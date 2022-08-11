@@ -141,6 +141,11 @@ with lib;
           option routers 192.168.20.1;
           interface server;
           option vendor-encapsulated-options 01:04:c0:a8:14:69;
+
+          host docker {
+            hardware ethernet a0:ce:c8:e7:a4:c9;
+            fixed-address 192.168.20.133;
+          }
       }
       subnet 192.168.30.0 netmask 255.255.255.0 {
           range 192.168.30.2 192.168.30.254;
