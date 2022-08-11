@@ -2,7 +2,7 @@
 {
 
   deployment = {
-    targetHost = "192.168.10.245";
+    targetHost = "192.168.10.1";
     targetPort = 22;
     targetUser = "mhelton";
     # buildOnTarget = true;
@@ -36,7 +36,7 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh --advertise-exit-node
+      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh --advertise-exit-node --advertise-routes=192.168.0.0/16 --accept-routes
     '';
   };
 

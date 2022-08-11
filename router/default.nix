@@ -66,7 +66,7 @@ with lib;
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "lan" "server" ];
+      trustedInterfaces = [ "lan" "server" "mgmt" ];
       interfaces = {
         wan0.allowedTCPPorts = [ 22 ];
       };
@@ -75,7 +75,7 @@ with lib;
     nat = {
       enable = true;
       externalInterface = "wan0";
-      internalInterfaces = [ "lan" "server" ];
+      internalInterfaces = [ "lan" "server" "guest" "mgmt" ];
     };
 
     vlans = {
@@ -87,18 +87,38 @@ with lib;
         id = 20;
         interface = "enp1s0";
       };
+      guest = {
+        id = 30;
+        interface = "enp1s0";
+      };
+      mgmt = {
+        id = 99;
+        interface = "enp1s0";
+      };
     };
 
     interfaces = {
       lan = {
           ipv4.addresses = [
-              { address = "10.42.42.42"; prefixLength = 24; }
+              { address = "192.168.10.1"; prefixLength = 23; }
           ];
           useDHCP = false;
       };
       server = {
           ipv4.addresses = [
-              { address = "10.43.43.43"; prefixLength = 24; }
+              { address = "192.168.20.1"; prefixLength = 23; }
+          ];
+          useDHCP = false;
+      };
+      guest = {
+          ipv4.addresses = [
+              { address = "192.168.30.1"; prefixLength = 24; }
+          ];
+          useDHCP = false;
+      };
+      mgmt = {
+          ipv4.addresses = [
+              { address = "192.168.99.1"; prefixLength = 24; }
           ];
           useDHCP = false;
       };
@@ -109,21 +129,34 @@ with lib;
       enable = true;
       extraConfig = ''
       option domain-name-servers 1.1.1.1;
-      subnet 10.42.42.0 netmask 255.255.255.0 {
-          range 10.42.42.100 10.42.42.199;
-          option subnet-mask 255.255.255.0;
-          option routers 10.42.42.42;
+      subnet 192.168.10.0 netmask 255.255.254.0 {
+          range 192.168.10.50 192.168.11.254;
+          option subnet-mask 255.255.254.0;
+          option routers 192.168.10.1;
           interface lan;
       }
-      subnet 10.43.43.0 netmask 255.255.255.0 {
-          range 10.43.43.100 10.43.43.199;
-          option subnet-mask 255.255.255.0;
-          option routers 10.43.43.43;
-          option vendor-encapsulated-options 01:04:c0:a8:14:69;
+      subnet 192.168.20.0 netmask 255.255.254.0 {
+          range 192.168.20.100 192.168.21.254;
+          option subnet-mask 255.255.254.0;
+          option routers 192.168.20.1;
           interface server;
+          option vendor-encapsulated-options 01:04:c0:a8:14:69;
+      }
+      subnet 192.168.30.0 netmask 255.255.255.0 {
+          range 192.168.30.2 192.168.30.254;
+          option subnet-mask 255.255.255.0;
+          option routers 192.168.30.1;
+          interface guest;
+      }
+      subnet 192.168.99.0 netmask 255.255.255.0 {
+          range 192.168.99.200 192.168.99.254;
+          option subnet-mask 255.255.255.0;
+          option routers 192.168.99.1;
+          interface mgmt;
+          option vendor-encapsulated-options 01:04:c0:a8:14:69;
       }
       '';
-      interfaces = [ "lan" "server" ];
+      interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
 
 }
