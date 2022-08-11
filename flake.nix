@@ -26,7 +26,7 @@
         };
         router = nixos-generators.nixosGenerate {
           modules = [
-            ./router/template.nix
+            ./router
           ];
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           format = "sd-aarch64-installer";
@@ -78,7 +78,7 @@
         };
         router = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
-            ./router/template.nix
+            ./router/colmena.nix
             ./router
           ];
         };
