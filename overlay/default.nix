@@ -7,7 +7,7 @@
       logger "${backup_name} backup completed $(date)"
     '';
 
-  pomerium-bin = prev.callPackage ./pomerium-bin.nix {};
+  pomerium-bin = prev.callPackage ./pomerium-bin.nix { };
 
   pomerium = prev.pomerium.overrideAttrs (old: rec {
     version = "0.17-git";
