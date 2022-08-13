@@ -70,6 +70,8 @@ with lib;
 
     firewall = {
       enable = true;
+      allowPing = false;
+      logRefusedConnections = false;
       trustedInterfaces = [ "lan" "server" "mgmt" ];
       interfaces = {
         wan0.allowedTCPPorts = [ ];
