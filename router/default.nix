@@ -229,6 +229,10 @@ with lib;
         hardware ethernet 14:91:82:08:91:21;
         fixed-address 192.168.10.106;
       }
+      host tasmota-260128-0296 {
+        hardware ethernet 98:CD:AC:26:01:28;
+        fixed-address 192.168.10.140;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
