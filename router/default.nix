@@ -76,6 +76,9 @@ with lib;
       interfaces = {
         wan0.allowedTCPPorts = [ ];
       };
+      extraCommands = ''
+        iptables -I FORWARD 1 -i guest -d 192.168.0.0/16 -j DROP
+      '';
     };
 
     nat = {
@@ -151,6 +154,7 @@ with lib;
       }
 
       subnet 192.168.30.0 netmask 255.255.255.0 {
+          option domain-name-servers 1.1.1.1;
           range 192.168.30.2 192.168.30.254;
           option subnet-mask 255.255.255.0;
           option routers 192.168.30.1;
