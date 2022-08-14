@@ -237,6 +237,10 @@ with lib;
         hardware ethernet 98:CD:AC:26:01:28;
         fixed-address 192.168.10.140;
       }
+      host ESP_DE9CD6 {
+        hardware ethernet a4:cf:12:de:9c:d6;
+        fixed-address 192.168.10.153;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
