@@ -14,9 +14,8 @@ proxy_log_level: info
 pomerium_debug: true
 services: all
 
-databroker_storage_type: memory
-#databroker_storage_type: redis
-#databroker_storage_connection_string: redis://localhost:6379/0
+databroker_storage_type: redis
+databroker_storage_connection_string: redis://localhost:6379/0
 
 jwt_claims_headers:
   - email
@@ -45,20 +44,20 @@ routes:
           and:
             - email:
                 is: mhelton@gmail.com
-            # - device:
-            #       is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
+            - device:
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://portainer.devusb.us
     to: http://192.168.20.133:9000
@@ -68,20 +67,20 @@ routes:
           and:
             - email:
                 is: mhelton@gmail.com
-      #       - device:
-      #             is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-                # is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
+            - device:
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://sonarr.devusb.us
     to: http://192.168.20.133:8989
@@ -115,20 +114,20 @@ routes:
           and:
             - email:
                 is: mhelton@gmail.com
-      #       - device:
-      #             is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
+            - device:
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://hass.devusb.us
     to: https://hass-local.devusb.us
@@ -154,20 +153,20 @@ routes:
           and:
             - email:
                 is: mhelton@gmail.com
-      #       - device:
-      #             is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
+            - device:
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://grafana.devusb.us
     to: http://192.168.20.133:3000
@@ -189,20 +188,20 @@ routes:
           and:
             - email:
                 is: mhelton@gmail.com
-      #       - device:
-      #             is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
-      # - allow:
-      #     and:
-      #       - email:
-      #           is: mhelton@gmail.com
-      #       - device:
-      #           is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
+            - device:
+                  is: 3eYkwS5MbisdbCrxcJsU9bTMFxWtvHPegwGSG4xuU598EF54ENdPu36Z7uvfjdB9kDdVTk5rFVB6RhMGYDrvTgQm # tomservo
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: NmWuPWkgspqojteouHqaR2kzuJ6bnGyNmWf85DJuu5h2yDnKQg8Lg7PbusdSAgsmQ7BwdyR1Pszm4acEZhQ5pEPxguHtRrdLiEjD6wNjZcMZ # superintendent
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: 3c1AimAnMHjRGmudRyZqJyMXtrQa # iphone
 
   - from: https://books.devusb.us
     to: http://192.168.20.133:8085

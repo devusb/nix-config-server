@@ -13,7 +13,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-stable, nixos-generators, sops-nix, ... }:
-    let overlay = import ./overlay { inherit nixpkgs; };
+    let overlay = import ./overlay { inherit nixpkgs nixpkgs-stable; };
     in
     {
       packages.x86_64-linux = {
@@ -40,7 +40,6 @@
             overlays = [ overlay ];
           };
           nodeNixpkgs = {
-            aws-proxy = import nixpkgs-stable { system = "x86_64-linux"; overlays = [ overlay ]; };
             router = import nixpkgs { system = "aarch64-linux"; overlays = [ overlay ]; };
           };
         };
