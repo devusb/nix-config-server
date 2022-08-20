@@ -241,6 +241,10 @@ with lib;
         hardware ethernet a4:cf:12:de:9c:d6;
         fixed-address 192.168.10.153;
       }
+      host blocky {
+        hardware ethernet 9A:A4:BB:CF:29:D5;
+        fixed-address 192.168.20.120;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
