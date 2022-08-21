@@ -50,15 +50,14 @@ resource "proxmox_lxc" "blocky" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.120/24"
+    ip     = "dhcp"
     tag    = 20
-    gw     = "192.168.20.1"
-    ip6    = "manual"
+    ip6    = "dhcp"
     firewall = false
   }
 
   nameserver = "1.1.1.1"
-  
+
   features {
     nesting     = true
   }
@@ -73,6 +72,7 @@ resource "proxmox_lxc" "plex" {
   unprivileged = true
   ostype       = "nixos"
   cmode        = "console"
+  onboot       = "true"
 
   memory = 8192
   swap   = 4096
@@ -101,14 +101,13 @@ resource "proxmox_lxc" "plex" {
     mp      = "/mnt/plex_data"
     size    = "30G"
   }
-  
+
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.130/24"
+    ip     = "dhcp"
     tag    = 20
-    gw     = "192.168.20.1"
-    ip6    = "manual"
+    ip6    = "dhcp"
     firewall = false
   }
 
@@ -140,13 +139,12 @@ resource "proxmox_lxc" "unifi" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "192.168.20.105/24"
+    ip     = "dhcp"
     tag    = 20
-    gw     = "192.168.20.1"
-    ip6    = "manual"
+    ip6    = "dhcp"
     firewall = false
   }
-  
+
   features {
     nesting     = true
   }
