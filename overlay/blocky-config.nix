@@ -4,7 +4,10 @@
   upstream = {
     default = [ "1.1.1.1" ];
   };
-  conditional = {};
+  bootstrapDns = {
+    upstream = "1.1.1.1";
+  };
+  conditional = { };
   blocking = {
     blackLists = {
       ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];

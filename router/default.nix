@@ -52,6 +52,26 @@ with lib;
     conntrack-tools
   ];
 
+  # DNS
+  services.unbound = {
+    enable = true;
+    settings = {
+      server = {
+        interface = [ "127.0.0.1" ];
+        port = "5335";
+        access-control = [
+          "0.0.0.0/0 refuse"
+          "127.0.0.0/8 allow"
+        ];
+      };
+    };
+  };
+  services.blocky = {
+    enable = true;
+    settings = pkgs.blockyConfig // { upstream = { default = [ "127.0.0.1:5335" ]; }; };
+  };
+  systemd.services.blocky.after = [ "unbound.service" ];
+
   # router configuration
   systemd.network.links."10-wan" = {
     matchConfig.PermanentMACAddress = "e4:5f:01:d3:28:e9";
@@ -72,9 +92,11 @@ with lib;
       enable = true;
       allowPing = false;
       logRefusedConnections = false;
-      trustedInterfaces = [ "lan" "server" "mgmt" ];
+      trustedInterfaces = [ "lan" "server" "mgmt" "tailscale0" ];
       interfaces = {
         wan0.allowedTCPPorts = [ ];
+        guest.allowedTCPPorts = [ 53 ];
+        guest.allowedUDPPorts = [ 53 ];
       };
       extraCommands = ''
         iptables -I FORWARD 1 -i guest -d 192.168.0.0/16 -j DROP
@@ -137,8 +159,8 @@ with lib;
   services.dhcpd4 = {
     enable = true;
     extraConfig = ''
-      option domain-name-servers 192.168.20.120, 100.106.250.108;
       subnet 192.168.10.0 netmask 255.255.254.0 {
+          option domain-name-servers 192.168.10.1;
           range 192.168.10.50 192.168.11.254;
           option subnet-mask 255.255.254.0;
           option routers 192.168.10.1;
@@ -146,6 +168,7 @@ with lib;
       }
 
       subnet 192.168.20.0 netmask 255.255.254.0 {
+          option domain-name-servers 192.168.20.1;
           range 192.168.20.100 192.168.21.254;
           option subnet-mask 255.255.254.0;
           option routers 192.168.20.1;
@@ -154,7 +177,7 @@ with lib;
       }
 
       subnet 192.168.30.0 netmask 255.255.255.0 {
-          option domain-name-servers 1.1.1.1;
+          option domain-name-servers 192.168.30.1;
           range 192.168.30.2 192.168.30.254;
           option subnet-mask 255.255.255.0;
           option routers 192.168.30.1;
@@ -162,6 +185,7 @@ with lib;
       }
 
       subnet 192.168.99.0 netmask 255.255.255.0 {
+          option domain-name-servers 192.168.99.1;
           range 192.168.99.200 192.168.99.254;
           option subnet-mask 255.255.255.0;
           option routers 192.168.99.1;

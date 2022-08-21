@@ -21,14 +21,14 @@
           modules = [
             ./lxc/template.nix
           ];
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs;
           format = "proxmox-lxc";
         };
         router = nixos-generators.nixosGenerate {
           modules = [
             ./router
           ];
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          pkgs = import nixpkgs { system = "aarch64-linux"; overlays = [ overlay ]; };
           format = "sd-aarch64-installer";
         };
       };

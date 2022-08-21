@@ -36,7 +36,7 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh --advertise-exit-node --advertise-routes=192.168.0.0/16 --accept-routes
+      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh --advertise-exit-node --advertise-routes=192.168.0.0/16 --accept-routes --accept-dns=false
     '';
   };
 
