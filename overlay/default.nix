@@ -8,7 +8,7 @@
       rm /tmp/${backup_name}.tar.gz
       logger "${backup_name} backup completed $(date)"
     '';
+  blockyConfig = import ./blocky-config.nix;
 
   pomerium = prev.callPackage ./pomerium { envoy = stable.envoy; };
-
 }
