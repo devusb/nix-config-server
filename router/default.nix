@@ -82,6 +82,15 @@ with lib;
 
   networking = {
     hostName = "sophia";
+
+    # use static IP-based timeservers since DNS may not be available at boot
+    timeServers = [
+      "216.239.35.0"
+      "216.239.35.4"
+      "216.239.35.8"
+      "216.239.35.12"
+    ];
+
     dhcpcd = {
       enable = true;
       allowInterfaces = [ "wan0" ];
