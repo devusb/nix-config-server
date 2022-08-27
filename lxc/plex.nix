@@ -49,10 +49,10 @@ in
     dataDir = plexData;
     package = (pkgs.plex.override {
       plexRaw = pkgs.plexRaw.overrideAttrs (old: rec {
-        version = "1.27.2.5929-a806c5905";
+        version = "1.28.2.6106-44a5bbd28";
         src = pkgs.fetchurl {
           url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-          sha1 = "sha1-62uDZ6hn5uqPqLFwE0FTZsSaqco=";
+          sha256 = "sha256-cJf15SLO2PNS8Okhod4/lftf987NPcxX8lX5sxUGIEY=";
         };
       });
     });
