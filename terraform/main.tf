@@ -54,6 +54,7 @@ resource "proxmox_lxc" "blocky" {
     tag    = 20
     ip6    = "dhcp"
     firewall = false
+    hwaddr = "9A:A4:BB:CF:29:D5"
   }
 
   nameserver = "1.1.1.1"
@@ -109,6 +110,7 @@ resource "proxmox_lxc" "plex" {
     tag    = 20
     ip6    = "dhcp"
     firewall = false
+    hwaddr = "F6:C3:6B:61:F7:FB"
   }
 
   features {
@@ -143,6 +145,53 @@ resource "proxmox_lxc" "unifi" {
     tag    = 20
     ip6    = "dhcp"
     firewall = false
+    hwaddr = "36:0C:72:1C:83:84"
+  }
+
+  features {
+    nesting     = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}
+
+resource "proxmox_lxc" "arr" {
+  target_node  = "r2d2"
+  hostname     = "arr"
+  ostemplate   = "local:vztmpl/nixos-system-unstable-082722.tar.xz"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = "true"
+
+  memory = 2048
+  swap   = 1024
+  cores = 4
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "10G"
+  }
+
+  mountpoint {
+    key     = "0"
+    slot    = 0
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/media"
+    storage = ""
+    volume  = "/r2d2_0/media"
+    mp      = "/media"
+    size    = "256G"
+  }
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "dhcp"
+    tag    = 20
+    ip6    = "dhcp"
+    firewall = false
+    hwaddr = "22:71:BA:E3:0B:6C"
   }
 
   features {

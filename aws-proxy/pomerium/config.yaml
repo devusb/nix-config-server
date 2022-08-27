@@ -78,7 +78,7 @@ routes:
                 is: 47vHbvqrHtbDeVG2U7k43g1wDCG4 # iphone
 
   - from: https://sonarr.devusb.us
-    to: http://192.168.20.133:8989
+    to: http://192.168.20.101:8989
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
@@ -86,7 +86,7 @@ routes:
       Authorization: Basic c29uYXJyOktNQTM2Nw==
 
   - from: https://radarr.devusb.us
-    to: http://192.168.20.133:7878
+    to: http://192.168.20.101:7878
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
@@ -94,7 +94,7 @@ routes:
       Authorization: Basic cmFkYXJyOktNQTM2Nw==
 
   - from: https://nzbget.devusb.us
-    to: http://192.168.20.133:6789
+    to: http://192.168.20.101:6789
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com

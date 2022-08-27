@@ -21,7 +21,7 @@
           modules = [
             ./lxc/template.nix
           ];
-          pkgs = import nixpkgs;
+          pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ overlay ]; };
           format = "proxmox-lxc";
         };
         router = nixos-generators.nixosGenerate {
@@ -61,6 +61,13 @@
             ./lxc/template.nix
             ./tailscale
             ./lxc/plex.nix
+          ];
+        };
+        arr = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/template.nix
+            ./tailscale
+            ./lxc/arr.nix
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {

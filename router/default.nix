@@ -278,6 +278,10 @@ with lib;
         hardware ethernet 9A:A4:BB:CF:29:D5;
         fixed-address 192.168.20.120;
       }
+      host arr {
+        hardware ethernet 22:71:BA:E3:0B:6C;
+        fixed-address 192.168.20.101;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
