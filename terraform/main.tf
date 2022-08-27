@@ -164,8 +164,8 @@ resource "proxmox_lxc" "arr" {
   cmode        = "console"
   onboot       = "true"
 
-  memory = 2048
-  swap   = 1024
+  memory = 4096
+  swap   = 2048
   cores = 4
 
   rootfs {
