@@ -52,6 +52,14 @@ with lib;
     conntrack-tools
   ];
 
+  # monitoring
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+    };
+  };
+
   # DNS
   services.unbound = {
     enable = true;
