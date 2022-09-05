@@ -13,15 +13,30 @@ in
     targetUser = "root";
   };
   system.stateVersion = "22.05";
+  environment.systemPackages = with pkgs; [
+    micro
+    wget
+    curl
+    htop
+  ];
 
   # networking
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 9090 9091 ];
+    trustedInterfaces = [ "tailscale0" ];
+    allowedTCPPorts = [ 80 443 ];
   };
   networking.hostName = "aws-proxy";
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.enableIPv6 = true;
+
+  # monitoring
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+    };
+  };
 
   # tailscale
   sops.secrets.ts_key = {
