@@ -58,4 +58,30 @@ in
     });
   };
 
+  services.promtail = with lib; {
+    enable = true;
+    configuration = {
+      server = {
+        http_listen_port = 9080;
+        grpc_listen_port = 0;
+      };
+      clients = singleton { url = "http://docker:3100/loki/api/v1/push"; };
+      scrape_configs = singleton {
+        job_name = "plex-journal";
+        journal = {
+          json = true;
+          max_age = "12h";
+          path = "/var/log/journal";
+          labels = {
+            job = "plex-journal";
+          };
+        };
+        relabel_configs = singleton {
+          source_labels = singleton "__journal__systemd_unit";
+          target_label = "unit";
+        };
+      };
+    };
+  };
+
 }
