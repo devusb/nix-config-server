@@ -8,7 +8,7 @@ in
 
   # system
   deployment = {
-    targetHost = "aws-proxy";
+    targetHost = "34.195.111.112";
     targetPort = 22;
     targetUser = "root";
   };

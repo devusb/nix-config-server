@@ -66,7 +66,7 @@ with lib;
     settings = {
       server = {
         interface = [ "127.0.0.1" ];
-        port = "5335";
+        port = "5353";
         access-control = [
           "0.0.0.0/0 refuse"
           "127.0.0.0/8 allow"
@@ -76,11 +76,11 @@ with lib;
   };
   services.blocky = {
     enable = true;
-    settings = pkgs.blockyConfig // { upstream = { default = [ "127.0.0.1:5335" ]; }; };
+    settings = pkgs.blockyConfig { };
   };
   systemd.services.blocky.after = [ "network-online.target" "unbound.service" ];
   systemd.services.blocky.wants = [ "network-online.target" "unbound.service" ];
-  
+
 
   # router configuration
   systemd.network.links."10-wan" = {

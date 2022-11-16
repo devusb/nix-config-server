@@ -29,43 +29,6 @@ locals {
   EOT
 }
 
-resource "proxmox_lxc" "blocky" {
-  target_node  = "r2d2"
-  hostname     = "blocky"
-  ostemplate   = "local:vztmpl/nixos-system-x86_64-linux.tar.xz"
-  password     = "nixos"
-  unprivileged = true
-  ostype       = "nixos"
-  cmode        = "console"
-  onboot       = true
-
-  rootfs {
-    storage = "local-zfs"
-    size    = "5G"
-  }
-  memory = 512
-  swap   = 512
-  cores = 1
-
-  network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
-    firewall = false
-    hwaddr = "9A:A4:BB:CF:29:D5"
-  }
-
-  nameserver = "1.1.1.1"
-
-  features {
-    nesting     = true
-  }
-
-  ssh_public_keys = local.ssh_key
-}
-
 resource "proxmox_lxc" "plex" {
   target_node  = "r2d2"
   hostname     = "plex"

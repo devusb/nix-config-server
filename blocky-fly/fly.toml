@@ -1,0 +1,24 @@
+# fly.toml file generated for blocky-tailscale on 2022-07-14T16:56:02-05:00
+
+app = "blocky-tailscale"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+
+[[services.ports]]
+  handlers = ["tls", "http"]
+  port = "443"
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[mounts]
+source="blocky_data"
+destination="/tailscale"

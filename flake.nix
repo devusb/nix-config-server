@@ -12,35 +12,48 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-generators, sops-nix, ... }:
-    let overlay = import ./overlay { inherit nixpkgs nixpkgs-stable; };
+  outputs = { nixpkgs, nixos-generators, sops-nix, ... }@inputs:
+    let
+      inherit (nixpkgs.lib) genAttrs;
+      forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" ];
+
+      overlays = { default = import ./overlay { inherit inputs; }; };
+      legacyPackages = forAllSystems (system:
+        import nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues overlays;
+          config.allowUnfree = true;
+        }
+      );
     in
     {
-      packages.x86_64-linux = {
+      formatter = forAllSystems (system: legacyPackages.${system}.nixpkgs-fmt);
+
+      # images
+      images = {
         proxmox-lxc = nixos-generators.nixosGenerate {
           modules = [
             ./lxc/template.nix
           ];
-          pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ overlay ]; };
+          pkgs = legacyPackages."x86_64-linux";
           format = "proxmox-lxc";
         };
         router = nixos-generators.nixosGenerate {
           modules = [
             ./router
           ];
-          pkgs = import nixpkgs { system = "aarch64-linux"; overlays = [ overlay ]; };
+          pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
         };
+        blocky-fly = import ./blocky-fly { pkgs = legacyPackages."x86_64-linux"; };
       };
 
+      # colmena targets
       colmena = {
         meta = {
-          nixpkgs = import nixpkgs {
-            system = "x86_64-linux";
-            overlays = [ overlay ];
-          };
+          nixpkgs = legacyPackages."x86_64-linux";
           nodeNixpkgs = {
-            router = import nixpkgs { system = "aarch64-linux"; overlays = [ overlay ]; };
+            router = legacyPackages."aarch64-linux";
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
@@ -49,13 +62,6 @@
           ];
         };
 
-        blocky = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            ./lxc/template.nix
-            ./tailscale
-            ./lxc/blocky.nix
-          ];
-        };
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/template.nix
