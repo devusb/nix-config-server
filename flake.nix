@@ -10,9 +10,13 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    blocky-tailscale = {
+      url = "github:devusb/blocky-tailscale/overridable-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixos-generators, sops-nix, ... }@inputs:
+  outputs = { nixpkgs, nixos-generators, sops-nix, blocky-tailscale, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" ];
@@ -45,7 +49,9 @@
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
         };
-        blocky-fly = import ./blocky-fly { pkgs = legacyPackages."x86_64-linux"; };
+        blocky-fly = blocky-tailscale.packages."x86_64-linux".blocky-tailscale.override {
+          blockyConfig = legacyPackages."x86_64-linux".writeText "blocky.conf" (builtins.toJSON (legacyPackages."x86_64-linux".blockyConfig { }));
+        };
       };
 
       # colmena targets
