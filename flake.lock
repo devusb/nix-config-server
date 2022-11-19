@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1668876073,
-        "narHash": "sha256-TzAepRrz1LToMxT4KwAfLYN8i1pSSkI4OhfMpgjPDIM=",
+        "lastModified": 1668886181,
+        "narHash": "sha256-jnQE3TzqzkCCCkeqoiqiROQR/d2zvFDGtoiLxtosLDE=",
         "owner": "devusb",
         "repo": "blocky-tailscale",
-        "rev": "950e055828e24dc67027d42304c47953056654a6",
+        "rev": "8cddfc358390061c1b100cf1a2132cfcf0fad3d0",
         "type": "github"
       },
       "original": {
