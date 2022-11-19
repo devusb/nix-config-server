@@ -8,16 +8,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1668874705,
+        "lastModified": 1668876073,
         "narHash": "sha256-TzAepRrz1LToMxT4KwAfLYN8i1pSSkI4OhfMpgjPDIM=",
         "owner": "devusb",
         "repo": "blocky-tailscale",
-        "rev": "897ef5d90ea46a18b7cfb7dfd4a09ec1235ba8f1",
+        "rev": "950e055828e24dc67027d42304c47953056654a6",
         "type": "github"
       },
       "original": {
         "owner": "devusb",
-        "ref": "overridable-flake",
         "repo": "blocky-tailscale",
         "type": "github"
       }

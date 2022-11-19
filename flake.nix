@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blocky-tailscale = {
-      url = "github:devusb/blocky-tailscale/overridable-flake";
+      url = "github:devusb/blocky-tailscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
