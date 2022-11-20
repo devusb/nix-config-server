@@ -49,9 +49,14 @@
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
         };
-        blocky-fly = blocky-tailscale.packages."x86_64-linux".blocky-tailscale.override {
-          blockyConfig = legacyPackages."x86_64-linux".writeText "blocky.conf" (builtins.toJSON (legacyPackages."x86_64-linux".blockyConfig { }));
-        };
+        blocky-fly =
+          let
+            system = "x86_64-linux";
+            pkgs = legacyPackages.${system};
+          in
+          blocky-tailscale.packages.${system}.blocky-tailscale.override {
+            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (pkgs.blockyConfig { }));
+          };
       };
 
       # colmena targets
