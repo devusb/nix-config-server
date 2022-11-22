@@ -17,6 +17,8 @@ in
     targetUser = "root";
   };
 
+  networking.hostName = "unifi";
+
   services.cron = {
     enable = true;
     systemCronJobs = [

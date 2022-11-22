@@ -19,6 +19,8 @@ in
     targetUser = "root";
   };
 
+  networking.hostName = "plex";
+
   hardware.opengl = {
     enable = true;
   };

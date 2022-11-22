@@ -4,7 +4,7 @@
     "${modulesPath}/virtualisation/proxmox-lxc.nix"
   ];
 
-  #deployment.buildOnTarget = true;
+  proxmoxLXC.manageHostName = true;
 
   system.stateVersion = "22.05";
   networking.firewall.enable = false;

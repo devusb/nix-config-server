@@ -19,6 +19,8 @@ in
     targetUser = "root";
   };
 
+  networking.hostName = "arr";
+
   users.groups = {
     media.gid = 1002;
   };
