@@ -20,6 +20,8 @@ in
 
   networking.hostName = "atuin";
 
+  services.tailscale.package = pkgs.tailscale-unstable;
+
   services.atuin = {
     enable = true;
     host = "0.0.0.0";
