@@ -1,12 +1,4 @@
 { lib, pkgs, config, modulesPath, ... }:
-let
-  deployedBackup = pkgs.deployBackup {
-    backup_name = "unifi";
-    backup_files_list = [
-      ''"$(find "/var/lib/unifi/data/backup/autobackup" -path "*autobackup*unf*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
-    ];
-  };
-in
 {
 
   system.stateVersion = "22.05";
@@ -21,10 +13,11 @@ in
 
   services.tailscale-autoconnect.enable = true;
 
-  services.cron = {
+  services.deployBackup = {
     enable = true;
-    systemCronJobs = [
-      "0 0 * * 1     root    ${deployedBackup}/bin/deployBackup"
+    name = "unifi";
+    files = [
+      ''"$(find "/var/lib/unifi/data/backup/autobackup" -path "*autobackup*unf*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
     ];
   };
 

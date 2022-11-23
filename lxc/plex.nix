@@ -1,13 +1,6 @@
 { lib, pkgs, config, modulesPath, ... }:
 let
   plexData = "/mnt/plex_data";
-  deployedBackup = pkgs.deployBackup {
-    backup_name = "plex";
-    backup_files_list = [
-      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
-      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
-    ];
-  };
 in
 {
 
@@ -39,10 +32,12 @@ in
     group = "media";
   };
 
-  services.cron = {
+  services.deployBackup = {
     enable = true;
-    systemCronJobs = [
-      "0 0 * * 1     root    ${deployedBackup}/bin/deployBackup"
+    name = "plex";
+    files = [
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
     ];
   };
 

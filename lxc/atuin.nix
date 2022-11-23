@@ -1,12 +1,6 @@
 { lib, pkgs, config, modulesPath, ... }:
 let
   backupPath = "/tmp/atuin_db.tar";
-  deployedBackup = pkgs.deployBackup {
-    backup_name = "atuin";
-    backup_files_list = [
-      backupPath
-    ];
-  };
 in
 {
 
@@ -56,10 +50,18 @@ in
     openRegistration = false;
   };
 
+  services.deployBackup = {
+    enable = true;
+    name = "atuin";
+    files = [
+      backupPath
+    ];
+  };
+
   services.cron = {
     enable = true;
     systemCronJobs = with pkgs; [
-      "0 0 * * 1     root    ${sudo}/bin/sudo -u postgres ${postgresql}/bin/pg_dump -d atuin -F t -f ${backupPath} && ${deployedBackup}/bin/deployBackup"
+      "0 23 * * 0     root    ${sudo}/bin/sudo -u postgres ${postgresql}/bin/pg_dump -d atuin -F t -f ${backupPath}"
     ];
   };
 
