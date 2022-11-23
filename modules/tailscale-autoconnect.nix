@@ -33,7 +33,7 @@ in
   config = mkIf cfg.enable {
 
     sops.secrets.ts_key = {
-      sopsFile = ../tailscale/secrets.yaml;
+      sopsFile = ../secrets/tailscale.yaml;
     };
 
     services.tailscale.enable = true;

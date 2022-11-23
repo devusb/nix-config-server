@@ -12,7 +12,7 @@ keys:
   - &arr age1npj84lxnq72ppch90k7fw62wwy3wq90c03hy7r596m3yvyevd4sqlqma6q
   - &atuin age1v808y4su2d9yehped4mahc2cgs56x9eeg7kgcwltg9k0vgqx8vxqrymgh3
 creation_rules:
-  - path_regex: secrets.yaml$
+  - path_regex: secrets.*$
     key_groups:
     - age:
       - *admin_mhelton
