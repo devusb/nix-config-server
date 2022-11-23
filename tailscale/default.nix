@@ -1,4 +1,4 @@
-{ config, pkgs, sops, ... }:
+{ config, pkgs, sops, extraTailscaleArgs ? [ ], ... }:
 let tailscaleDomain = "springhare-egret.ts.net";
 in
 {
@@ -30,7 +30,7 @@ in
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh
+      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh ${lib.concatStringsSep " " extraTailscaleArgs}
     '';
   };
 

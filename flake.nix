@@ -66,6 +66,17 @@
           nodeNixpkgs = {
             router = legacyPackages."aarch64-linux";
           };
+          specialArgs = {
+            extraTailscaleArgs = [ ];
+          };
+          nodeSpecialArgs = {
+            aws-proxy = {
+              extraTailscaleArgs = [ "--accept-routes" "--advertise-routes=10.0.34.0/23" "--advertise-exit-node" ];
+            };
+            router = {
+              extraTailscaleArgs = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/16" "--accept-routes" "--accept-dns=false" ];
+            };
+          };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
@@ -97,12 +108,14 @@
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./aws-proxy
+            ./tailscale
           ];
         };
         router = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./router/colmena.nix
             ./router
+            ./tailscale
           ];
         };
       };
