@@ -72,7 +72,7 @@ in
       environment = {
         ATUIN_HOST = cfg.host;
         ATUIN_PORT = toString cfg.port;
-        ATUIN_OPEN_REGISTRATION = toString cfg.openRegistration;
+        ATUIN_OPEN_REGISTRATION = if cfg.openRegistration then "true" else "false";
         ATUIN_DB_URI = "postgresql:///atuin";
         ATUIN_PATH = cfg.path;
         ATUIN_CONFIG_DIR = "/run/atuin";
