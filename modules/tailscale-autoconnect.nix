@@ -21,6 +21,12 @@ in
         default = "springhare-egret.ts.net";
         description = mdDoc "Tailnet domain name";
       };
+
+      issueCerts = mkOption {
+        type = types.bool;
+        default = true;
+        description = mdDoc "Issue TLS certs into /var/lib/tailscale-certs";
+      };
     };
   };
 
@@ -58,7 +64,7 @@ in
       '';
     };
 
-    systemd.services.tailscale-cert = {
+    systemd.services.tailscale-cert = mkIf cfg.issueCerts {
       description = "create and renew tailscale certificate";
       requires = [ "tailscaled.service" ];
       wantedBy = [ "multi-user.target" ];
@@ -75,7 +81,7 @@ in
       '';
     };
 
-    systemd.timers.tailscale-cert = {
+    systemd.timers.tailscale-cert = mkIf cfg.issueCerts {
       description = "create and renew tailscale certificate";
       timerConfig = {
         OnBootSec = "1min";
