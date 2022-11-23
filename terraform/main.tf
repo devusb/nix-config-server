@@ -163,3 +163,38 @@ resource "proxmox_lxc" "arr" {
 
   ssh_public_keys = local.ssh_key
 }
+
+resource "proxmox_lxc" "atuin" {
+  target_node  = "r2d2"
+  hostname     = "atuin"
+  ostemplate   = "local:vztmpl/nixos-system-unstable-112222.tar.xz"
+  password     = "nixos"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = true
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "8G"
+  }
+  memory = 2048
+  swap   = 1024
+  cores = 1
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "dhcp"
+    tag    = 20
+    ip6    = "dhcp"
+    firewall = false
+    hwaddr = "36:77:FD:22:7E:9C"
+  }
+
+  features {
+    nesting     = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}

@@ -292,6 +292,10 @@ with lib;
         hardware ethernet 22:71:BA:E3:0B:6C;
         fixed-address 192.168.20.101;
       }
+      host atuin {
+        hardware ethernet 36:77:FD:22:7E:9C;
+        fixed-address 192.168.20.102;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };

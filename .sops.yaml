@@ -10,6 +10,7 @@ keys:
   - &aws-proxy age1zmye9v3dmws9vtvkm8gfgknedggql0hnl74k427wqup9d0rq3esqfgthua
   - &sophia age1mwrrymv9hsyhk3vtr5gqnhqg76rsh4f4gjpr5d3rg966lze6lc8s8x4z20
   - &arr age1npj84lxnq72ppch90k7fw62wwy3wq90c03hy7r596m3yvyevd4sqlqma6q
+  - &atuin age1v808y4su2d9yehped4mahc2cgs56x9eeg7kgcwltg9k0vgqx8vxqrymgh3
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -21,3 +22,4 @@ creation_rules:
       - *aws-proxy
       - *sophia
       - *arr
+      - *atuin

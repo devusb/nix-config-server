@@ -76,6 +76,9 @@
             router = {
               extraTailscaleArgs = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/16" "--accept-routes" "--accept-dns=false" ];
             };
+            atuin = {
+              extraTailscaleArgs = [ "--operator=caddy" ];
+            };
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
@@ -103,6 +106,14 @@
             ./lxc/template.nix
             ./tailscale
             ./lxc/unifi.nix
+          ];
+        };
+        atuin = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/template.nix
+            ./tailscale
+            ./lxc/atuin.nix
+            ./modules/atuin.nix
           ];
         };
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
