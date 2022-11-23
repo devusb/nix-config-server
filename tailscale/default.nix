@@ -43,7 +43,7 @@ in
       mkdir -p /var/lib/tailscale-certs
 
       # handle first deployment case, wait for tailscale to be ready
-      sleep 30
+      sleep 15
 
       ${tailscale}/bin/tailscale cert --cert-file=/var/lib/tailscale-certs/tailscale.crt --key-file=/var/lib/tailscale-certs/tailscale.key ${config.networking.hostName}.${tailscaleDomain}
       ${openssl}/bin/openssl pkcs12 -export -passout pass: -out /var/lib/tailscale-certs/tailscale.p12 -in /var/lib/tailscale-certs/tailscale.crt -inkey /var/lib/tailscale-certs/tailscale.key -certfile /var/lib/tailscale-certs/tailscale.crt

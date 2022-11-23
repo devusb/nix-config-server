@@ -76,9 +76,6 @@
             router = {
               extraTailscaleArgs = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/16" "--accept-routes" "--accept-dns=false" ];
             };
-            atuin = {
-              extraTailscaleArgs = [ "--operator=caddy" ];
-            };
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {

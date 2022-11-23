@@ -22,18 +22,37 @@ in
 
   services.tailscale.package = pkgs.tailscale-unstable;
 
+  systemd.services.tailscale-funnel = {
+    description = "Enable tailscale funnel";
+
+    after = [ "network-pre.target" "tailscaled.service" ];
+    wants = [ "network-pre.target" "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig.Type = "oneshot";
+
+    script = with pkgs; ''
+      # handle first deployment case, wait for tailscale to be ready
+      sleep 15
+
+      # activate funnel
+      funnel_active="$(${tailscale-unstable}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
+      if [ $funnel_active == false ]; then
+        ${tailscale-unstable}/bin/tailscale serve funnel on
+      fi
+
+      # expose atuin service
+      service_active="$(${tailscale-unstable}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("Web")')"
+      if [ $service_active == false ]; then
+        ${tailscale-unstable}/bin/tailscale serve / proxy 8888
+      fi
+    '';
+  };
+
   services.atuin = {
     enable = true;
     host = "0.0.0.0";
     openRegistration = false;
-  };
-
-  services.caddy = {
-    enable = true;
-    extraConfig = ''
-      ${config.networking.hostName}.springhare-egret.ts.net
-      reverse_proxy :8888
-    '';
   };
 
   services.cron = {
