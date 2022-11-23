@@ -30,6 +30,11 @@ in
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.enableIPv6 = true;
 
+  services.tailscale-autoconnect = {
+    enable = true;
+    extraTailscaleArgs = [ "--accept-routes" "--advertise-routes=10.0.34.0/23" "--advertise-exit-node" ];
+  };
+
   # monitoring
   services.prometheus.exporters = {
     node = {

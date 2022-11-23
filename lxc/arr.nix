@@ -13,6 +13,8 @@ in
 
   system.stateVersion = "22.05";
 
+  services.tailscale-autoconnect.enable = true;
+
   deployment = {
     targetHost = "192.168.20.101";
     targetPort = 22;

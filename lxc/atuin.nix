@@ -20,6 +20,7 @@ in
 
   networking.hostName = "atuin";
 
+  services.tailscale-autoconnect.enable = true;
   services.tailscale.package = pkgs.tailscale-unstable;
 
   systemd.services.tailscale-funnel = {

@@ -66,49 +66,35 @@
           nodeNixpkgs = {
             router = legacyPackages."aarch64-linux";
           };
-          specialArgs = {
-            extraTailscaleArgs = [ ];
-          };
-          nodeSpecialArgs = {
-            aws-proxy = {
-              extraTailscaleArgs = [ "--accept-routes" "--advertise-routes=10.0.34.0/23" "--advertise-exit-node" ];
-            };
-            router = {
-              extraTailscaleArgs = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/16" "--accept-routes" "--accept-dns=false" ];
-            };
-          };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             sops-nix.nixosModules.sops
+            ./modules/tailscale-autoconnect.nix
           ];
         };
 
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/template.nix
-            ./tailscale
             ./lxc/plex.nix
           ];
         };
         arr = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/template.nix
-            ./tailscale
             ./lxc/arr.nix
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/template.nix
-            ./tailscale
             ./lxc/unifi.nix
           ];
         };
         atuin = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./lxc/template.nix
-            ./tailscale
             ./lxc/atuin.nix
             ./modules/atuin.nix
           ];
@@ -116,14 +102,12 @@
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./aws-proxy
-            ./tailscale
           ];
         };
         router = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./router/colmena.nix
             ./router
-            ./tailscale
           ];
         };
       };

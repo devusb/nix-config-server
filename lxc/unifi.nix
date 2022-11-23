@@ -19,6 +19,8 @@ in
 
   networking.hostName = "unifi";
 
+  services.tailscale-autoconnect.enable = true;
+
   services.cron = {
     enable = true;
     systemCronJobs = [

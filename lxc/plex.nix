@@ -21,6 +21,8 @@ in
 
   networking.hostName = "plex";
 
+  services.tailscale-autoconnect.enable = true;
+
   hardware.opengl = {
     enable = true;
   };
