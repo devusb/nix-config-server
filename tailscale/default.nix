@@ -41,6 +41,10 @@ in
     serviceConfig.Type = "oneshot";
     script = with pkgs; ''
       mkdir -p /var/lib/tailscale-certs
+
+      # handle first deployment case, wait for tailscale to be ready
+      sleep 30
+
       ${tailscale}/bin/tailscale cert --cert-file=/var/lib/tailscale-certs/tailscale.crt --key-file=/var/lib/tailscale-certs/tailscale.key ${config.networking.hostName}.${tailscaleDomain}
       ${openssl}/bin/openssl pkcs12 -export -passout pass: -out /var/lib/tailscale-certs/tailscale.p12 -in /var/lib/tailscale-certs/tailscale.crt -inkey /var/lib/tailscale-certs/tailscale.key -certfile /var/lib/tailscale-certs/tailscale.crt
       chmod -R 777 /var/lib/tailscale-certs
