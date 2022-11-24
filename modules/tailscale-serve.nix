@@ -30,6 +30,11 @@ in
 
   config = mkIf cfg.enable {
 
+    services.tailscale-autoconnect = {
+      enable = true;
+      package = cfg.package;
+    };
+
     systemd.services.tailscale-serve = {
       description = "Enable Tailscale serve";
 

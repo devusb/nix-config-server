@@ -14,10 +14,6 @@ in
 
   networking.hostName = "plex";
 
-  services.tailscale-autoconnect = {
-    enable = true;
-    package = pkgs.tailscale-unstable;
-  };
   services.tailscale-serve = {
     enable = true;
     package = pkgs.tailscale-unstable;
