@@ -60,12 +60,6 @@ with lib;
     };
   };
 
-  # tailscale
-  services.tailscale-autoconnect = {
-    enable = true;
-    extraTailscaleArgs = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/16" "--accept-routes" "--accept-dns=false" ];
-  };
-
   # DNS
   services.unbound = {
     enable = true;
