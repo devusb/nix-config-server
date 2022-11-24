@@ -72,6 +72,7 @@
             sops-nix.nixosModules.sops
             ./modules/tailscale-autoconnect.nix
             ./modules/deploy-backup.nix
+            ./modules/atuin.nix
           ];
         };
 
@@ -97,7 +98,6 @@
           imports = [
             ./lxc/template.nix
             ./lxc/atuin.nix
-            ./modules/atuin.nix
           ];
         };
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
