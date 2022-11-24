@@ -55,7 +55,7 @@
             pkgs = legacyPackages.${system};
           in
           blocky-tailscale.packages.${system}.blocky-tailscale.override {
-            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (pkgs.blockyConfig { }));
+            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./blocky-fly/blocky-config.nix { }));
           };
       };
 

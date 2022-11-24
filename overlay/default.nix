@@ -1,8 +1,6 @@
 { inputs, ... }: final: prev: {
   stable = import inputs.nixpkgs-stable { system = prev.system; };
 
-  blockyConfig = import ./blocky-config.nix;
-
   tailscale-unstable =
     let
       version = "1.33.298";
