@@ -10,6 +10,8 @@ in
     services.tailscale-autoconnect = {
       enable = mkEnableOption (mdDoc "Enable Tailscale autoconnection and certificate provisioning");
 
+      package = mkPackageOption pkgs "tailscale" { };
+
       extraTailscaleArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
@@ -36,7 +38,11 @@ in
       sopsFile = ../secrets/tailscale.yaml;
     };
 
-    services.tailscale.enable = true;
+    services.tailscale = {
+      enable = true;
+      package = cfg.package;
+    };
+
     systemd.services.tailscale-autoconnect = {
       description = "Automatic connection to Tailscale";
 
@@ -54,13 +60,13 @@ in
         sleep 2
 
         # check if we are already authenticated to tailscale
-        status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+        status="$(${cfg.package}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
         if [ $status = "Running" ]; then # if so, then do nothing
           exit 0
         fi
 
         # otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh ${lib.concatStringsSep " " cfg.extraTailscaleArgs}
+        ${cfg.package}/bin/tailscale up --auth-key file:${config.sops.secrets.ts_key.path} --ssh ${lib.concatStringsSep " " cfg.extraTailscaleArgs}
       '';
     };
 
@@ -75,7 +81,7 @@ in
         # handle first deployment case, wait for tailscale to be ready
         sleep 15
 
-        ${tailscale}/bin/tailscale cert --cert-file=/var/lib/tailscale-certs/tailscale.crt --key-file=/var/lib/tailscale-certs/tailscale.key ${config.networking.hostName}.${cfg.tailscaleDomain}
+        ${cfg.package}/bin/tailscale cert --cert-file=/var/lib/tailscale-certs/tailscale.crt --key-file=/var/lib/tailscale-certs/tailscale.key ${config.networking.hostName}.${cfg.tailscaleDomain}
         ${openssl}/bin/openssl pkcs12 -export -passout pass: -out /var/lib/tailscale-certs/tailscale.p12 -in /var/lib/tailscale-certs/tailscale.crt -inkey /var/lib/tailscale-certs/tailscale.key -certfile /var/lib/tailscale-certs/tailscale.crt
         chmod -R 777 /var/lib/tailscale-certs
       '';

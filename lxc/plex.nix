@@ -14,7 +14,15 @@ in
 
   networking.hostName = "plex";
 
-  services.tailscale-autoconnect.enable = true;
+  services.tailscale-autoconnect = {
+    enable = true;
+    package = pkgs.tailscale-unstable;
+  };
+  services.tailscale-serve = {
+    enable = true;
+    package = pkgs.tailscale-unstable;
+    port = 32400;
+  };
 
   hardware.opengl = {
     enable = true;

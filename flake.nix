@@ -71,6 +71,7 @@
           imports = [
             sops-nix.nixosModules.sops
             ./modules/tailscale-autoconnect.nix
+            ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix
             ./modules/atuin.nix
           ];
