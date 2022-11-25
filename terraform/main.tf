@@ -18,9 +18,9 @@ data "vault_generic_secret" "proxmox" {
 }
 
 provider "proxmox" {
-    pm_api_url = "https://192.168.99.101:8006/api2/json"
-    pm_user = data.vault_generic_secret.proxmox.data.username
-    pm_password = data.vault_generic_secret.proxmox.data.password
+  pm_api_url  = "https://192.168.99.101:8006/api2/json"
+  pm_user     = data.vault_generic_secret.proxmox.data.username
+  pm_password = data.vault_generic_secret.proxmox.data.password
 }
 
 locals {
@@ -40,7 +40,7 @@ resource "proxmox_lxc" "plex" {
 
   memory = 8192
   swap   = 4096
-  cores = 4
+  cores  = 4
 
   rootfs {
     storage = "local-zfs"
@@ -48,8 +48,8 @@ resource "proxmox_lxc" "plex" {
   }
 
   mountpoint {
-    key     = "0"
-    slot    = 0
+    key  = "0"
+    slot = 0
     # uncomment below to init new instance
     #storage = "/r2d2_0/media"
     storage = ""
@@ -67,17 +67,17 @@ resource "proxmox_lxc" "plex" {
   }
 
   network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
     firewall = false
-    hwaddr = "F6:C3:6B:61:F7:FB"
+    hwaddr   = "F6:C3:6B:61:F7:FB"
   }
 
   features {
-    nesting     = true
+    nesting = true
   }
 
   ssh_public_keys = local.ssh_key
@@ -99,20 +99,20 @@ resource "proxmox_lxc" "unifi" {
   }
   memory = 2048
   swap   = 1024
-  cores = 1
+  cores  = 1
 
   network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
     firewall = false
-    hwaddr = "36:0C:72:1C:83:84"
+    hwaddr   = "36:0C:72:1C:83:84"
   }
 
   features {
-    nesting     = true
+    nesting = true
   }
 
   ssh_public_keys = local.ssh_key
@@ -129,7 +129,7 @@ resource "proxmox_lxc" "arr" {
 
   memory = 4096
   swap   = 2048
-  cores = 4
+  cores  = 4
 
   rootfs {
     storage = "local-zfs"
@@ -137,8 +137,8 @@ resource "proxmox_lxc" "arr" {
   }
 
   mountpoint {
-    key     = "0"
-    slot    = 0
+    key  = "0"
+    slot = 0
     # uncomment below to init new instance
     #storage = "/r2d2_0/media"
     storage = ""
@@ -148,17 +148,17 @@ resource "proxmox_lxc" "arr" {
   }
 
   network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
     firewall = false
-    hwaddr = "22:71:BA:E3:0B:6C"
+    hwaddr   = "22:71:BA:E3:0B:6C"
   }
 
   features {
-    nesting     = true
+    nesting = true
   }
 
   ssh_public_keys = local.ssh_key
@@ -180,20 +180,20 @@ resource "proxmox_lxc" "atuin" {
   }
   memory = 2048
   swap   = 1024
-  cores = 1
+  cores  = 1
 
   network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
     firewall = false
-    hwaddr = "36:77:FD:22:7E:9C"
+    hwaddr   = "36:77:FD:22:7E:9C"
   }
 
   features {
-    nesting     = true
+    nesting = true
   }
 
   ssh_public_keys = local.ssh_key
@@ -207,10 +207,11 @@ resource "proxmox_lxc" "fileshare" {
   ostype       = "nixos"
   cmode        = "console"
   onboot       = "true"
+  startup      = "order=1,up=30"
 
   memory = 2048
   swap   = 1024
-  cores = 4
+  cores  = 4
 
   rootfs {
     storage = "local-zfs"
@@ -218,8 +219,8 @@ resource "proxmox_lxc" "fileshare" {
   }
 
   mountpoint {
-    key     = "0"
-    slot    = 0
+    key  = "0"
+    slot = 0
     # uncomment below to init new instance
     #storage = "/r2d2_0/media"
     storage = ""
@@ -228,8 +229,8 @@ resource "proxmox_lxc" "fileshare" {
     size    = "256G"
   }
   mountpoint {
-    key     = "1"
-    slot    = 1
+    key  = "1"
+    slot = 1
     # uncomment below to init new instance
     #storage = "/r2d2_0/homes"
     storage = ""
@@ -238,8 +239,8 @@ resource "proxmox_lxc" "fileshare" {
     size    = "256G"
   }
   mountpoint {
-    key     = "2"
-    slot    = 2
+    key  = "2"
+    slot = 2
     # uncomment below to init new instance
     #storage = "/r2d2_0/homes/mhelton"
     storage = ""
@@ -248,8 +249,8 @@ resource "proxmox_lxc" "fileshare" {
     size    = "256G"
   }
   mountpoint {
-    key     = "3"
-    slot    = 3
+    key  = "3"
+    slot = 3
     # uncomment below to init new instance
     #storage = "/r2d2_0/homes/ilona"
     storage = ""
@@ -258,8 +259,8 @@ resource "proxmox_lxc" "fileshare" {
     size    = "256G"
   }
   mountpoint {
-    key     = "4"
-    slot    = 4
+    key  = "4"
+    slot = 4
     # uncomment below to init new instance
     #storage = "/r2d2_0/backup"
     storage = ""
@@ -269,17 +270,18 @@ resource "proxmox_lxc" "fileshare" {
   }
 
   network {
-    name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "dhcp"
-    tag    = 20
-    ip6    = "dhcp"
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
     firewall = false
-    hwaddr = "3A:C9:F7:CB:0A:B3"
+    hwaddr   = "3A:C9:F7:CB:0A:B3"
   }
 
   features {
-    nesting     = true
+    nesting = true
+    mount   = "nfs"
   }
 
   ssh_public_keys = local.ssh_key
