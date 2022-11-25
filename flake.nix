@@ -57,6 +57,13 @@
           blocky-tailscale.packages.${system}.blocky-tailscale.override {
             blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./blocky-fly/blocky-config.nix { }));
           };
+        gaia = nixos-generators.nixosGenerate {
+          modules = [
+            ./gaia
+          ];
+          pkgs = legacyPackages."aarch64-linux";
+          format = "sd-aarch64-installer";
+        };
       };
 
       # colmena targets
@@ -65,6 +72,8 @@
           nixpkgs = legacyPackages."x86_64-linux";
           nodeNixpkgs = {
             router = legacyPackages."aarch64-linux";
+            gaia0 = legacyPackages."aarch64-linux";
+            gaia1 = legacyPackages."aarch64-linux";
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
@@ -122,6 +131,20 @@
           imports = [
             ./router/colmena.nix
             ./router
+          ];
+        };
+
+        # rpi cluster
+        gaia0 = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./gaia
+            ./gaia/gaia0.nix
+          ];
+        };
+        gaia1 = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./gaia
+            ./gaia/gaia1.nix
           ];
         };
       };

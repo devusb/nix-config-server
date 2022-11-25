@@ -228,10 +228,6 @@ with lib;
         hardware ethernet e4:5f:01:9c:c9:8c;
         fixed-address 192.168.20.139;
       }
-      host gaia3 {
-        hardware ethernet e6:ca:67:81:71:fc;
-        fixed-address 192.168.20.140;
-      }
       host nfs-export {
         hardware ethernet e6:38:e7:50:fa:fb;
         fixed-address 192.168.20.137;
