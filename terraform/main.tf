@@ -198,3 +198,89 @@ resource "proxmox_lxc" "atuin" {
 
   ssh_public_keys = local.ssh_key
 }
+
+resource "proxmox_lxc" "fileshare" {
+  target_node  = "r2d2"
+  hostname     = "fileshare"
+  ostemplate   = "local:vztmpl/nixos-system-unstable-112222.tar.xz"
+  unprivileged = false
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = "true"
+
+  memory = 2048
+  swap   = 1024
+  cores = 4
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "8G"
+  }
+
+  mountpoint {
+    key     = "0"
+    slot    = 0
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/media"
+    storage = ""
+    volume  = "/r2d2_0/media"
+    mp      = "/mnt/media"
+    size    = "256G"
+  }
+  mountpoint {
+    key     = "1"
+    slot    = 1
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/homes"
+    storage = ""
+    volume  = "/r2d2_0/homes"
+    mp      = "/mnt/homes"
+    size    = "256G"
+  }
+  mountpoint {
+    key     = "2"
+    slot    = 2
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/homes/mhelton"
+    storage = ""
+    volume  = "/r2d2_0/homes/mhelton"
+    mp      = "/mnt/homes/mhelton"
+    size    = "256G"
+  }
+  mountpoint {
+    key     = "3"
+    slot    = 3
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/homes/ilona"
+    storage = ""
+    volume  = "/r2d2_0/homes/ilona"
+    mp      = "/mnt/homes/ilona"
+    size    = "256G"
+  }
+  mountpoint {
+    key     = "4"
+    slot    = 4
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/backup"
+    storage = ""
+    volume  = "/r2d2_0/backup"
+    mp      = "/mnt/backup"
+    size    = "256G"
+  }
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    ip     = "dhcp"
+    tag    = 20
+    ip6    = "dhcp"
+    firewall = false
+    hwaddr = "3A:C9:F7:CB:0A:B3"
+  }
+
+  features {
+    nesting     = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}

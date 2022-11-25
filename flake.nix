@@ -101,6 +101,12 @@
             ./lxc/atuin.nix
           ];
         };
+        fileshare = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/template.nix
+            ./lxc/fileshare.nix
+          ];
+        };
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./aws-proxy

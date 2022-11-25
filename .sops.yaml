@@ -11,6 +11,7 @@ keys:
   - &sophia age1mwrrymv9hsyhk3vtr5gqnhqg76rsh4f4gjpr5d3rg966lze6lc8s8x4z20
   - &arr age1npj84lxnq72ppch90k7fw62wwy3wq90c03hy7r596m3yvyevd4sqlqma6q
   - &atuin age1v808y4su2d9yehped4mahc2cgs56x9eeg7kgcwltg9k0vgqx8vxqrymgh3
+  - &fileshare age1p2au0z6k7fnca8pl3p8px4ckt676ap43x78ud89ew5dux7p6r4yqhyqe6l
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
@@ -23,3 +24,4 @@ creation_rules:
       - *sophia
       - *arr
       - *atuin
+      - *fileshare
