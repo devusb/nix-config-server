@@ -107,6 +107,12 @@
             ./lxc/fileshare.nix
           ];
         };
+        vault = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./lxc/template.nix
+            ./lxc/vault.nix
+          ];
+        };
         aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./aws-proxy

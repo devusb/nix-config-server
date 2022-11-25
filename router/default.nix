@@ -296,6 +296,10 @@ with lib;
         hardware ethernet 36:77:FD:22:7E:9C;
         fixed-address 192.168.20.102;
       }
+      host vault {
+        hardware ethernet 42:B5:CC:D5:0F:37;
+        fixed-address 192.168.20.103;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };
