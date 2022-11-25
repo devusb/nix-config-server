@@ -11,6 +11,19 @@
 
   networking.hostName = "fileshare";
 
+  users = {
+    users.mhelton = {
+      isNormalUser = true;
+      home = "/mnt/homes/mhelton";
+      uid = 1101;
+    };
+    users.ilona = {
+      isNormalUser = true;
+      home = "/mnt/homes/ilona";
+      uid = 1102;
+    };
+  };
+
   services.tailscale-autoconnect.enable = true;
 
   services.promtail = with lib; {
@@ -83,6 +96,27 @@
       /mnt/backup 192.168.0.0/16(rw,async,no_subtree_check,no_root_squash,insecure)
       /mnt/homes 192.168.20.0/24(rw,async,subtree_check,no_root_squash,crossmnt)
     '';
+  };
+
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      [homes]
+      browsable = no
+      map archive = yes
+      read only = no
+    '';
+    shares = {
+      media = {
+        path = "/mnt/media";
+        browsable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0777";
+        "directory mask" = "0777";
+      };
+    };
   };
 
 }
