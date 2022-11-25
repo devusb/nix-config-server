@@ -6,6 +6,10 @@ let
   cfg = config.services.tailscale-serve;
 in
 {
+  imports = [
+    ./tailscale-autoconnect.nix
+  ];
+
   options = {
     services.tailscale-serve = {
       # this doesn't disable cleanly right now -- enable will turn serve on, funnel toggle works while enabled, changing port works, but can't actually disable serve with this
