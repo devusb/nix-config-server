@@ -22,6 +22,12 @@
     enable = true;
     settings = {
       datacenter = "dc1";
+      bind_addr = "0.0.0.0";
+      advertise = {
+        http = "127.0.0.1";
+        serf = ''{{ GetInterfaceIP "tailscale0" }}'';
+        rpc = ''{{ GetInterfaceIP "tailscale0" }}'';
+      };
       server = {
         enabled = true;
         bootstrap_expect = 1;

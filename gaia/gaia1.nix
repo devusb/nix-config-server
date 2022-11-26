@@ -18,6 +18,7 @@
     enable = true;
     settings = {
       datacenter = "dc1";
+      bind_addr = ''{{ GetInterfaceIP "tailscale0" }}'';
       client = {
         enabled = true;
         servers = [ "gaia0" ];
