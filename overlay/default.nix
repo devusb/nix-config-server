@@ -19,4 +19,6 @@
       });
     });
 
+  caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
+
 }

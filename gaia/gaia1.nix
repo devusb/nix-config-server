@@ -14,4 +14,6 @@
     enable = true;
   };
 
+  services.nomad-client.enable = true;
+
 }

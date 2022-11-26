@@ -12,6 +12,9 @@
   # tailscale
   services.tailscale-autoconnect = {
     enable = true;
+    extraTailscaleArgs = [ "--operator=caddy" ];
   };
+
+  services.nomad-server.enable = true;
 
 }
