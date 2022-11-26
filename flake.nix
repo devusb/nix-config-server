@@ -83,6 +83,8 @@
             ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix
             ./modules/atuin.nix
+            ./modules/nomad-server.nix
+            ./modules/nomad-client.nix
           ];
         };
 

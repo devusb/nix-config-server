@@ -14,30 +14,6 @@
     enable = true;
   };
 
-  services.nomad = {
-    enable = true;
-    settings = {
-      datacenter = "dc1";
-      bind_addr = ''{{ GetInterfaceIP "tailscale0" }}'';
-      client = {
-        enabled = true;
-        servers = [ "gaia0" ];
-        network_interface = "tailscale0";
-      };
-      vault = {
-        enabled = true;
-        address = "https://vault.springhare-egret.ts.net";
-      };
-    };
-  };
-
-  services.consul = {
-    enable = true;
-    interface.bind = "tailscale0";
-    extraConfig = {
-      datacenter = "dc1";
-      retry_join = [ "gaia0" ];
-    };
-  };
+  services.nomad-client.enable = true;
 
 }
