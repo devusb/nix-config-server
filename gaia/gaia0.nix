@@ -15,6 +15,9 @@
     extraTailscaleArgs = [ "--operator=caddy" ];
   };
 
+  sops.secrets.nomad = {
+    sopsFile = ../secrets/nomad.yaml;
+  };
   services.nomad = {
     enable = true;
     settings = {
@@ -27,7 +30,15 @@
         enabled = true;
         network_interface = "tailscale0";
       };
+      vault = {
+        enabled = true;
+        address = "https://vault.springhare-egret.ts.net";
+        create_from_role = "nomad-cluster";
+      };
     };
+  };
+  systemd.services.nomad.serviceConfig = {
+    EnvironmentFile = config.sops.secrets.nomad.path;
   };
 
   services.consul = {

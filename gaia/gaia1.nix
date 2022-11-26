@@ -23,6 +23,10 @@
         servers = [ "gaia0" ];
         network_interface = "tailscale0";
       };
+      vault = {
+        enabled = true;
+        address = "https://vault.springhare-egret.ts.net";
+      };
     };
   };
 
