@@ -40,6 +40,7 @@ in
 
     services.nomad = {
       enable = true;
+      package = cfg.nomadPackage;
       settings = {
         datacenter = cfg.datacenter;
         bind_addr = ''{{ GetInterfaceIP "${cfg.interface}" }}'';
@@ -57,6 +58,7 @@ in
 
     services.consul = {
       enable = true;
+      package = cfg.consulPackage;
       interface.bind = cfg.interface;
       extraConfig = {
         datacenter = cfg.datacenter;
