@@ -14,4 +14,24 @@
     enable = true;
   };
 
+  services.nomad = {
+    enable = true;
+    settings = {
+      datacenter = "dc1";
+      client = {
+        enabled = true;
+        servers = [ "gaia0" ];
+      };
+    };
+  };
+
+  services.consul = {
+    enable = true;
+    interface.bind = "tailscale0";
+    extraConfig = {
+      datacenter = "dc1";
+      retry_join = [ "gaia0" ];
+    };
+  };
+
 }

@@ -29,6 +29,8 @@ with lib;
     passwordAuthentication = false;
   };
 
+  networking.firewall.enable = false;
+
   system.stateVersion = "22.11";
   time.timeZone = "America/Chicago";
 
