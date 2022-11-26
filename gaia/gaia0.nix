@@ -23,7 +23,10 @@
         enabled = true;
         bootstrap_expect = 1;
       };
-      client.enabled = true;
+      client = {
+        enabled = true;
+        network_interface = "tailscale0";
+      };
     };
   };
 
@@ -63,9 +66,17 @@
           reverse_proxy localhost:8500
         }
 
-        # Fallback for otherwise unhandled domains
-        handle {
-          abort
+        @traefik host traefik.gaia.devusb.us
+        handle @traefik {
+          reverse_proxy localhost:8081
+        }
+
+        reverse_proxy * {
+          dynamic a {
+            name traefik.service.dc1.consul
+            port 8080
+            resolvers localhost:8600
+          }
         }
       }
     '';

@@ -21,6 +21,7 @@
       client = {
         enabled = true;
         servers = [ "gaia0" ];
+        network_interface = "tailscale0";
       };
     };
   };
