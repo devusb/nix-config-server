@@ -40,22 +40,44 @@
     };
   };
 
+
+  sops.secrets.cloudflare = {
+    sopsFile = ../secrets/cloudflare.yaml;
+  };
   services.caddy = {
     enable = true;
+    package = pkgs.caddy-cloudflare;
     extraConfig = ''
-      ${config.networking.hostName}.springhare-egret.ts.net {
-        reverse_proxy /* {
-          to localhost:8080
-          to gaia1:8080
-        
-          health_path     /ping
-          health_port     8081
-          health_interval 10s
-          health_timeout  2s
-          health_status   200
+      *.gaia.devusb.us {
+        tls {
+          dns cloudflare {env.CF_API_TOKEN}
+        }
+
+        @nomad host nomad.gaia.devusb.us
+        handle @nomad {
+          reverse_proxy localhost:4646
+        }
+
+        @consul host consul.gaia.devusb.us
+        handle @consul {
+          reverse_proxy localhost:8500
+        }
+
+        # Fallback for otherwise unhandled domains
+        handle {
+          abort
         }
       }
     '';
+  };
+  systemd.services.caddy.serviceConfig = {
+    EnvironmentFile = config.sops.secrets.cloudflare.path;
+    AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+    ProtectSystem = "full";
+    PrivateTmp = "true";
+    LimitNPROC = "512";
+    LimitNOFILE = "1048576";
+    TimeoutStopSec = "5s";
   };
 
 }
