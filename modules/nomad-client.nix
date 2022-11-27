@@ -40,7 +40,9 @@ in
 
     services.nomad = {
       enable = true;
+      dropPrivileges = false;
       package = cfg.nomadPackage;
+
       settings = {
         datacenter = cfg.datacenter;
         bind_addr = ''{{ GetInterfaceIP "${cfg.interface}" }}'';
@@ -52,6 +54,14 @@ in
         vault = {
           enabled = true;
           address = cfg.vaultAddress;
+        };
+        plugin.docker = {
+          config = {
+            allow_privileged = true;
+            volumes = {
+              enabled = true;
+            };
+          };
         };
       };
     };
@@ -65,6 +75,8 @@ in
         retry_join = cfg.servers;
       };
     };
+
+    services.rpcbind.enable = true;
 
   };
 }

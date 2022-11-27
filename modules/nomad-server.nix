@@ -44,7 +44,9 @@ in
     };
     services.nomad = {
       enable = true;
+      dropPrivileges = false;
       package = cfg.nomadPackage;
+
       settings = {
         datacenter = cfg.datacenter;
         bind_addr = "0.0.0.0";
@@ -66,11 +68,21 @@ in
           address = cfg.vaultAddress;
           create_from_role = "nomad-cluster";
         };
+        plugin.docker = {
+          config = {
+            allow_privileged = true;
+            volumes = {
+              enabled = true;
+            };
+          };
+        };
       };
     };
     systemd.services.nomad.serviceConfig = {
       EnvironmentFile = config.sops.secrets.nomad.path;
     };
+
+    services.rpcbind.enable = true;
 
     services.consul = {
       enable = true;
