@@ -15,6 +15,9 @@
     extraTailscaleArgs = [ "--operator=caddy" ];
   };
 
-  services.nomad-server.enable = true;
+  services.nomad-server = {
+    enable = true;
+    nomadPackage = pkgs.nomad_1_4;
+  };
 
 }

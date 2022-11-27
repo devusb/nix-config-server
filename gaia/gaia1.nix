@@ -14,6 +14,9 @@
     enable = true;
   };
 
-  services.nomad-client.enable = true;
+  services.nomad-client = {
+    enable = true;
+    nomadPackage = pkgs.nomad_1_4;
+  };
 
 }
