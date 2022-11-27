@@ -12,8 +12,8 @@ in
 
   options = {
     services.tailscale-serve = {
-      # this doesn't disable cleanly right now -- enable will turn serve on, funnel toggle works while enabled, changing port works, but can't actually disable serve with this
-      enable = mkEnableOption (mdDoc "Enable Tailscale serve for a service");
+      # this doesn't disable completely cleanly right now -- funnel toggles, port changes, caddy will be disabled, but tcp forwarding to 443 will stay on if tailscale enabled after this is disabled
+      enable = mkEnableOption (mdDoc "Enable Tailscale serve (via Caddy) for a service");
 
       package = mkPackageOption pkgs "tailscale" { };
 
@@ -29,6 +29,12 @@ in
         description = mdDoc "Port for tailscale to direct traffic to (i.e. the upstream service)";
       };
 
+      tailscaleDomain = mkOption {
+        type = types.str;
+        default = "springhare-egret.ts.net";
+        description = mdDoc "Tailnet domain name";
+      };
+
     };
   };
 
@@ -37,6 +43,8 @@ in
     services.tailscale-autoconnect = {
       enable = true;
       package = cfg.package;
+      extraTailscaleArgs = [ "--operator=caddy" ];
+      tailscaleDomain = cfg.tailscaleDomain;
     };
 
     systemd.services.tailscale-serve = {
@@ -53,15 +61,9 @@ in
         sleep 15
 
         # expose service
-        service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("Web")')"
-        if [ $service_active == true ]; then
-          url="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r '.Web[][][].Proxy')"
-          if ! [[ $url =~ ${toString cfg.port} ]]; then
-            ${cfg.package}/bin/tailscale serve --remove /
-            ${cfg.package}/bin/tailscale serve / proxy ${toString cfg.port}
-          fi
-        else
-          ${cfg.package}/bin/tailscale serve / proxy ${toString cfg.port}
+        service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("TCP")')"
+        if [ $service_active == false ]; then
+          ${cfg.package}/bin/tailscale serve tcp 443
         fi
       '' + (if cfg.funnel then ''
         # activate funnel
@@ -72,6 +74,15 @@ in
       '' else ''
         ${cfg.package}/bin/tailscale serve funnel off
       '');
+    };
+
+    services.caddy = {
+      enable = true;
+      extraConfig = ''
+        ${config.networking.hostName}.${cfg.tailscaleDomain}
+
+        reverse_proxy :${toString cfg.port}
+      '';
     };
 
   };
