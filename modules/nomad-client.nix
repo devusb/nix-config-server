@@ -73,6 +73,7 @@ in
       extraConfig = {
         datacenter = cfg.datacenter;
         retry_join = cfg.servers;
+        ports.grpc = 8502;
       };
     };
 
