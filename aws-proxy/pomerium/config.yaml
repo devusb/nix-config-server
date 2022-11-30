@@ -104,6 +104,7 @@ routes:
   - from: https://unifi.devusb.us
     to: https://192.168.20.105:8443
     tls_skip_verify: true
+    allow_websockets: true
     policy:
       - allow:
           and:
