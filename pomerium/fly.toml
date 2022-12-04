@@ -12,7 +12,7 @@ processes = []
   auto_rollback = true
 
 [mounts]
-  destination = "/tailscale"
+  destination = "/data"
   source = "pomerium_data"
 
 [[services]]
@@ -21,3 +21,8 @@ processes = []
 
   [[services.ports]]
     port = "443"
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 1000
+    soft_limit = 1000
