@@ -64,6 +64,12 @@
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
         };
+        pomerium =
+          let
+            system = "x86_64-linux";
+            pkgs = legacyPackages.${system};
+          in
+            pkgs.dockerTools.buildLayeredImage (import ./pomerium pkgs);
       };
 
       # colmena targets

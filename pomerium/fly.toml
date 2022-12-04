@@ -1,0 +1,23 @@
+# fly.toml file generated for pomerium-proxy on 2022-12-03T23:49:16-06:00
+
+app = "pomerium-proxy"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[mounts]
+  destination = "/tailscale"
+  source = "pomerium_data"
+
+[[services]]
+  internal_port = 443
+  protocol = "tcp"
+
+  [[services.ports]]
+    port = "443"
