@@ -51,4 +51,6 @@ with lib;
     htop
   ];
 
+  networking.enableIPv6 = false;
+
 }

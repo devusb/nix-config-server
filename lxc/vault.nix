@@ -13,7 +13,6 @@
 
   services.tailscale-serve = {
     enable = true;
-    package = pkgs.tailscale-unstable;
     port = 8200;
   };
 

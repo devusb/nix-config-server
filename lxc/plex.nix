@@ -16,7 +16,6 @@ in
 
   services.tailscale-serve = {
     enable = true;
-    package = pkgs.tailscale-unstable;
     port = 32400;
   };
 
