@@ -69,7 +69,7 @@
             system = "x86_64-linux";
             pkgs = legacyPackages.${system};
           in
-            pkgs.dockerTools.buildLayeredImage (import ./pomerium pkgs);
+          pkgs.dockerTools.buildLayeredImage (import ./pomerium pkgs);
       };
 
       # colmena targets
@@ -128,11 +128,6 @@
           imports = [
             ./lxc/template.nix
             ./lxc/vault.nix
-          ];
-        };
-        aws-proxy = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            ./aws-proxy
           ];
         };
         router = { name, nodes, pkgs, modulesPath, lib, ... }: {

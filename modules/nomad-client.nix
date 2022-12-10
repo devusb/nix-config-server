@@ -38,6 +38,12 @@ in
 
   config = mkIf cfg.enable {
 
+    # tailscale
+    services.tailscale-autoconnect = {
+      enable = true;
+    };
+    systemd.services.tailscaled.wantedBy = [ "docker.service" "nomad.service" "consul.service" ];
+
     services.nomad = {
       enable = true;
       dropPrivileges = false;

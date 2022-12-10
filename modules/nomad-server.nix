@@ -39,6 +39,13 @@ in
 
   config = mkIf cfg.enable {
 
+    # tailscale
+    services.tailscale-autoconnect = {
+      enable = true;
+      extraTailscaleArgs = [ "--operator=caddy" ];
+    };
+    systemd.services.tailscaled.wantedBy = [ "docker.service" "nomad.service" "consul.service" ];
+
     sops.secrets.nomad = {
       sopsFile = ../secrets/nomad.yaml;
     };

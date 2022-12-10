@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  pomeriumConfig = pkgs.writeText "config.yaml" (builtins.readFile ../aws-proxy/pomerium/config.yaml);
+  pomeriumConfig = pkgs.writeText "config.yaml" (builtins.readFile ./config.yaml);
   redisConfig = pkgs.writeText "redis.conf" ''
     dir /data
   '';
