@@ -68,7 +68,6 @@ in
         };
         client = {
           enabled = true;
-          network_interface = cfg.interface;
         };
         vault = {
           enabled = true;
