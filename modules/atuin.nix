@@ -10,8 +10,6 @@ in
     services.atuin = {
       enable = mkEnableOption (mdDoc "Enable server for shell history sync with atuin.");
 
-      package = mkPackageOption pkgs "atuin" { };
-
       openRegistration = mkOption {
         type = types.bool;
         default = true;
@@ -65,7 +63,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/atuin server start";
+        ExecStart = "${pkgs.atuin}/bin/atuin server start";
         RuntimeDirectory = "atuin";
         RuntimeDirectoryMode = "0700";
         DynamicUser = true;
@@ -74,7 +72,7 @@ in
       environment = {
         ATUIN_HOST = cfg.host;
         ATUIN_PORT = toString cfg.port;
-        ATUIN_OPEN_REGISTRATION = if cfg.openRegistration then "true" else "false";
+        ATUIN_OPEN_REGISTRATION = boolToString cfg.openRegistration;
         ATUIN_DB_URI = "postgresql:///atuin";
         ATUIN_PATH = cfg.path;
         ATUIN_CONFIG_DIR = "/run/atuin";
