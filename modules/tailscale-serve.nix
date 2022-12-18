@@ -86,6 +86,7 @@ in
     };
 
     systemd.services.tailscaled.wants = [ "caddy.service" ];
+    systemd.services.tailscaled.after = [ "caddy.service" ];
 
   };
 }
