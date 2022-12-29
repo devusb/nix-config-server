@@ -42,9 +42,9 @@
           pkgs = legacyPackages."x86_64-linux";
           format = "proxmox-lxc";
         };
-        router = nixos-generators.nixosGenerate {
+        sophia = nixos-generators.nixosGenerate {
           modules = [
-            ./router
+            ./hosts/sophia
           ];
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
@@ -55,11 +55,11 @@
             pkgs = legacyPackages.${system};
           in
           blocky-tailscale.packages.${system}.blocky-tailscale.override {
-            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./blocky-fly/blocky-config.nix { }));
+            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./images/blocky-fly/blocky-config.nix { }));
           };
         gaia = nixos-generators.nixosGenerate {
           modules = [
-            ./gaia
+            ./hosts/gaia
           ];
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
@@ -69,7 +69,7 @@
             system = "x86_64-linux";
             pkgs = legacyPackages.${system};
           in
-          pkgs.dockerTools.buildLayeredImage (import ./pomerium pkgs);
+          pkgs.dockerTools.buildLayeredImage (import ./images/pomerium pkgs);
       };
 
       # colmena targets
@@ -77,7 +77,7 @@
         meta = {
           nixpkgs = legacyPackages."x86_64-linux";
           nodeNixpkgs = {
-            router = legacyPackages."aarch64-linux";
+            sophia = legacyPackages."aarch64-linux";
             gaia0 = legacyPackages."aarch64-linux";
             gaia1 = legacyPackages."aarch64-linux";
           };
@@ -129,24 +129,24 @@
             ./lxc/vault.nix
           ];
         };
-        router = { name, nodes, pkgs, modulesPath, lib, ... }: {
+        sophia = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
-            ./router/colmena.nix
-            ./router
+            ./hosts/sophia/colmena.nix
+            ./hosts/sophia
           ];
         };
 
         # rpi cluster
         gaia0 = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
-            ./gaia
-            ./gaia/gaia0.nix
+            ./hosts/gaia
+            ./hosts/gaia/gaia0.nix
           ];
         };
         gaia1 = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
-            ./gaia
-            ./gaia/gaia1.nix
+            ./hosts/gaia
+            ./hosts/gaia/gaia1.nix
           ];
         };
       };

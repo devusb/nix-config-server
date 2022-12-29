@@ -76,7 +76,7 @@ with lib;
   };
   services.blocky = {
     enable = true;
-    settings = import ../blocky-fly/blocky-config.nix { };
+    settings = import ../../images/blocky-fly/blocky-config.nix { };
   };
   systemd.services.blocky.after = [ "network-online.target" "unbound.service" ];
   systemd.services.blocky.wants = [ "network-online.target" "unbound.service" ];
