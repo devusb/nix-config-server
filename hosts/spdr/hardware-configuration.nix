@@ -26,18 +26,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var/log" =
-    {
-      device = "rpool/local/log";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    {
-      device = "rpool/safe/home";
-      fsType = "zfs";
-    };
-
   fileSystems."/persist" =
     {
       device = "rpool/safe/persist";

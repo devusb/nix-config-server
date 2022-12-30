@@ -10,13 +10,16 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
     blocky-tailscale = {
       url = "github:devusb/blocky-tailscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, nixos-generators, sops-nix, blocky-tailscale, ... }@inputs:
+  outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" ];
@@ -85,6 +88,7 @@
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             sops-nix.nixosModules.sops
+            impermanence.nixosModule
             ./modules/tailscale-autoconnect.nix
             ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix

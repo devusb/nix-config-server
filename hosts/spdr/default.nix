@@ -14,7 +14,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 5;
+  boot.loader.timeout = 10;
 
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
@@ -25,10 +25,31 @@
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
   '';
-  environment.etc = {
-    nixos.source = "/persist/etc/nixos";
-    NIXOS.source = "/persist/etc/NIXOS";
-    machine-id.source = "/persist/etc/machine-id";
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    directories = [
+      "/etc/nixos"
+      "/var/lib/tailscale"
+      "/var/lib/plex"
+      "/var/log"
+      "/etc/NetworkManager/system-connections"
+      "/var/lib/systemd/coredump"
+    ];
+    files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+    ];
+    users.mhelton = {
+      directories = [
+        { directory = ".ssh"; mode = "0700"; }
+      ];
+      files = [
+        ".bash_history"
+      ];
+    };
   };
 
   # networking
@@ -47,7 +68,6 @@
     enable = true;
     extraTailscaleArgs = [ "--advertise-exit-node" "--accept-routes" ];
   };
-  systemd.services.tailscaled.serviceConfig.BindPaths = "/persist/var/lib/tailscale:/var/lib/tailscale";
 
   users.users.mhelton = {
     isNormalUser = true;
@@ -60,11 +80,11 @@
     enable = true;
     hostKeys = [
       {
-        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        path = "/etc/ssh/ssh_host_ed25519_key";
         type = "ed25519";
       }
       {
-        path = "/persist/etc/ssh/ssh_host_rsa_key";
+        path = "/etc/ssh/ssh_host_rsa_key";
         type = "rsa";
         bits = 4096;
       }
@@ -89,7 +109,7 @@
 
   services.plex = {
     enable = true;
-    dataDir = "/persist/var/lib/plex";
+    dataDir = "/var/lib/plex";
     openFirewall = true;
     package = pkgs.plexpass;
   };
