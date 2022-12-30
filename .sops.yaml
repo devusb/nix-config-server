@@ -15,6 +15,7 @@ keys:
   - &vault age150kczuryvnf82cfwdrph7tekxctmwe2nnhmefw7gs6f6sl4n53ts5d7yve
   - &gaia0 age1wauv59se5a8vmjjqznnn462mlg28g8af2vwuc4zzcndmf4k48gysng4cws
   - &gaia1 age13w7crjx0lqnlrugsxq28hvppcspgcn7zy9q20zuad53uzw8jfqcshcgnvj
+  - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
@@ -31,3 +32,4 @@ creation_rules:
       - *vault
       - *gaia0
       - *gaia1
+      - *spdr

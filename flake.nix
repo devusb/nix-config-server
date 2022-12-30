@@ -149,6 +149,13 @@
             ./hosts/gaia/gaia1.nix
           ];
         };
+
+        # spdr
+        spdr = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./hosts/spdr
+          ];
+        };
       };
     };
 }
