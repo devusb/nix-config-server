@@ -79,6 +79,14 @@
     htop
   ];
 
+  # monitoring
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+    };
+  };
+
   services.plex = {
     enable = true;
     dataDir = "/persist/var/lib/plex";
