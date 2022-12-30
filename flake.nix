@@ -93,42 +93,51 @@
           ];
         };
 
+        # lxc
         plex = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/plex.nix
           ];
         };
         arr = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/arr.nix
           ];
         };
         unifi = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/unifi.nix
           ];
         };
         atuin = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/atuin.nix
           ];
         };
         fileshare = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/fileshare.nix
           ];
         };
         vault = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
           imports = [
             ./lxc/template.nix
             ./lxc/vault.nix
           ];
         };
+
+        # router
         sophia = { name, nodes, pkgs, modulesPath, lib, ... }: {
           imports = [
             ./hosts/sophia/colmena.nix
@@ -138,12 +147,14 @@
 
         # rpi cluster
         gaia0 = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "gaia" ];
           imports = [
             ./hosts/gaia
             ./hosts/gaia/gaia0.nix
           ];
         };
         gaia1 = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "gaia" ];
           imports = [
             ./hosts/gaia
             ./hosts/gaia/gaia1.nix
