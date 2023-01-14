@@ -14,6 +14,7 @@
   services.tailscale-serve = {
     enable = true;
     port = 8080;
+    funnel = true;
   };
 
   sops.secrets.attic_secret = {
