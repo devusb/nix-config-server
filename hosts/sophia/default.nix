@@ -296,6 +296,10 @@ with lib;
         hardware ethernet 42:B5:CC:D5:0F:37;
         fixed-address 192.168.20.103;
       }
+      host attic {
+        hardware ethernet B6:E3:2E:6C:E0:76;
+        fixed-address 192.168.20.106;
+      }
     '';
     interfaces = [ "lan" "server" "guest" "mgmt" ];
   };

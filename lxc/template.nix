@@ -6,7 +6,7 @@
 
   proxmoxLXC.manageHostName = true;
 
-  system.stateVersion = "22.05";
+  system.stateVersion = lib.mkDefault "22.05";
   networking.firewall.enable = false;
   time.timeZone = "America/Chicago";
 

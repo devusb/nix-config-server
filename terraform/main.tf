@@ -321,3 +321,49 @@ resource "proxmox_lxc" "vault" {
 
   ssh_public_keys = local.ssh_key
 }
+
+resource "proxmox_lxc" "attic" {
+  target_node  = "r2d2"
+  hostname     = "attic"
+  ostemplate   = "local:vztmpl/nixos-system-unstable-112222.tar.xz"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = "true"
+
+  memory = 2048
+  swap   = 4096
+  cores  = 4
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "10G"
+  }
+
+  mountpoint {
+    key  = "0"
+    slot = 0
+    # uncomment below to init new instance
+    #storage = "/r2d2_0/nix-cache"
+    storage = ""
+    volume  = "/r2d2_0/nix-cache"
+    mp      = "/nix-cache"
+    size    = "256G"
+  }
+
+  network {
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
+    firewall = false
+    hwaddr   = "B6:E3:2E:6C:E0:76"
+  }
+
+  features {
+    nesting = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}

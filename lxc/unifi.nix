@@ -24,7 +24,7 @@
   services.unifi = {
     enable = true;
     unifiPackage = pkgs.unifi6;
-    
+
     # temporarily add old mongo until unifi controller database upgraded per https://github.com/NixOS/nixpkgs/pull/207382#issuecomment-1371303817
     mongodbPackage = pkgs.stable.mongodb-3_4;
   };

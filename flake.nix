@@ -17,9 +17,13 @@
       url = "github:devusb/blocky-tailscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    attic = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, ... }@inputs:
+  outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" ];
@@ -89,6 +93,7 @@
           imports = [
             sops-nix.nixosModules.sops
             impermanence.nixosModule
+            attic.nixosModules.atticd
             ./modules/tailscale-autoconnect.nix
             ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix
@@ -138,6 +143,13 @@
           imports = [
             ./lxc/template.nix
             ./lxc/vault.nix
+          ];
+        };
+        attic = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
+          imports = [
+            ./lxc/template.nix
+            ./lxc/attic.nix
           ];
         };
 
