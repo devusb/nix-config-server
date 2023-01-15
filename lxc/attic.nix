@@ -28,6 +28,12 @@
         type = "local";
         path = "/nix-cache";
       };
+      chunking = {
+        nar-size-threshold = 65536;
+        min-size = 16384;
+        avg-size = 65536;
+        max-size = 262144;
+      };
     };
   };
   systemd.services.atticd.serviceConfig.ReadWritePaths = "/nix-cache";

@@ -19,7 +19,6 @@
     };
     attic = {
       url = "github:zhaofengli/attic";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
