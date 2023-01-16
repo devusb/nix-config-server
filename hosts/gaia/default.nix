@@ -31,7 +31,7 @@ with lib;
 
   networking.firewall.enable = false;
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
   time.timeZone = "America/Chicago";
 
   nix = {
@@ -50,7 +50,5 @@ with lib;
     curl
     htop
   ];
-
-  networking.enableIPv6 = false;
 
 }

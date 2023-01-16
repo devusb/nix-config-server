@@ -13,8 +13,7 @@ keys:
   - &atuin age1v808y4su2d9yehped4mahc2cgs56x9eeg7kgcwltg9k0vgqx8vxqrymgh3
   - &fileshare age1p2au0z6k7fnca8pl3p8px4ckt676ap43x78ud89ew5dux7p6r4yqhyqe6l
   - &vault age150kczuryvnf82cfwdrph7tekxctmwe2nnhmefw7gs6f6sl4n53ts5d7yve
-  - &gaia0 age1wauv59se5a8vmjjqznnn462mlg28g8af2vwuc4zzcndmf4k48gysng4cws
-  - &gaia1 age13w7crjx0lqnlrugsxq28hvppcspgcn7zy9q20zuad53uzw8jfqcshcgnvj
+  - &gaia0 age1klyhch983y7as7xnceltplys58lhmpu3w0qpy5gf0nmay6fjhadspml7nf
   - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
   - &attic age19e4mghy3fh2ejz64hc7038t5thjddwk5rjlad4wekg35cvyy5ses2ve9q8
 creation_rules:
@@ -32,6 +31,5 @@ creation_rules:
       - *fileshare
       - *vault
       - *gaia0
-      - *gaia1
       - *spdr
       - *attic

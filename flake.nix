@@ -168,13 +168,6 @@
             ./hosts/gaia/gaia0.nix
           ];
         };
-        gaia1 = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          deployment.tags = [ "gaia" ];
-          imports = [
-            ./hosts/gaia
-            ./hosts/gaia/gaia1.nix
-          ];
-        };
 
         # spdr
         spdr = { name, nodes, pkgs, modulesPath, lib, ... }: {
