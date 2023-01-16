@@ -60,6 +60,35 @@ with lib;
     };
   };
 
+  services.journald.extraConfig = ''
+    Storage=volatile
+  '';
+  services.promtail = with lib; {
+    enable = true;
+    configuration = {
+      server = {
+        http_listen_port = 9080;
+        grpc_listen_port = 0;
+      };
+      clients = singleton { url = "http://192.168.20.133:3100/loki/api/v1/push"; };
+      scrape_configs = singleton {
+        job_name = "sophia-journal";
+        journal = {
+          json = true;
+          max_age = "12h";
+          path = "/run/log/journal";
+          labels = {
+            job = "sophia-journal";
+          };
+        };
+        relabel_configs = singleton {
+          source_labels = singleton "__journal__systemd_unit";
+          target_label = "unit";
+        };
+      };
+    };
+  };
+
   # DNS
   services.unbound = {
     enable = true;
