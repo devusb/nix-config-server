@@ -20,4 +20,27 @@
     };
   };
 
+  sops.secrets."zigbee2mqtt.yaml" = {
+    sopsFile = ../../secrets/zigbee2mqtt.yaml;
+    owner = "zigbee2mqtt";
+  };
+  services.zigbee2mqtt = {
+    enable = true;
+    settings = {
+      homeassistant = true;
+      frontend = true;
+      serial = {
+        port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_281736b2e112ec118bd021c7bd930c07-if00-port0";
+      };
+      mqtt = {
+        server = "mqtt://hass:1883";
+        user = "!${config.sops.secrets."zigbee2mqtt.yaml".path} user";
+        password = "!${config.sops.secrets."zigbee2mqtt.yaml".path} password";
+      };
+    };
+  };
+  systemd.services.zigbee2mqtt = {
+    serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ];
+  };
+
 }
