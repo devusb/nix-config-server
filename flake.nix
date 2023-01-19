@@ -85,7 +85,6 @@
           nodeNixpkgs = {
             sophia = legacyPackages."aarch64-linux";
             gaia0 = legacyPackages."aarch64-linux";
-            gaia1 = legacyPackages."aarch64-linux";
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
