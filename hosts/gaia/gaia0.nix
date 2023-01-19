@@ -11,6 +11,14 @@
 
   services.tailscale-autoconnect.enable = true;
 
+  # monitoring
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     zwave-js-ui = {
       image = "zwavejs/zwave-js-ui:8.6.3";
