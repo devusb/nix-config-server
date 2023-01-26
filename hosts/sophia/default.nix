@@ -109,6 +109,20 @@ with lib;
   };
   systemd.services.blocky.after = [ "network-online.target" "unbound.service" ];
   systemd.services.blocky.wants = [ "network-online.target" "unbound.service" ];
+  systemd.services.blocky-check = {
+    description = "checking that ad-blocking is working";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      if [[ $(${pkgs.dig}/bin/dig doubleclick.net +short) != "0.0.0.0" ]]; then systemctl restart blocky; fi
+    '';
+  };
+  systemd.timers.blocky-check = {
+    description = "checking that ad-blocking is working";
+    timerConfig = {
+      OnBootSec = "10min";
+    };
+    wantedBy = [ "timers.target" ];
+  };
 
 
   # router configuration
