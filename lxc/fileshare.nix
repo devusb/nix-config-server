@@ -16,15 +16,20 @@
       isNormalUser = true;
       home = "/mnt/homes/mhelton";
       uid = 1101;
+      homeMode = "755";
     };
     users.ilona = {
       isNormalUser = true;
       home = "/mnt/homes/ilona";
       uid = 1102;
+      homeMode = "755";
     };
   };
 
-  services.tailscale-autoconnect.enable = true;
+  services.tailscale-serve = {
+    enable = true;
+    port = 8384;
+  };
 
   services.promtail = with lib; {
     enable = true;
@@ -115,6 +120,25 @@
         "guest ok" = "no";
         "create mask" = "0777";
         "directory mask" = "0777";
+      };
+    };
+  };
+
+  services.syncthing = {
+    enable = true;
+    extraOptions = {
+      gui.insecureSkipHostcheck = true;
+      options.relaysEnabled = false;
+      options.globalAnnounceEnabled = false;
+    };
+    folders = {
+      ryujinx = {
+        path = "/mnt/homes/mhelton/Sync/ryujinx";
+        type = "receiveonly";
+        versioning = {
+          type = "simple";
+          params.keep = "10";
+        };
       };
     };
   };
