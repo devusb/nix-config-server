@@ -29,7 +29,7 @@
         path = "/nix-cache";
       };
       chunking = {
-        nar-size-threshold = 1;
+        nar-size-threshold = 64 * 1024;
         min-size = 65536;
         avg-size = 131072;
         max-size = 262144;
