@@ -63,16 +63,16 @@ in
         # expose service
         service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("TCP")')"
         if [ $service_active == false ]; then
-          ${cfg.package}/bin/tailscale serve tcp 443
+          ${cfg.package}/bin/tailscale serve tcp:443 tcp://localhost:443 on
         fi
       '' + (if cfg.funnel then ''
         # activate funnel
-        funnel_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
+        funnel_active="$(${cfg.package}/bin/tailscale funnel status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
         if [ $funnel_active == false ]; then
-          ${cfg.package}/bin/tailscale serve funnel on
+          ${cfg.package}/bin/tailscale funnel 443 on
         fi
       '' else ''
-        ${cfg.package}/bin/tailscale serve funnel off
+        ${cfg.package}/bin/tailscale funnel 443 off
       '');
     };
 
