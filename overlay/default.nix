@@ -13,14 +13,4 @@
     });
   };
 
-  pomerium = prev.pomerium.overrideAttrs (old: rec {
-    version = "0.21.3";
-    src = prev.fetchFromGitHub {
-      owner = "pomerium";
-      repo = "pomerium";
-      rev = "v${version}";
-      sha256 = "sha256-OB44/6ha72882SzaMpotchU8RrU10rvUL58sCiCKcok=";
-    };
-  });
-
 }
