@@ -97,9 +97,9 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /mnt/media 192.168.20.0/24(rw,async,no_subtree_check,no_root_squash,insecure)
+      /mnt/media 192.168.0.0/16(rw,async,no_subtree_check,no_root_squash,insecure)
       /mnt/backup 192.168.0.0/16(rw,async,no_subtree_check,no_root_squash,insecure)
-      /mnt/homes 192.168.20.0/24(rw,async,subtree_check,no_root_squash,crossmnt)
+      /mnt/homes 192.168.0.0/16(rw,async,subtree_check,no_root_squash,crossmnt)
     '';
   };
 
