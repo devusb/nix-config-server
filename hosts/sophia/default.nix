@@ -162,13 +162,14 @@ with lib;
       };
       extraCommands = ''
         iptables -I FORWARD 1 -i guest -d 192.168.0.0/16 -j DROP
+        iptables -I FORWARD 1 -i isolated -o wan0 -j DROP
       '';
     };
 
     nat = {
       enable = true;
       externalInterface = "wan0";
-      internalInterfaces = [ "lan" "server" "guest" "mgmt" ];
+      internalInterfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
     };
 
     vlans = {
@@ -182,6 +183,10 @@ with lib;
       };
       guest = {
         id = 30;
+        interface = "enp1s0";
+      };
+      isolated = {
+        id = 40;
         interface = "enp1s0";
       };
       mgmt = {
@@ -206,6 +211,12 @@ with lib;
       guest = {
         ipv4.addresses = [
           { address = "192.168.30.1"; prefixLength = 24; }
+        ];
+        useDHCP = false;
+      };
+      isolated = {
+        ipv4.addresses = [
+          { address = "192.168.40.1"; prefixLength = 23; }
         ];
         useDHCP = false;
       };
@@ -244,6 +255,14 @@ with lib;
           option subnet-mask 255.255.255.0;
           option routers 192.168.30.1;
           interface guest;
+      }
+
+      subnet 192.168.40.0 netmask 255.255.254.0 {
+          option domain-name-servers 192.168.40.1;
+          range 192.168.40.200 192.168.41.254;
+          option subnet-mask 255.255.254.0;
+          option routers 192.168.40.1;
+          interface isolated;
       }
 
       subnet 192.168.99.0 netmask 255.255.255.0 {
@@ -344,7 +363,7 @@ with lib;
         fixed-address 192.168.20.106;
       }
     '';
-    interfaces = [ "lan" "server" "guest" "mgmt" ];
+    interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
   };
 
 }
