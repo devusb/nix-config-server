@@ -33,7 +33,6 @@ with lib;
   time.timeZone = "America/Chicago";
 
   nix = {
-    package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -148,7 +147,7 @@ with lib;
       enable = true;
       allowInterfaces = [ "wan0" ];
     };
-    usePredictableInterfaceNames = true;
+    usePredictableInterfaceNames = lib.mkDefault true;
 
     firewall = {
       enable = true;

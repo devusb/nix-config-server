@@ -175,6 +175,16 @@
           ];
         };
       };
+
+      tests = {
+        sophia = nixpkgs.lib.nixos.runTest {
+          imports = [
+            ./hosts/sophia/tests.nix
+          ];
+          hostPkgs = legacyPackages."x86_64-linux";
+        };
+      };
+
     };
 }
 
