@@ -25,8 +25,10 @@ with lib;
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
   };
 
   system.stateVersion = "22.05";
@@ -228,141 +230,89 @@ with lib;
     };
   };
 
-  services.dhcpd4 = {
-    enable = true;
-    extraConfig = ''
-      subnet 192.168.10.0 netmask 255.255.254.0 {
-          option domain-name-servers 192.168.10.1;
-          range 192.168.10.50 192.168.11.254;
-          option subnet-mask 255.255.254.0;
-          option routers 192.168.10.1;
-          interface lan;
-      }
-
-      subnet 192.168.20.0 netmask 255.255.254.0 {
-          option domain-name-servers 192.168.20.1;
-          range 192.168.20.100 192.168.21.254;
-          option subnet-mask 255.255.254.0;
-          option routers 192.168.20.1;
-          interface server;
-          option vendor-encapsulated-options 01:04:c0:a8:14:69;
-      }
-
-      subnet 192.168.30.0 netmask 255.255.255.0 {
-          option domain-name-servers 192.168.30.1;
-          range 192.168.30.2 192.168.30.254;
-          option subnet-mask 255.255.255.0;
-          option routers 192.168.30.1;
-          interface guest;
-      }
-
-      subnet 192.168.40.0 netmask 255.255.254.0 {
-          option domain-name-servers 192.168.40.1;
-          range 192.168.40.200 192.168.41.254;
-          option subnet-mask 255.255.254.0;
-          option routers 192.168.40.1;
-          interface isolated;
-      }
-
-      subnet 192.168.99.0 netmask 255.255.255.0 {
-          option domain-name-servers 192.168.99.1;
-          range 192.168.99.200 192.168.99.254;
-          option subnet-mask 255.255.255.0;
-          option routers 192.168.99.1;
-          interface mgmt;
-          option vendor-encapsulated-options 01:04:c0:a8:14:69;
-      }
-
-      host docker {
-        hardware ethernet 5a:33:e2:da:ec:be;
-        fixed-address 192.168.20.133;
-      }
-      host fileshare {
-        hardware ethernet 3a:c9:f7:cb:0a:b3;
-        fixed-address 192.168.20.131;
-      }
-      host gaia0 {
-        hardware ethernet dc:a6:32:43:d4:5e;
-        fixed-address 192.168.20.138;
-      }
-      host gaia1 {
-        hardware ethernet e4:5f:01:9c:c9:8c;
-        fixed-address 192.168.20.139;
-      }
-      host nfs-export {
-        hardware ethernet e6:38:e7:50:fa:fb;
-        fixed-address 192.168.20.137;
-      }
-      host plex {
-        hardware ethernet f6:c3:6b:61:f7:fb;
-        fixed-address 192.168.20.130;
-      }
-      host radarr {
-        hardware ethernet 46:23:ef:27:7d:9a;
-        fixed-address 192.168.20.135;
-      }
-      host unifi {
-        hardware ethernet 36:0C:72:1C:83:84;
-        fixed-address 192.168.20.105;
-      }
-      host GR_Lamp {
-        hardware ethernet b0:be:76:ca:dc:9f;
-        fixed-address 192.168.10.131;
-      }
-      host HDHR-1068A2E8 {
-        hardware ethernet 00:18:dd:06:8a:2e;
-        fixed-address 192.168.10.137;
-      }
-      host homeassistant {
-        hardware ethernet 7A:10:41:6E:3E:A4;
-        fixed-address 192.168.10.119;
-      }
-      host Peloton-Fan {
-        hardware ethernet 3c:84:6a:b4:93:4f;
-        fixed-address 192.168.10.174;
-      }
-      host RMMINI-18-6b-74 {
-        hardware ethernet 78:0f:77:18:6b:74;
-        fixed-address 192.168.10.120;
-      }
-      host Tree {
-        hardware ethernet b0:be:76:ca:de:06;
-        fixed-address 192.168.10.130;
-      }
-      host Wemo {
-        hardware ethernet 14:91:82:08:91:21;
-        fixed-address 192.168.10.106;
-      }
-      host tasmota-260128-0296 {
-        hardware ethernet 98:CD:AC:26:01:28;
-        fixed-address 192.168.10.140;
-      }
-      host ESP_DE9CD6 {
-        hardware ethernet a4:cf:12:de:9c:d6;
-        fixed-address 192.168.10.153;
-      }
-      host blocky {
-        hardware ethernet 9A:A4:BB:CF:29:D5;
-        fixed-address 192.168.20.120;
-      }
-      host arr {
-        hardware ethernet 22:71:BA:E3:0B:6C;
-        fixed-address 192.168.20.101;
-      }
-      host atuin {
-        hardware ethernet 36:77:FD:22:7E:9C;
-        fixed-address 192.168.20.102;
-      }
-      host vault {
-        hardware ethernet 42:B5:CC:D5:0F:37;
-        fixed-address 192.168.20.103;
-      }
-      host attic {
-        hardware ethernet B6:E3:2E:6C:E0:76;
-        fixed-address 192.168.20.106;
-      }
-    '';
-    interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+  services.kea = {
+    dhcp4 = {
+      enable = true;
+      settings = {
+        "interfaces-config" = {
+          interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+        };
+        "valid-lifetime" = 4000;
+        "subnet4" = [
+          {
+            subnet = "192.168.10.0/23";
+            pools = [{ pool = "192.168.10.50 - 192.168.11.254"; }];
+            "option-data" = [
+              { name = "domain-name-servers"; data = "192.168.10.1"; }
+              { name = "routers"; data = "192.168.10.1"; }
+            ];
+            "reservations" = [
+              { "hw-address" = "b0:be:76:ca:dc:9f"; "ip-address" = "192.168.10.131"; }
+              { "hw-address" = "00:18:dd:06:8a:2e"; "ip-address" = "192.168.10.137"; }
+              { "hw-address" = "7A:10:41:6E:3E:A4"; "ip-address" = "192.168.10.119"; }
+              { "hw-address" = "3c:84:6a:b4:93:4f"; "ip-address" = "192.168.10.174"; }
+              { "hw-address" = "78:0f:77:18:6b:74"; "ip-address" = "192.168.10.120"; }
+              { "hw-address" = "b0:be:76:ca:de:06"; "ip-address" = "192.168.10.130"; }
+              { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; }
+              { "hw-address" = "98:CD:AC:26:01:28"; "ip-address" = "192.168.10.140"; }
+              { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; }
+            ];
+          }
+          {
+            subnet = "192.168.20.0/23";
+            pools = [{ pool = "192.168.20.100 - 192.168.21.254"; }];
+            "option-data" = [
+              { name = "domain-name-servers"; data = "192.168.20.1"; }
+              { name = "routers"; data = "192.168.20.1"; }
+              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:69"; csv-format = false; }
+            ];
+            "reservations" = [
+              { "hw-address" = "5a:33:e2:da:ec:be"; "ip-address" = "192.168.20.133"; }
+              { "hw-address" = "3a:c9:f7:cb:0a:b3"; "ip-address" = "192.168.20.131"; }
+              { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; }
+              { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; }
+              { "hw-address" = "e6:38:e7:50:fa:fb"; "ip-address" = "192.168.20.137"; }
+              { "hw-address" = "f6:c3:6b:61:f7:fb"; "ip-address" = "192.168.20.130"; }
+              { "hw-address" = "46:23:ef:27:7d:9a"; "ip-address" = "192.168.20.135"; }
+              { "hw-address" = "36:0C:72:1C:83:84"; "ip-address" = "192.168.20.105"; }
+              { "hw-address" = "9A:A4:BB:CF:29:D5"; "ip-address" = "192.168.20.120"; }
+              { "hw-address" = "22:71:BA:E3:0B:6C"; "ip-address" = "192.168.20.101"; }
+              { "hw-address" = "36:77:FD:22:7E:9C"; "ip-address" = "192.168.20.102"; }
+              { "hw-address" = "42:B5:CC:D5:0F:37"; "ip-address" = "192.168.20.103"; }
+              { "hw-address" = "B6:E3:2E:6C:E0:76"; "ip-address" = "192.168.20.106"; }
+            ];
+          }
+          {
+            subnet = "192.168.30.0/24";
+            pools = [{ pool = "192.168.30.2 - 192.168.30.254"; }];
+            "option-data" = [
+              { name = "domain-name-servers"; data = "192.168.30.1"; }
+              { name = "routers"; data = "192.168.30.1"; }
+            ];
+            "reservations" = [ ];
+          }
+          {
+            subnet = "192.168.40.0/23";
+            pools = [{ pool = "192.168.40.200 - 192.168.41.254"; }];
+            "option-data" = [
+              { name = "domain-name-servers"; data = "192.168.40.1"; }
+              { name = "routers"; data = "192.168.40.1"; }
+            ];
+            "reservations" = [ ];
+          }
+          {
+            subnet = "192.168.99.0/24";
+            pools = [{ pool = "192.168.99.200 - 192.168.99.254"; }];
+            "option-data" = [
+              { name = "domain-name-servers"; data = "192.168.99.1"; }
+              { name = "routers"; data = "192.168.99.1"; }
+              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:69"; csv-format = false; }
+            ];
+            "reservations" = [ ];
+          }
+        ];
+      };
+    };
   };
 
 }
