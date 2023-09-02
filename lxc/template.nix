@@ -11,7 +11,7 @@
   time.timeZone = "America/Chicago";
 
   users.users.root.password = "nixos";
-  services.openssh.permitRootLogin = lib.mkDefault "yes";
+  services.openssh.settings.PermitRootLogin = lib.mkDefault "yes";
   services.getty.autologinUser = lib.mkDefault "root";
 
   # required to allow proxmox to set DNS
