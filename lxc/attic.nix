@@ -29,16 +29,26 @@
         path = "/nix-cache";
       };
       chunking = {
-        nar-size-threshold = 64 * 1024;
+        nar-size-threshold = 131072;
         min-size = 65536;
         avg-size = 131072;
         max-size = 262144;
       };
-      compression = {
-        type = "none";
-      };
+      database.url = "postgresql:///attic?host=/run/postgresql";
+      garbage-collection.interval = "14 days";
     };
   };
   systemd.services.atticd.serviceConfig.ReadWritePaths = "/nix-cache";
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "attic" ];
+    ensureUsers = [{
+      name = "atticd";
+      ensurePermissions = {
+        "DATABASE attic" = "ALL PRIVILEGES";
+      };
+    }];
+  };
 
 }
