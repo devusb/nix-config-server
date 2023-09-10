@@ -256,6 +256,7 @@ with lib;
               { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
               { "hw-address" = "98:CD:AC:26:01:28"; "ip-address" = "192.168.10.140"; hostname = "tasmota-260128-0296"; }
               { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
+              { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
             ];
           }
           {
