@@ -95,11 +95,11 @@ resource "proxmox_lxc" "unifi" {
 
   rootfs {
     storage = "local-zfs"
-    size    = "8G"
+    size    = "16G"
   }
   memory = 2048
   swap   = 1024
-  cores  = 1
+  cores  = 2
 
   network {
     name     = "eth0"
