@@ -150,6 +150,13 @@
             ./lxc/attic.nix
           ];
         };
+        miniflux = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
+          imports = [
+            ./lxc/template.nix
+            ./lxc/miniflux.nix
+          ];
+        };
 
         # router
         sophia = { name, nodes, pkgs, modulesPath, lib, ... }: {
