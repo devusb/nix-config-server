@@ -17,6 +17,7 @@ keys:
   - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
   - &attic age19e4mghy3fh2ejz64hc7038t5thjddwk5rjlad4wekg35cvyy5ses2ve9q8
   - &miniflux age18jr3phuw28jkmhxg220nnvp5sev6fs623uxylhnmfsed73tg5pvqzmydem
+  - &obsidian age1fcul2dn079vuw4jghlhyv075fq6qg3fmvkgdyaq3u2chwu3c3dqqw44hcn
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
@@ -35,3 +36,4 @@ creation_rules:
       - *spdr
       - *attic
       - *miniflux
+      - *obsidian

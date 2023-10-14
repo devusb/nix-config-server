@@ -396,5 +396,44 @@ resource "proxmox_lxc" "miniflux" {
     hwaddr   = "06:EF:31:76:DA:8B"
   }
 
+  features {
+    nesting = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}
+
+resource "proxmox_lxc" "obsidian" {
+  target_node  = "r2d2"
+  hostname     = "obsidian"
+  ostemplate   = "local:vztmpl/nixos-system-x86_64-linux-091723.tar.xz"
+  password     = "nixos"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = true
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "8G"
+  }
+  memory = 1024
+  swap   = 512
+  cores  = 1
+
+  network {
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
+    firewall = false
+    hwaddr   = "AE:74:B1:DB:DA:52"
+  }
+
+  features {
+    nesting = true
+  }
+
   ssh_public_keys = local.ssh_key
 }

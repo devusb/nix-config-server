@@ -157,6 +157,13 @@
             ./lxc/miniflux.nix
           ];
         };
+        obsidian = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
+          imports = [
+            ./lxc/template.nix
+            ./lxc/obsidian.nix
+          ];
+        };
 
         # router
         sophia = { name, nodes, pkgs, modulesPath, lib, ... }: {
