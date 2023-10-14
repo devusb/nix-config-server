@@ -76,4 +76,12 @@ in
     '';
   };
 
+  services.deployBackup = {
+    enable = true;
+    name = "obsidian";
+    files = [
+      "/var/lib/couchdb"
+    ];
+  };
+
 }
