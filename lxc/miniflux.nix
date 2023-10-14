@@ -24,7 +24,7 @@ in
   };
   services.miniflux = {
     enable = true;
-    adminCredentialsFile = "/run/secrets/admin_creds";
+    adminCredentialsFile = config.sops.secrets.admin_creds.path;
     config = {
       LISTEN_ADDR = "0.0.0.0:8080";
       AUTH_PROXY_HEADER = "X-Pomerium-Claim-Email";
