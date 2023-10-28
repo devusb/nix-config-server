@@ -126,18 +126,18 @@
 
   services.syncthing = {
     enable = true;
-    extraOptions = {
+    settings = {
       gui.insecureSkipHostcheck = true;
       options.relaysEnabled = false;
       options.globalAnnounceEnabled = false;
-    };
-    folders = {
-      ryujinx = {
-        path = "/mnt/homes/mhelton/Sync/ryujinx";
-        type = "receiveonly";
-        versioning = {
-          type = "simple";
-          params.keep = "10";
+      folders = {
+        ryujinx = {
+          path = "/mnt/homes/mhelton/Sync/ryujinx";
+          type = "receiveonly";
+          versioning = {
+            type = "simple";
+            params.keep = "10";
+          };
         };
       };
     };

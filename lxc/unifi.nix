@@ -23,8 +23,6 @@
 
   services.unifi = {
     enable = true;
-    unifiPackage = pkgs.unifi6;
-
-    mongodbPackage = pkgs.mongodb-4_4;
+    unifiPackage = pkgs.unifi;
   };
 }

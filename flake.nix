@@ -32,7 +32,10 @@
         import nixpkgs {
           inherit system;
           overlays = builtins.attrValues overlays;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            nvidia.acceptLicense = true;
+          };
         }
       );
     in

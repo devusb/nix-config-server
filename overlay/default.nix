@@ -5,12 +5,16 @@
 
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
-      version = "1.32.6.7468-07e0d4a7e";
+      version = "1.32.7.7621-871adbd44";
       src = prev.fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-        hash = "sha256-lKruSq9id+i65STx8YkVW5CQt8HPDylpBwMVUVt00Bg=";
+        hash = "sha256-ThKN1ZiuSt7+8O2xCCGDQm7CB2iv/uvzhKaxC4AnUWQ=";
       };
     });
   };
 
+  # spidermonkey seems incompatible with python311 due to deprecated file mode
+  spidermonkey_91 = prev.spidermonkey_91.override {
+    python3 = prev.python310;
+  };
 }
