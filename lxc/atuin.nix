@@ -20,6 +20,9 @@ in
     funnel = true;
   };
 
+  services.postgresql = {
+    package = pkgs.postgresql_14;
+  };
   services.atuin = {
     enable = true;
     host = "0.0.0.0";
