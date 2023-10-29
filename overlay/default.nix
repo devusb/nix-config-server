@@ -13,9 +13,6 @@
     });
   };
 
-  # make overall postgres default 14
-  postgresql = prev.postgresql_14;
-
   # spidermonkey seems incompatible with python311 due to deprecated file mode
   spidermonkey_91 = prev.spidermonkey_91.override {
     python3 = prev.python310;
