@@ -44,13 +44,14 @@ with lib;
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    micro
+    vim
     wget
     curl
     htop
     ethtool
     tcpdump
     conntrack-tools
+    speedtest-cli
   ];
 
   # monitoring
