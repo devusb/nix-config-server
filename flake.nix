@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.11";
+    nix-config = {
+      url = "github:devusb/nix-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +104,7 @@
             ./modules/deploy-backup.nix
             ./modules/nomad-server.nix
             ./modules/nomad-client.nix
+            ./modules/jellyplex-watched.nix
           ];
         };
 
@@ -109,6 +114,13 @@
           imports = [
             ./lxc/template.nix
             ./lxc/plex.nix
+          ];
+        };
+        jellyfin = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          deployment.tags = [ "lxc" ];
+          imports = [
+            ./lxc/template.nix
+            ./lxc/jellyfin.nix
           ];
         };
         arr = { name, nodes, pkgs, modulesPath, lib, ... }: {

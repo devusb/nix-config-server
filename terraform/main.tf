@@ -437,3 +437,49 @@ resource "proxmox_lxc" "obsidian" {
 
   ssh_public_keys = local.ssh_key
 }
+
+resource "proxmox_lxc" "jellyfin" {
+  target_node  = "r2d2"
+  hostname     = "jellyfin"
+  ostemplate   = "local:vztmpl/nixos-22_05-070322.tar.xz"
+  unprivileged = true
+  ostype       = "nixos"
+  cmode        = "console"
+  onboot       = "true"
+
+  memory = 8192
+  swap   = 4096
+  cores  = 4
+
+  rootfs {
+    storage = "local-zfs"
+    size    = "20G"
+  }
+
+  mountpoint {
+    key  = "0"
+    slot = 0
+    # uncomment below to init new instance
+    storage = "/r2d2_0/media"
+    #storage = ""
+    volume  = "/r2d2_0/media"
+    mp      = "/media"
+    size    = "256G"
+  }
+
+  network {
+    name     = "eth0"
+    bridge   = "vmbr0"
+    ip       = "dhcp"
+    tag      = 20
+    ip6      = "dhcp"
+    firewall = false
+    # hwaddr   = "F6:C3:6B:61:F7:FB"
+  }
+
+  features {
+    nesting = true
+  }
+
+  ssh_public_keys = local.ssh_key
+}
