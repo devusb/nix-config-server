@@ -31,6 +31,7 @@
       "/etc/nixos"
       "/var/lib/tailscale"
       "/var/lib/plex"
+      "/var/lib/jellyfin"
       "/var/log"
       "/etc/NetworkManager/system-connections"
       "/var/lib/systemd/coredump"
@@ -67,6 +68,10 @@
   services.tailscale-autoconnect = {
     enable = true;
     extraTailscaleArgs = [ "--advertise-exit-node" "--accept-routes" ];
+  };
+  services.tailscale-serve = {
+    enable = true;
+    port = 8096;
   };
 
   users.users.mhelton = {
@@ -112,6 +117,10 @@
     dataDir = "/var/lib/plex";
     openFirewall = true;
     package = pkgs.plexpass;
+  };
+
+  services.jellyfin = {
+    enable = true;
   };
 
 }
