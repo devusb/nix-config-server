@@ -59,20 +59,21 @@ in
       script = with pkgs; ''
         # handle first deployment case, wait for tailscale to be ready
         sleep 15
-
-        # expose service
         service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("TCP")')"
-        if [ $service_active == false ]; then
-          ${cfg.package}/bin/tailscale serve tcp:443 tcp://localhost:443 on
-        fi
-      '' + (if cfg.funnel then ''
-        # activate funnel
         funnel_active="$(${cfg.package}/bin/tailscale funnel status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
-        if [ $funnel_active == false ]; then
-          ${cfg.package}/bin/tailscale funnel 443 on
+      '' +
+      (if !cfg.funnel then ''
+        # deactivate funnel if it is currently active
+        # expose service if not active
+        if [[ $service_active == false || $funnel_active == true ]]; then
+          ${cfg.package}/bin/tailscale serve --bg --yes --tcp 443 443
         fi
       '' else ''
-        ${cfg.package}/bin/tailscale funnel 443 off
+        # if currently serving but not funneling
+        # if not funneling and not serving
+        if [[ ($service_active == true && $funnel_active == false) || $service_active == false ]]; then
+          ${cfg.package}/bin/tailscale funnel --bg --yes --tcp 443 443
+        fi
       '');
     };
 
