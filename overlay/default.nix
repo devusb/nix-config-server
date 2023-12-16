@@ -6,17 +6,19 @@
 
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
-      version = "1.32.7.7621-871adbd44";
+      version = "1.32.8.7639-fb6452ebf";
       src = prev.fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-        hash = "sha256-ThKN1ZiuSt7+8O2xCCGDQm7CB2iv/uvzhKaxC4AnUWQ=";
+        hash = "sha256-jdGVAdvm7kjxTP3CQ5w6dKZbfCRwSy9TrtxRHaV0/cs";
       };
     });
   };
 
-  # spidermonkey seems incompatible with python311 due to deprecated file mode
-  spidermonkey_91 = prev.spidermonkey_91.override {
-    python3 = prev.python310;
+  # https://github.com/NixOS/nixpkgs/pull/274063
+  zigbee2mqtt = prev.zigbee2mqtt.override {
+    buildNpmPackage = prev.buildNpmPackage.override {
+      nodejs = prev.nodejs_18;
+    };
   };
 
   # https://github.com/jellyfin/jellyfin/pull/10275
