@@ -97,11 +97,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vim
+    neovim
     wget
     git
-    micro
     htop
+    bottom
+    zellij
   ];
 
   # monitoring
