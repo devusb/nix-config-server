@@ -3,7 +3,17 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { inputs, config, lib, pkgs, ... }:
-
+let
+  secrets = [
+    "ts_key"
+    "jellyplex_creds"
+    "miniflux_creds"
+    "couchdb_admin"
+    "vault_unseal"
+    "attic_secret"
+    "cloudflare"
+  ];
+in
 {
   imports =
     [
@@ -19,8 +29,13 @@
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  sops.secrets.ts_key = {
-    sopsFile = ../../secrets/tailscale.yaml;
+  networking.nat.enable = true;
+  networking.nat.internalInterfaces = ["ve-+"];
+  networking.nat.externalInterface = "enp4s0";
+
+  sops = {
+    defaultSopsFile = ../../secrets/default.yaml;
+    secrets = lib.genAttrs secrets (_: { });
   };
 
   # tailscale
@@ -60,6 +75,18 @@
   ];
 
   services.openssh.enable = true;
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "devusb@devusb.us";
+    certs = {
+      "chopper.devusb.us" = {
+        domain = "*.chopper.devusb.us";
+        dnsProvider = "cloudflare";
+        environmentFile = config.sops.secrets.cloudflare.path;
+      };
+    };
+  };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
