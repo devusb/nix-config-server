@@ -19,6 +19,7 @@ keys:
   - &miniflux age18jr3phuw28jkmhxg220nnvp5sev6fs623uxylhnmfsed73tg5pvqzmydem
   - &obsidian age1fcul2dn079vuw4jghlhyv075fq6qg3fmvkgdyaq3u2chwu3c3dqqw44hcn
   - &jellyfin age1jxrv4vph55036gczwjulu4t0wp7tzacxtcjv9wfrve4fps3w7p2sds32s3
+  - &chopper age1swykyyzngx7zs4ttt6t32ru8yfg3gq3gamfc4ywzdwfdnjn5fqesxqk440
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
@@ -39,3 +40,4 @@ creation_rules:
       - *miniflux
       - *obsidian
       - *jellyfin
+      - *chopper

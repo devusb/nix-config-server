@@ -24,6 +24,10 @@
     attic = {
       url = "github:zhaofengli/attic";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, ... }@inputs:
@@ -99,6 +103,7 @@
             sops-nix.nixosModules.sops
             impermanence.nixosModule
             attic.nixosModules.atticd
+            inputs.disko.nixosModules.disko
             ./modules/tailscale-autoconnect.nix
             ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix
@@ -185,6 +190,14 @@
           imports = [
             ./hosts/sophia/colmena.nix
             ./hosts/sophia
+          ];
+        };
+
+        # server
+        chopper = { name, nodes, pkgs, modulesPath, lib, ... }: {
+          imports = [
+            ./hosts/chopper/colmena.nix
+            ./hosts/chopper
           ];
         };
 
