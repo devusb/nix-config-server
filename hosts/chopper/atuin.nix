@@ -1,4 +1,4 @@
-{ pkgs, config, ...}: {
+{ pkgs, config, ... }: {
   imports = [
     ../../modules/tailscale-serve.nix
   ];

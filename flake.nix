@@ -117,6 +117,7 @@
             ./modules/nomad-server.nix
             ./modules/nomad-client.nix
             ./modules/jellyplex-watched.nix
+            ./modules/go-simple-upload-server.nix
           ];
         };
 

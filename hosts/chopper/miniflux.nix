@@ -1,4 +1,4 @@
-{ pkgs, config, ...}: {
+{ pkgs, config, ... }: {
   services.miniflux = {
     enable = true;
     adminCredentialsFile = config.sops.secrets.miniflux_creds.path;
