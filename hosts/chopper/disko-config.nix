@@ -8,7 +8,7 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "64M";
+              size = "1G";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -17,7 +17,7 @@
               };
             };
             zfs = {
-              end = "-8G";
+              end = "-32G";
               content = {
                 type = "zfs";
                 pool = "zroot";
