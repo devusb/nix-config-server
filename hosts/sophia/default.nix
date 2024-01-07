@@ -282,6 +282,7 @@ with lib;
               { "hw-address" = "36:77:FD:22:7E:9C"; "ip-address" = "192.168.20.102"; hostname = "atuin"; }
               { "hw-address" = "42:B5:CC:D5:0F:37"; "ip-address" = "192.168.20.103"; hostname = "vault"; }
               { "hw-address" = "B6:E3:2E:6C:E0:76"; "ip-address" = "192.168.20.106"; hostname = "attic"; }
+              { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
             ];
           }
           {

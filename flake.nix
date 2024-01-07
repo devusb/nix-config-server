@@ -6,6 +6,10 @@
       url = "github:devusb/nix-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -96,6 +100,9 @@
           nodeNixpkgs = {
             sophia = legacyPackages."aarch64-linux";
             gaia0 = legacyPackages."aarch64-linux";
+          };
+          specialArgs = {
+            inherit inputs;
           };
         };
         defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {

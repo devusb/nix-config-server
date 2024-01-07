@@ -29,6 +29,11 @@ in
         description = mdDoc "Port for tailscale to direct traffic to (i.e. the upstream service)";
       };
 
+      authKeyFile = mkOption {
+        type = types.path;
+        example = "/run/secrets/tailscale_key";
+      };
+
       tailscaleDomain = mkOption {
         type = types.str;
         default = "springhare-egret.ts.net";
@@ -44,15 +49,11 @@ in
       enable = true;
       package = cfg.package;
       extraTailscaleArgs = [ "--operator=caddy" ];
-      tailscaleDomain = cfg.tailscaleDomain;
+      authKeyFile = cfg.authKeyFile;
     };
 
     systemd.services.tailscale-serve = {
       description = "Enable Tailscale serve";
-
-      after = [ "network-pre.target" "tailscaled.service" ];
-      wants = [ "network-pre.target" "tailscaled.service" ];
-      wantedBy = [ "multi-user.target" ];
 
       serviceConfig.Type = "oneshot";
 
@@ -75,6 +76,14 @@ in
           ${cfg.package}/bin/tailscale funnel --bg --yes --tcp 443 443
         fi
       '');
+    };
+
+    systemd.timers.tailscale-serve = {
+      description = "Automatic connection to Tailscale";
+      timerConfig = {
+        OnActiveSec = "20s";
+      };
+      wantedBy = [ "timers.target" ];
     };
 
     services.caddy = {

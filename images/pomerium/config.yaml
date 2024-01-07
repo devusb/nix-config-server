@@ -9,8 +9,8 @@ client_ca: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdDakNDQS9LZ0F3SUJBZ0lJVjVH
 log_level: info
 proxy_log_level: info
 
-databroker_storage_type: redis
-databroker_storage_connection_string: redis://localhost:6379/0
+# databroker_storage_type: redis
+# databroker_storage_connection_string: redis://localhost:6379/0
 
 jwt_claims_headers:
   - email
@@ -29,11 +29,6 @@ routes:
     allowed_users:
       - mhelton@gmail.com
     pass_identity_headers: true
-
-  - from: https://homer.devusb.us
-    to: http://192.168.20.133:8081
-    allowed_users:
-      - mhelton@gmail.com
 
   - from: https://proxmox.devusb.us
     to: https://192.168.99.101:8006
@@ -62,29 +57,31 @@ routes:
   - from: https://portainer.devusb.us
     to: http://192.168.20.133:9000
     allow_websockets: true
-    policy:
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                  is: *tomservo
+    allowed_users:
+      - mhelton@gmail.com
+    # policy:
+    #   - allow:
+    #       and:
+    #         - email:
+    #             is: mhelton@gmail.com
+    #         - device:
+    #               is: *tomservo
 
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *superintendent
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *iphone
+    #   - allow:
+    #       and:
+    #         - email:
+    #             is: mhelton@gmail.com
+    #         - device:
+    #             is: *superintendent
+    #   - allow:
+    #       and:
+    #         - email:
+    #             is: mhelton@gmail.com
+    #         - device:
+    #             is: *iphone
 
   - from: https://sonarr.devusb.us
-    to: http://192.168.20.101:8989
+    to: https://sonarr.chopper.devusb.us
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
@@ -92,7 +89,7 @@ routes:
       Authorization: Basic c29uYXJyOktNQTM2Nw==
 
   - from: https://radarr.devusb.us
-    to: http://192.168.20.101:7878
+    to: https://radarr.chopper.devusb.us
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
@@ -100,7 +97,7 @@ routes:
       Authorization: Basic cmFkYXJyOktNQTM2Nw==
 
   - from: https://nzbget.devusb.us
-    to: http://192.168.20.101:6789
+    to: https://nzbget.chopper.devusb.us
     allowed_users:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
@@ -140,8 +137,7 @@ routes:
     pass_identity_headers: true
 
   - from: https://plex.devusb.us
-    to: https://192.168.20.130:32400
-    tls_skip_verify: true
+    to: https://plex.chopper.devusb.us
     allow_websockets: true
     allowed_users:
       - ilona.molotoka@gmail.com
@@ -181,10 +177,3 @@ routes:
     to: https://hass-local.devusb.us
     allow_public_unauthenticated_access: true
     path: /auth/token
-
-  - from: https://books.devusb.us
-    to: http://192.168.20.133:8085
-    allow_websockets: true
-    allowed_users:
-      - mhelton@gmail.com
-      - ilona.molotoka@gmail.com
