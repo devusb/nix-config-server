@@ -27,6 +27,7 @@ in
       ./plex.nix
       ./arr.nix
       ./fileshare.nix
+      ./miniflux.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -113,6 +114,7 @@ in
       "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
+      "miniflux.${wildcardDomain}" = mkVirtualHost 8080;
     };
   };
 
