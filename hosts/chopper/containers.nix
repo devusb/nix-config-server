@@ -39,8 +39,8 @@
   containers.atuin = {
     enableTun = true;
     privateNetwork = true;
-    hostAddress = "10.10.100.4";
-    localAddress = "10.10.100.5";
+    hostAddress = "10.10.100.5";
+    localAddress = "10.10.100.6";
     restartIfChanged = true;
     autoStart = true;
     bindMounts = {
