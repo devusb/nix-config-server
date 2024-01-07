@@ -1,41 +1,4 @@
 { pkgs, ... }: {
-  systemd.services.home-backup = {
-    description = "taking home backup";
-    serviceConfig.Type = "oneshot";
-    script = with pkgs; ''
-      cd /r2d2_0/homes/
-      ${duplicacy}/bin/duplicacy -log backup -stats -threads 6
-    '';
-  };
-
-  systemd.timers.home-backup = {
-    description = "taking home backup";
-    timerConfig = {
-      OnCalendar = "*-*-* 02:00:00 America/Chicago";
-      Persistent = true;
-    };
-    wantedBy = [ "timers.target" ];
-  };
-
-  systemd.services.vm-backup = {
-    description = "taking vm backup";
-    serviceConfig.Type = "oneshot";
-    script = with pkgs; ''
-      cd /r2d2_0/backup/
-      ${duplicacy}/bin/duplicacy -log backup -stats -threads 6
-      ${duplicacy}/bin/duplicacy prune -keep 0:30 -keep 7:1
-    '';
-  };
-
-  systemd.timers.vm-backup = {
-    description = "taking vm backup";
-    timerConfig = {
-      OnCalendar = "Mon *-*-* 02:00:00 America/Chicago";
-      Persistent = true;
-    };
-    wantedBy = [ "timers.target" ];
-  };
-
   services.nfs.server = {
     enable = true;
     exports = ''
