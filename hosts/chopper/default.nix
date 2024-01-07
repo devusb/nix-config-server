@@ -47,6 +47,9 @@ in
   networking.hostId = "bf399afd";
 
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.unmanaged = [
+    "enp10s0u9u3c2"
+  ];
 
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
