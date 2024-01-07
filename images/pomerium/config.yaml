@@ -9,8 +9,7 @@ client_ca: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdDakNDQS9LZ0F3SUJBZ0lJVjVH
 log_level: info
 proxy_log_level: info
 
-# databroker_storage_type: redis
-# databroker_storage_connection_string: redis://localhost:6379/0
+databroker_storage_type: postgres
 
 jwt_claims_headers:
   - email
@@ -19,13 +18,12 @@ skip_xff_append: false
 metrics_address: :9091
 
 hosts:
-  - &tomservo 4K3fKqCH3PdhyDMbTu1pbkY3H8aFQsKjQusj9aUcknKzaTvTYSCMaUDZ4EPcTsPWLFAiZezSXx9hDes36XmcBSW5
-  - &iphone 3iNez2KV8BewND7FXTAETSe7X59p
-  - &superintendent 9SLZyRyWSfs4Hmgewi23CZaf6dGLmkf77asHNJNbDCpY
+  - &1password R5Q9PnzvcTZrc4myvj6vZ
+  - &yubikey 327QHjUqPwnJaY6wG6F3kkfxGCsVHcavUax45v8Bi46fsr1pQhpZGvuVGCaT64iGtk3Ppih4E9H9Q5im8zcPty4B
 
 routes:
   - from: https://rss.devusb.us
-    to: http://100.80.177.1:8080
+    to: https://miniflux.chopper.devusb.us
     allowed_users:
       - mhelton@gmail.com
     pass_identity_headers: true
@@ -40,45 +38,34 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: *tomservo
+                  is: *1password
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: *superintendent
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *iphone
+                is: *yubikey
 
   - from: https://portainer.devusb.us
     to: http://192.168.20.133:9000
     allow_websockets: true
     allowed_users:
       - mhelton@gmail.com
-    # policy:
-    #   - allow:
-    #       and:
-    #         - email:
-    #             is: mhelton@gmail.com
-    #         - device:
-    #               is: *tomservo
+    policy:
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                  is: *1password
 
-    #   - allow:
-    #       and:
-    #         - email:
-    #             is: mhelton@gmail.com
-    #         - device:
-    #             is: *superintendent
-    #   - allow:
-    #       and:
-    #         - email:
-    #             is: mhelton@gmail.com
-    #         - device:
-    #             is: *iphone
+      - allow:
+          and:
+            - email:
+                is: mhelton@gmail.com
+            - device:
+                is: *yubikey
+
 
   - from: https://sonarr.devusb.us
     to: https://sonarr.chopper.devusb.us
@@ -114,19 +101,14 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: *tomservo
+                  is: *1password
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: *superintendent
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *iphone
+                is: *yubikey
+
 
   - from: https://hass.devusb.us
     to: https://hass-local.devusb.us
@@ -152,19 +134,13 @@ routes:
             - email:
                 is: mhelton@gmail.com
             - device:
-                  is: *tomservo
+                  is: *1password
       - allow:
           and:
             - email:
                 is: mhelton@gmail.com
             - device:
-                is: *superintendent
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *iphone
+                is: *yubikey
 
   - from: https://grafana.devusb.us
     to: http://192.168.20.133:3000
