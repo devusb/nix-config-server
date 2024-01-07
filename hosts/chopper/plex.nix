@@ -22,4 +22,8 @@ in
     openFirewall = true;
   };
 
+  services.tautulli = {
+    enable = true;
+  };
+
 }

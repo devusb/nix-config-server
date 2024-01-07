@@ -36,4 +36,17 @@
     config = import ./attic.nix;
   };
 
+  containers.atuin = {
+    enableTun = true;
+    privateNetwork = true;
+    hostAddress = "10.10.100.4";
+    localAddress = "10.10.100.5";
+    restartIfChanged = true;
+    autoStart = true;
+    bindMounts = {
+      "${config.sops.secrets.ts_key.path}".isReadOnly = true;
+    };
+    config = import ./atuin.nix;
+  };
+
 }

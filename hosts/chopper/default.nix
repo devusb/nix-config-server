@@ -26,6 +26,7 @@ in
       ./containers.nix
       ./plex.nix
       ./arr.nix
+      ./jellyfin.nix
       ./fileshare.nix
       ./miniflux.nix
     ];
@@ -115,6 +116,8 @@ in
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
       "miniflux.${wildcardDomain}" = mkVirtualHost 8080;
+      "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
+      "tautulli.${wildcardDomain}" = mkVirtualHost 8181;
     };
   };
 
