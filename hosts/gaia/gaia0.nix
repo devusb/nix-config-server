@@ -53,11 +53,12 @@
 
   services.deployBackup = {
     enable = true;
-    name = "zigwave";
-    files = [
-      "/var/lib/zigbee2mqtt"
-      "/var/lib/zwave-js-ui"
-    ];
+    backups.zigwave = {
+      files = [
+        "/var/lib/zigbee2mqtt"
+        "/var/lib/zwave-js-ui"
+      ];
+    };
   };
 
 

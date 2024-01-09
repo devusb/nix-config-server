@@ -11,6 +11,7 @@ in
 {
   imports = [
     ../../modules/tailscale-serve.nix
+    ../../modules/deploy-backup.nix
   ];
   networking.hostName = "obsidian";
   services.tailscale-serve = {
@@ -66,6 +67,15 @@ in
       methods = GET,PUT,POST,HEAD,DELETE
       max_age = 3600
     '';
+  };
+
+  services.deploy-backup = {
+    enable = true;
+    backups.obsidian = {
+      files = [
+        "/var/lib/couchdb"
+      ];
+    };
   };
 
   system.stateVersion = "24.05";

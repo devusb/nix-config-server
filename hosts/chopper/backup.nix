@@ -15,8 +15,8 @@
     group = config.users.groups.backup.name;
   };
 
-  systemd.services.home-backup = {
-    description = "taking home backup";
+  systemd.services.upload-home-backup = {
+    description = "upload home backup";
     serviceConfig.Type = "oneshot";
     script = with pkgs; ''
       cd /r2d2_0/homes/
@@ -24,8 +24,8 @@
     '';
   };
 
-  systemd.timers.home-backup = {
-    description = "taking home backup";
+  systemd.timers.upload-home-backup = {
+    description = "upload home backup";
     timerConfig = {
       OnCalendar = "*-*-* 02:00:00 America/Chicago";
       Persistent = true;
@@ -33,8 +33,8 @@
     wantedBy = [ "timers.target" ];
   };
 
-  systemd.services.vm-backup = {
-    description = "taking vm backup";
+  systemd.services.upload-config-backup = {
+    description = "upload config backup";
     serviceConfig.Type = "oneshot";
     script = with pkgs; ''
       cd /r2d2_0/backup/
@@ -43,13 +43,15 @@
     '';
   };
 
-  systemd.timers.vm-backup = {
-    description = "taking vm backup";
+  systemd.timers.upload-config-backup = {
+    description = "upload config backup";
     timerConfig = {
       OnCalendar = "Mon *-*-* 02:00:00 America/Chicago";
       Persistent = true;
     };
     wantedBy = [ "timers.target" ];
   };
+
+  services.deploy-backup.enable = true;
 
 }

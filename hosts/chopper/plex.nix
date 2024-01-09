@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 let
   plexData = "/r2d2_0/media/plex-data";
 in
@@ -24,6 +24,13 @@ in
 
   services.tautulli = {
     enable = true;
+  };
+
+  services.deploy-backup.backups.plex = lib.mkIf config.services.deploy-backup.enable {
+    files = [
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+      ''"$(find "${plexData}/Plex Media Server/Plug-in Support/Databases/" -path "*com.plexapp.plugins.library.blobs.db-2*" -printf '%Ts\t%p\n' | sort -n | cut -f2 | tail -n 1)"''
+    ];
   };
 
 }

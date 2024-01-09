@@ -3,45 +3,53 @@
 with lib;
 
 let
-  cfg = config.services.deployBackup;
-  deployBackup = { backup_name, backup_files_list, backup_url }:
+  cfg = config.services.deploy-backup;
+  deployBackup = { name, filesList, url }:
     pkgs.writeShellScriptBin "deployBackup" ''
-      tar cvzf /tmp/${backup_name}.tar.gz ${strings.concatMapStrings (x: " " + x) backup_files_list}
-      curl -Ffile=@/tmp/${backup_name}.tar.gz '${backup_url}'
-      rm /tmp/${backup_name}.tar.gz
-      logger "${backup_name} backup completed $(date)"
+      tar cvzf /tmp/${name}.tar.gz ${strings.concatMapStrings (x: " " + x) filesList}
+      curl -Ffile=@/tmp/${name}.tar.gz '${url}'
+      rm /tmp/${name}.tar.gz
+      logger "${name} backup completed $(date)"
     '';
 in
 {
   options = {
-    services.deployBackup = {
+    services.deploy-backup = {
       enable = mkEnableOption (lib.mdDoc "automatic backup deployment");
 
-      files = mkOption {
-        type = types.listOf types.str;
-        description = mdDoc "Files to back up";
-      };
+      backups = mkOption {
+        type = types.attrsOf (types.submodule {
+          options = {
+            files = mkOption {
+              type = types.listOf types.str;
+              description = mdDoc "Files to back up";
+            };
 
-      name = mkOption {
-        type = types.str;
-        description = mdDoc "Name for backup archive";
-      };
+            schedule = mkOption {
+              type = types.str;
+              default = "Mon *-*-* 00:00:00 America/Chicago";
+              description = mdDoc "Schedule string for how often to perform backup";
+            };
 
-      frequency = mkOption {
-        type = types.str;
-        default = "0 0 * * 1";
-        description = mdDoc "Cron string for how often to perform backup";
-      };
+            user = mkOption {
+              type = types.str;
+              default = "root";
+              description = mdDoc "User to execute backup";
+            };
 
-      user = mkOption {
-        type = types.str;
-        default = "root";
-        description = mdDoc "User to execute backup";
+            backupScript = mkOption {
+              type = types.str;
+              default = "";
+              description = mdDoc "Script to gather files to be backed up";
+            };
+          };
+        });
+        default = { };
       };
 
       url = mkOption {
         type = types.str;
-        default = "http://192.168.20.133:25478/upload?token=59af2e561fc9f80a9bb9";
+        default = "https://backup.chopper.devusb.us/upload?token=59af2e561fc9f80a9bb9&overwrite=true";
         description = mdDoc "URL to send backup";
       };
 
@@ -49,15 +57,30 @@ in
   };
 
   config =
-    let
-      deployedBackup = deployBackup { backup_name = cfg.name; backup_files_list = cfg.files; backup_url = cfg.url; };
-    in
     mkIf cfg.enable {
-      services.cron = {
-        enable = true;
-        systemCronJobs = [
-          "${cfg.frequency}     ${cfg.user}    ${deployedBackup}/bin/deployBackup"
-        ];
-      };
+      systemd.timers = mapAttrs'
+        (name: value: nameValuePair "backup-${name}" {
+          description = "${name} backup";
+          timerConfig = {
+            OnCalendar = "${value.schedule}";
+            Persistent = true;
+          };
+          wantedBy = [ "timers.target" ];
+        })
+        cfg.backups;
+
+      systemd.services = mapAttrs'
+        (name: value: nameValuePair "backup-${name}" {
+          description = "${name} backup";
+          serviceConfig = {
+            Type = "oneshot";
+            User = value.user;
+          };
+          script = "${value.backupScript}" + ''
+            ${deployBackup { inherit name; filesList = value.files; url = cfg.url; }}/bin/deployBackup
+          '';
+        })
+        cfg.backups;
+
     };
 }
