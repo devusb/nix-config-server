@@ -30,6 +30,7 @@ in
       ./fileshare.nix
       ./miniflux.nix
       ./backup.nix
+      ./vault.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -123,6 +124,7 @@ in
       "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
       "tautulli.${wildcardDomain}" = mkVirtualHost 8181;
       "backup.${wildcardDomain}" = mkVirtualHost 8081;
+      "vault.${wildcardDomain}" = mkVirtualHost 8200;
     };
   };
 
