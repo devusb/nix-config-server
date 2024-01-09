@@ -31,6 +31,7 @@ in
       ./miniflux.nix
       ./backup.nix
       ./vault.nix
+      ./monitoring.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -122,9 +123,10 @@ in
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
       "miniflux.${wildcardDomain}" = mkVirtualHost 8080;
       "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
-      "tautulli.${wildcardDomain}" = mkVirtualHost 8181;
+      "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
       "backup.${wildcardDomain}" = mkVirtualHost 8081;
       "vault.${wildcardDomain}" = mkVirtualHost 8200;
+      "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
     };
   };
 
