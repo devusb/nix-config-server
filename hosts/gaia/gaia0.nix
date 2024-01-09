@@ -51,7 +51,7 @@
     serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ];
   };
 
-  services.deployBackup = {
+  services.deploy-backup = {
     enable = true;
     backups.zigwave = {
       files = [
