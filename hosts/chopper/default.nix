@@ -10,12 +10,7 @@ let
     "cloudflare"
   ];
   wildcardDomain = "chopper.devusb.us";
-  mkVirtualHost = port: {
-    useACMEHost = wildcardDomain;
-    extraConfig = ''
-      reverse_proxy :${toString port}
-    '';
-  };
+  caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
 in
 {
   imports =
@@ -115,30 +110,20 @@ in
 
   services.caddy = {
     enable = true;
-    virtualHosts = {
+    virtualHosts = with caddy-helpers; {
       "plex.${wildcardDomain}" = mkVirtualHost 32400;
       "sonarr.${wildcardDomain}" = mkVirtualHost 8989;
       "radarr.${wildcardDomain}" = mkVirtualHost 7878;
       "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
-      "miniflux.${wildcardDomain}" = mkVirtualHost 8090;
+      "miniflux.${wildcardDomain}" = mkSocketVirtualHost "/run/miniflux/miniflux.sock";
       "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
       "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
       "backup.${wildcardDomain}" = mkVirtualHost 8081;
       "vault.${wildcardDomain}" = mkVirtualHost 8200;
       "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
-      "unifi.${wildcardDomain}" = {
-        useACMEHost = wildcardDomain;
-        extraConfig = ''
-          reverse_proxy localhost:8443 {
-              transport http {
-                      tls
-                      tls_insecure_skip_verify
-              }
-          }
-        '';
-      };
+      "unifi.${wildcardDomain}" =  mkHttpsVirtualHost 8443;
     };
   };
 
