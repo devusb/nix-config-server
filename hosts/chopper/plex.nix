@@ -33,4 +33,11 @@ in
     ];
   };
 
+  services.deploy-backup.backups.tautulli = lib.mkIf config.services.deploy-backup.enable {
+    files = [
+      "/var/lib/plexpy/config.ini"
+      "/var/lib/plexpy/tautulli.db"
+    ];
+  };
+
 }
