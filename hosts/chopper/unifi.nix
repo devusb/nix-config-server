@@ -2,6 +2,7 @@
   services.unifi = {
     enable = true;
     unifiPackage = pkgs.unifi7;
+    openFirewall = true;
   };
 
   services.deploy-backup.backups.unifi = {

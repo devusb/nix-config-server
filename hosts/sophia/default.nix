@@ -266,7 +266,7 @@ with lib;
             "option-data" = [
               { name = "domain-name-servers"; data = "192.168.20.1"; }
               { name = "routers"; data = "192.168.20.1"; }
-              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:69"; csv-format = false; }
+              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
             ];
             "reservations" = [
               { "hw-address" = "5a:33:e2:da:ec:be"; "ip-address" = "192.168.20.133"; hostname = "docker"; }
@@ -309,7 +309,7 @@ with lib;
             "option-data" = [
               { name = "domain-name-servers"; data = "192.168.99.1"; }
               { name = "routers"; data = "192.168.99.1"; }
-              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:69"; csv-format = false; }
+              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
             ];
             "reservations" = [ ];
           }
