@@ -32,6 +32,7 @@ in
       ./backup.nix
       ./vault.nix
       ./monitoring.nix
+      ./unifi.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -121,12 +122,23 @@ in
       "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
-      "miniflux.${wildcardDomain}" = mkVirtualHost 8080;
+      "miniflux.${wildcardDomain}" = mkVirtualHost 8090;
       "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
       "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
       "backup.${wildcardDomain}" = mkVirtualHost 8081;
       "vault.${wildcardDomain}" = mkVirtualHost 8200;
       "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
+      "unifi.${wildcardDomain}" = {
+        useACMEHost = wildcardDomain;
+        extraConfig = ''
+          reverse_proxy localhost:8443 {
+              transport http {
+                      tls
+                      tls_insecure_skip_verify
+              }
+          }
+        '';
+      };
     };
   };
 

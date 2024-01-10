@@ -31,4 +31,17 @@
     ];
   });
 
+  unifi7 =
+    let
+      version = "7.5.187";
+      suffix = "-f57f5bf7ab";
+      sha256 = "sha256-a5kl8gZbRnhS/p1imPl7soM0/QSFHdM0+2bNmDfc1mY=";
+    in
+    prev.unifi7.overrideAttrs (old: {
+      src = prev.fetchurl {
+        url = "https://dl.ubnt.com/unifi/${version}${suffix}/unifi_sysvinit_all.deb";
+        inherit sha256;
+      };
+    });
+
 }

@@ -37,7 +37,7 @@
   outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
-      forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
       overlays = { default = import ./overlay { inherit inputs; }; };
       legacyPackages = forAllSystems (system:
