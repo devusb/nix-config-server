@@ -4,40 +4,16 @@
 # for a more complex example.
 keys:
   - &admin_mhelton age1m97ls72xcy8v492xrru4keyjve0jcqytqne6jk62zl72j3xsqgrql0ckw2
-  - &blocky age1c4zgcemg330ajaekh23c9v97ehv78auy338dr0tf06hst4p00g5scjlgah
-  - &plex age1hdpn83swtm7rr4ex4x6kh9k3ffqq23qug9n0ztq8wgaqlu02xekqku588k
-  - &unifi age102uzctt5y5qgqn9tz0njv0uh3f8yc7ssr3y8uxc3gd2n4lvu35es66euf4
-  - &aws-proxy age1zmye9v3dmws9vtvkm8gfgknedggql0hnl74k427wqup9d0rq3esqfgthua
   - &sophia age1mwrrymv9hsyhk3vtr5gqnhqg76rsh4f4gjpr5d3rg966lze6lc8s8x4z20
-  - &arr age1npj84lxnq72ppch90k7fw62wwy3wq90c03hy7r596m3yvyevd4sqlqma6q
-  - &atuin age1v808y4su2d9yehped4mahc2cgs56x9eeg7kgcwltg9k0vgqx8vxqrymgh3
-  - &fileshare age1p2au0z6k7fnca8pl3p8px4ckt676ap43x78ud89ew5dux7p6r4yqhyqe6l
-  - &vault age150kczuryvnf82cfwdrph7tekxctmwe2nnhmefw7gs6f6sl4n53ts5d7yve
   - &gaia0 age1klyhch983y7as7xnceltplys58lhmpu3w0qpy5gf0nmay6fjhadspml7nf
   - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
-  - &attic age19e4mghy3fh2ejz64hc7038t5thjddwk5rjlad4wekg35cvyy5ses2ve9q8
-  - &miniflux age18jr3phuw28jkmhxg220nnvp5sev6fs623uxylhnmfsed73tg5pvqzmydem
-  - &obsidian age1fcul2dn079vuw4jghlhyv075fq6qg3fmvkgdyaq3u2chwu3c3dqqw44hcn
-  - &jellyfin age1jxrv4vph55036gczwjulu4t0wp7tzacxtcjv9wfrve4fps3w7p2sds32s3
   - &chopper age154w9fxzva5uy9qzj0nc9002mrlaprnvqml63kmhn2c8c8sfk5swq9hgxnh
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
     - age:
       - *admin_mhelton
-      - *blocky
-      - *plex
-      - *unifi
-      - *aws-proxy
       - *sophia
-      - *arr
-      - *atuin
-      - *fileshare
-      - *vault
       - *gaia0
       - *spdr
-      - *attic
-      - *miniflux
-      - *obsidian
-      - *jellyfin
       - *chopper

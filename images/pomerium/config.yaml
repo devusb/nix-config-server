@@ -92,8 +92,7 @@ routes:
       Authorization: Basic bnpiZ2V0OktNQTM2Nw==
 
   - from: https://unifi.devusb.us
-    to: https://192.168.20.105:8443
-    tls_skip_verify: true
+    to: https://unifi.chopper.devusb.us
     allow_websockets: true
     policy:
       - allow:
