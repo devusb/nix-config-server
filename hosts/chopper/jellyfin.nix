@@ -20,7 +20,7 @@
     environmentFile = config.sops.secrets.jellyplex_creds.path;
     settings = {
       DRYRUN = "False";
-      DEBUG = "True";
+      DEBUG = "False";
       SYNC_FROM_PLEX_TO_JELLYFIN = "True";
       SYNC_FROM_JELLYFIN_TO_PLEX = "True";
       SYNC_FROM_PLEX_TO_PLEX = "False";
