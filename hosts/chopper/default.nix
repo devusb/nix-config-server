@@ -118,12 +118,12 @@ in
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
       "miniflux.${wildcardDomain}" = mkSocketVirtualHost "/run/miniflux/miniflux.sock";
-      "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
+      "jellyfin.${wildcardDomain}" = mkSocketVirtualHost "/run/jellyfin/jellyfin.sock";
       "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
       "backup.${wildcardDomain}" = mkVirtualHost 8081;
       "vault.${wildcardDomain}" = mkVirtualHost 8200;
       "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
-      "unifi.${wildcardDomain}" =  mkHttpsVirtualHost 8443;
+      "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
     };
   };
 

@@ -4,6 +4,15 @@
     user = "media";
     group = "media";
   };
+  systemd.tmpfiles.settings."jellyfin-sock"."/run/jellyfin".d = {
+    user = config.users.users.media.name;
+    mode = "0755";
+  };
+  systemd.services.jellyfin.environment = {
+    "JELLYFIN_kestrel__socketPermissions" = "0666";
+    "JELLYFIN_kestrel__socketPath" = "/run/jellyfin/jellyfin.sock";
+    "JELLYFIN_kestrel__socket" = "true";
+  };
 
   services.jellyplex-watched = {
     enable = true;
