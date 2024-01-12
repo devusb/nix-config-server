@@ -270,18 +270,8 @@ with lib;
             ];
             "reservations" = [
               { "hw-address" = "5a:33:e2:da:ec:be"; "ip-address" = "192.168.20.133"; hostname = "docker"; }
-              { "hw-address" = "3a:c9:f7:cb:0a:b3"; "ip-address" = "192.168.20.131"; hostname = "fileshare"; }
               { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; hostname = "gaia0"; }
               { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; hostname = "gaia1"; }
-              { "hw-address" = "e6:38:e7:50:fa:fb"; "ip-address" = "192.168.20.137"; hostname = "nfs-export"; }
-              { "hw-address" = "f6:c3:6b:61:f7:fb"; "ip-address" = "192.168.20.130"; hostname = "plex"; }
-              { "hw-address" = "46:23:ef:27:7d:9a"; "ip-address" = "192.168.20.135"; hostname = "radarr"; }
-              { "hw-address" = "36:0C:72:1C:83:84"; "ip-address" = "192.168.20.105"; hostname = "unifi"; }
-              { "hw-address" = "9A:A4:BB:CF:29:D5"; "ip-address" = "192.168.20.120"; hostname = "blocky"; }
-              { "hw-address" = "22:71:BA:E3:0B:6C"; "ip-address" = "192.168.20.101"; hostname = "arr"; }
-              { "hw-address" = "36:77:FD:22:7E:9C"; "ip-address" = "192.168.20.102"; hostname = "atuin"; }
-              { "hw-address" = "42:B5:CC:D5:0F:37"; "ip-address" = "192.168.20.103"; hostname = "vault"; }
-              { "hw-address" = "B6:E3:2E:6C:E0:76"; "ip-address" = "192.168.20.106"; hostname = "attic"; }
               { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
             ];
           }

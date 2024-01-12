@@ -43,7 +43,7 @@
         firewall.enable = false;
         interfaces.server = {
           useDHCP = true;
-          macAddress = "B6:E3:2E:6C:E0:76";
+          macAddress = "9c:6b:00:22:1d:20";
         };
         vlans = {
           server = {
@@ -64,10 +64,10 @@
     lanClient.succeed("ip add | grep 192.168.10.50")
 
     serverClient.wait_for_unit("systemd-networkd-wait-online.service")
-    serverClient.succeed("ip add | grep 192.168.20.106")
+    serverClient.succeed("ip add | grep 192.168.20.109")
 
     lanClient.wait_until_succeeds("ping -c 5 192.168.10.1")
-    lanClient.wait_until_succeeds("ping -c 5 192.168.20.106")
+    lanClient.wait_until_succeeds("ping -c 5 192.168.20.109")
     serverClient.wait_until_succeeds("ping -c 5 192.168.20.1")
     serverClient.wait_until_succeeds("ping -c 5 192.168.10.50")
   '';
