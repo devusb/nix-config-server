@@ -3,10 +3,6 @@ let
   backupPath = "/tmp/miniflux_db.tar";
 in
 {
-  systemd.tmpfiles.settings."miniflux-sock"."/run/miniflux".d = {
-    user = "miniflux";
-    mode = "0755";
-  };
   services.miniflux = {
     enable = true;
     adminCredentialsFile = config.sops.secrets.miniflux_creds.path;
@@ -15,6 +11,7 @@ in
       AUTH_PROXY_HEADER = "X-Pomerium-Claim-Email";
     };
   };
+  systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
 
   services.deploy-backup.backups.miniflux = lib.mkIf config.services.deploy-backup.enable {
     files = [

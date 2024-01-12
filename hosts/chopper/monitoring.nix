@@ -10,10 +10,6 @@ let
   };
 in
 {
-  systemd.tmpfiles.settings."grafana-sock"."/run/grafana".d = {
-    user = "grafana";
-    mode = "0755";
-  };
   services.grafana = {
     enable = true;
     settings = {
