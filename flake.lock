@@ -1076,6 +1076,26 @@
         "type": "github"
       }
     },
+    "pingshutdown": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1705074618,
+        "narHash": "sha256-Le+LwTF3UXvKjXoqUlbKtgugGb/bqcx9ZRtHVNXo8RQ=",
+        "owner": "devusb",
+        "repo": "pingshutdown",
+        "rev": "696ff3958a678b8830c8c673dc05929a8583d576",
+        "type": "github"
+      },
+      "original": {
+        "owner": "devusb",
+        "repo": "pingshutdown",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -1172,6 +1192,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-stable": "nixpkgs-stable_5",
+        "pingshutdown": "pingshutdown",
         "sops-nix": "sops-nix_2"
       }
     },

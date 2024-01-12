@@ -8,6 +8,7 @@ let
     "vault_unseal"
     "attic_secret"
     "cloudflare"
+    "pushover"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
@@ -96,6 +97,18 @@ in
     bottom
   ];
 
+  services.pingshutdown = {
+    enable = true;
+    environmentFile = config.sops.secrets.pushover.path;
+    settings = {
+      PINGSHUTDOWN_DELAY = "10m";
+      PINGSHUTDOWN_TARGET = "192.168.20.1";
+      PINGSHUTDOWN_NOTIFICATION = "true";
+      PINGSHUTDOWN_DRYRUN = "false";
+      PINGSHUTDOWN_STATUSPORT = "9081";
+    };
+  };
+
   services.openssh.enable = true;
 
   security.acme = {
@@ -128,6 +141,7 @@ in
       "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
       "loki.${wildcardDomain}" = mkVirtualHost 3100;
       "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
+      "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
     };
   };
 

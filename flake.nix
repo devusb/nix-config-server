@@ -32,6 +32,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pingshutdown = {
+      url = "github:devusb/pingshutdown";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, ... }@inputs:
@@ -111,6 +115,7 @@
             impermanence.nixosModule
             attic.nixosModules.atticd
             inputs.disko.nixosModules.disko
+            inputs.pingshutdown.nixosModules.pingshutdown
             ./modules/tailscale-autoconnect.nix
             ./modules/tailscale-serve.nix
             ./modules/deploy-backup.nix
