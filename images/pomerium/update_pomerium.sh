@@ -1,5 +1,6 @@
 nix build .#images.pomerium
-podman load < result
+docker load < result
 rm result
-podman push localhost/pomerium-proxy:latest docker://registry.fly.io/pomerium-proxy:latest
+docker tag pomerium-proxy:latest registry.fly.io/pomerium-proxy:latest
+docker push registry.fly.io/pomerium-proxy:latest
 flyctl deploy -i registry.fly.io/pomerium-proxy:latest

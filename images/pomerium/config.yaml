@@ -142,7 +142,7 @@ routes:
                 is: *yubikey
 
   - from: https://grafana.devusb.us
-    to: http://192.168.20.133:3000
+    to: https://grafana.chopper.devusb.us
     allow_websockets: true
     allowed_users:
       - mhelton@gmail.com

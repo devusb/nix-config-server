@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   mkConfig = { hostname, alias, exporter }: {
     targets = [
@@ -10,6 +10,52 @@ let
   };
 in
 {
+  systemd.tmpfiles.settings."grafana-sock"."/run/grafana".d = {
+    user = "grafana";
+    mode = "0755";
+  };
+  services.grafana = {
+    enable = true;
+    settings = {
+      server = {
+        protocol = "socket";
+        socket = "/run/grafana/grafana.sock";
+        socket_mode = "0666";
+      };
+      users = {
+        allow_sign_up = false;
+        auto_assign_org = true;
+        auto_assign_org_role = "Admin";
+      };
+      "auth.jwt" = {
+        enabled = true;
+        header_name = "X-Pomerium-Jwt-Assertion";
+        email_claim = "email";
+        auto_sign_up = false;
+        jwk_set_url = "https://authenticate.devusb.us/.well-known/pomerium/jwks.json";
+      };
+      panels = {
+        disable_sanitize_html = true;
+      };
+    };
+    provision = {
+      datasources.settings.datasources = [
+        {
+          name = "Loki";
+          type = "loki";
+          url = "http://localhost:3100";
+          access = "proxy";
+        }
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          url = "http://localhost:9091";
+          access = "proxy";
+        }
+      ];
+    };
+  };
+
   services.prometheus = {
     enable = true;
     port = 9091;
@@ -52,4 +98,65 @@ in
       }
     ];
   };
+
+  services.loki = {
+    enable = true;
+    configuration = {
+      auth_enabled = false;
+      common = {
+        instance_addr = "127.0.0.1";
+        path_prefix = config.services.loki.dataDir;
+        storage.filesystem = {
+          chunks_directory = "${config.services.loki.dataDir}/chunks";
+          rules_directory = "${config.services.loki.dataDir}/rules";
+        };
+        replication_factor = 1;
+        ring.kvstore.store = "inmemory";
+      };
+      schema_config.configs = [{
+        from = "2023-10-10";
+        store = "tsdb";
+        object_store = "filesystem";
+        schema = "v12";
+        index = {
+          prefix = "index_";
+          period = "24h";
+        };
+      }];
+      limits_config = {
+        reject_old_samples = true;
+      };
+      table_manager = {
+        retention_period = "168h";
+      };
+      analytics.reporting_enabled = false;
+    };
+  };
+
+  services.promtail = with lib; {
+    enable = true;
+    configuration = {
+      server = {
+        http_listen_port = 9080;
+        grpc_listen_port = 0;
+      };
+      clients = singleton { url = "http://localhost:3100/loki/api/v1/push"; };
+      scrape_configs = singleton {
+        job_name = "chopper-journal";
+        journal = {
+          json = true;
+          max_age = "12h";
+          path = "/var/log/journal";
+          labels = {
+            job = "chopper-journal";
+          };
+        };
+        relabel_configs = singleton {
+          source_labels = singleton "__journal__systemd_unit";
+          target_label = "unit";
+        };
+      };
+    };
+  };
+
 }

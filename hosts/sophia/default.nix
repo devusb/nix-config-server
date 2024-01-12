@@ -72,7 +72,7 @@ with lib;
         http_listen_port = 9080;
         grpc_listen_port = 0;
       };
-      clients = singleton { url = "http://192.168.20.133:3100/loki/api/v1/push"; };
+      clients = singleton { url = "https://loki.chopper.devusb.us/loki/api/v1/push"; };
       scrape_configs = singleton {
         job_name = "sophia-journal";
         journal = {

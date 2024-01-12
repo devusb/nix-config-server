@@ -33,6 +33,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   boot.zfs.extraPools = [ "r2d2_0" ];
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
@@ -124,6 +126,8 @@ in
       "vault.${wildcardDomain}" = mkVirtualHost 8200;
       "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
       "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
+      "loki.${wildcardDomain}" = mkVirtualHost 3100;
+      "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
     };
   };
 
