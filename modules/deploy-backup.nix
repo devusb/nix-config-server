@@ -6,10 +6,10 @@ let
   cfg = config.services.deploy-backup;
   deployBackup = { name, filesList, url }:
     pkgs.writeShellScriptBin "deployBackup" ''
-      tar cvzf /tmp/${name}.tar.gz ${strings.concatMapStrings (x: " " + x) filesList}
-      curl -Ffile=@/tmp/${name}.tar.gz '${url}'
+      ${getExe pkgs.gnutar} cvf /tmp/${name}.tar.gz ${strings.concatMapStrings (x: " " + x) filesList} -I ${getExe' pkgs.gzip "gzip"}
+      ${getExe pkgs.curl} -Ffile=@/tmp/${name}.tar.gz '${url}'
       rm /tmp/${name}.tar.gz
-      logger "${name} backup completed $(date)"
+      ${getExe pkgs.logger} "${name} backup completed $(date)"
     '';
 in
 {
