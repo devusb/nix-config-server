@@ -9,6 +9,7 @@ let
     "attic_secret"
     "cloudflare"
     "pushover"
+    "frigate"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
@@ -29,6 +30,7 @@ in
       ./vault.nix
       ./monitoring.nix
       ./unifi.nix
+      ./frigate.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -146,6 +148,7 @@ in
       "loki.${wildcardDomain}" = mkVirtualHost 3100;
       "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
       "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
+      "frigate.${wildcardDomain}" = mkSocketVirtualHost "/run/nginx/frigate.sock";
     };
   };
 
