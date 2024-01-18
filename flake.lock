@@ -747,11 +747,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1705611886,
-        "narHash": "sha256-DZGjDUPZj8xajYO0e3M34leu+djmhyoYK1heaFygrP4=",
+        "lastModified": 1705619542,
+        "narHash": "sha256-XGFVrrTRTzLnaZuia9d0G6fLZiSs7VcCF96PwWCXiZU=",
         "owner": "devusb",
         "repo": "nix-config",
-        "rev": "b7347e3e8d572e76a5b9cb41ad4e96b0adeebb40",
+        "rev": "d95dc90eff7b2a489bddda6e920aa297389a67be",
         "type": "github"
       },
       "original": {
