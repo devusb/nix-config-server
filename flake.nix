@@ -60,13 +60,6 @@
 
       # images
       images = {
-        proxmox-lxc = nixos-generators.nixosGenerate {
-          modules = [
-            ./lxc/template.nix
-          ];
-          pkgs = legacyPackages."x86_64-linux";
-          format = "proxmox-lxc";
-        };
         sophia = nixos-generators.nixosGenerate {
           modules = [
             ./hosts/sophia
