@@ -29,7 +29,6 @@
       garbage-collection.interval = "14 days";
     };
   };
-  systemd.services.atticd.serviceConfig.ReadWritePaths = "/nix-cache";
 
   services.postgresql = {
     enable = true;

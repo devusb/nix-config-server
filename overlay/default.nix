@@ -14,13 +14,6 @@
     });
   };
 
-  # https://github.com/NixOS/nixpkgs/pull/274063
-  zigbee2mqtt = prev.zigbee2mqtt.override {
-    buildNpmPackage = prev.buildNpmPackage.override {
-      nodejs = prev.nodejs_18;
-    };
-  };
-
   # https://github.com/jellyfin/jellyfin/pull/10275
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches = old.patches ++ [
@@ -31,17 +24,12 @@
     ];
   });
 
-  unifi7 =
-    let
-      version = "7.5.187";
-      suffix = "-f57f5bf7ab";
-      sha256 = "sha256-a5kl8gZbRnhS/p1imPl7soM0/QSFHdM0+2bNmDfc1mY=";
-    in
-    prev.unifi7.overrideAttrs (old: {
-      src = prev.fetchurl {
-        url = "https://dl.ubnt.com/unifi/${version}${suffix}/unifi_sysvinit_all.deb";
-        inherit sha256;
-      };
-    });
+  # https://github.com/NixOS/nixpkgs/pull/281440
+  mongodb-4_4 = prev.mongodb-4_4.overrideAttrs (old: {
+    buildInputs = old.buildInputs ++ [
+      prev.net-snmp
+      prev.openldap
+    ];
+  });
 
 }

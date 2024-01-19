@@ -65,6 +65,9 @@
   time.timeZone = "US/Eastern";
 
   # tailscale
+  sops.secrets.ts_key = {
+    sopsFile = ../../secrets/tailscale.yaml;
+  };
   services.tailscale-autoconnect = {
     enable = true;
     extraTailscaleArgs = [ "--advertise-exit-node" "--accept-routes" ];
@@ -72,6 +75,7 @@
   services.tailscale-serve = {
     enable = true;
     port = 8096;
+    authKeyFile = config.sops.secrets.ts_key.path;
   };
 
   users.users.mhelton = {

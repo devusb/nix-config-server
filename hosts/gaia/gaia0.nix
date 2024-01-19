@@ -9,7 +9,15 @@
 
   networking.hostName = "gaia0";
 
-  services.tailscale-autoconnect.enable = true;
+  # tailscale
+  sops.secrets.ts_key = {
+    sopsFile = ../../secrets/tailscale.yaml;
+  };
+  services.tailscale = {
+    enable = true;
+    extraUpFlags = [ "--ssh" ];
+    authKeyFile = config.sops.secrets.ts_key.path;
+  };
 
   # monitoring
   services.prometheus.exporters = {

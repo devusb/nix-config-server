@@ -30,7 +30,7 @@ in
       ./vault.nix
       ./monitoring.nix
       ./unifi.nix
-      ./frigate.nix
+      # ./frigate.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
