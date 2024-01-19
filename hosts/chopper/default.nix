@@ -30,6 +30,7 @@ in
       ./vault.nix
       ./monitoring.nix
       ./unifi.nix
+      ./hass.nix
       # ./frigate.nix
     ];
 
@@ -149,6 +150,7 @@ in
       "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
       "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
       "frigate.${wildcardDomain}" = mkSocketVirtualHost "/run/nginx/frigate.sock";
+      "hass.${wildcardDomain}" = mkVirtualHost 8123;
     };
   };
 
