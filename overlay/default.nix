@@ -24,6 +24,16 @@
     ];
   });
 
+  tautulli = prev.tautulli.overrideAttrs (old: rec {
+    version = "2.13.4";
+    src = prev.fetchFromGitHub {
+      owner = "Tautulli";
+      repo = old.pname;
+      rev = "v${version}";
+      sha256 = "sha256-cOHirjYdfPPv7O9o3vnsKBffvqxoaRN32NaUOK0SmQ8=";
+    };
+  });
+
   # https://github.com/NixOS/nixpkgs/pull/281440
   mongodb-4_4 = prev.mongodb-4_4.overrideAttrs (old: {
     buildInputs = old.buildInputs ++ [
