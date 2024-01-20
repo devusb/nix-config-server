@@ -32,13 +32,17 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
@@ -54,6 +58,21 @@
           };
         }
       );
+
+      defaultImports = [
+        sops-nix.nixosModules.sops
+        impermanence.nixosModule
+        attic.nixosModules.atticd
+        disko.nixosModules.disko
+        pingshutdown.nixosModules.pingshutdown
+        ./modules/tailscale-autoconnect.nix
+        ./modules/tailscale-serve.nix
+        ./modules/deploy-backup.nix
+        ./modules/nomad-server.nix
+        ./modules/nomad-client.nix
+        ./modules/jellyplex-watched.nix
+        ./modules/go-simple-upload-server.nix
+      ];
     in
     {
       formatter = forAllSystems (system: legacyPackages.${system}.nixpkgs-fmt);
@@ -90,67 +109,67 @@
           pkgs.dockerTools.buildLayeredImage (import ./images/pomerium pkgs);
       };
 
-      # colmena targets
-      colmena = {
-        meta = {
-          nixpkgs = legacyPackages."x86_64-linux";
-          nodeNixpkgs = {
-            sophia = legacyPackages."aarch64-linux";
-            gaia0 = legacyPackages."aarch64-linux";
+      nixosConfigurations = {
+        sophia =
+          let system = "aarch64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages."${system}";
+            extraModules = [ colmena.nixosModules.deploymentOptions ];
+            modules = defaultImports ++ [
+              { nixpkgs.system = system; } # needed to use aarch64-linux packages
+              ./hosts/sophia
+              ./hosts/sophia/colmena.nix
+            ];
           };
-          specialArgs = {
-            inherit inputs;
+
+        chopper =
+          let system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages."${system}";
+            specialArgs = { inherit inputs; };
+            extraModules = [ colmena.nixosModules.deploymentOptions ];
+            modules = defaultImports ++ [
+              ./hosts/chopper
+              ./hosts/chopper/colmena.nix
+            ];
           };
-        };
-        defaults = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            sops-nix.nixosModules.sops
-            impermanence.nixosModule
-            attic.nixosModules.atticd
-            inputs.disko.nixosModules.disko
-            inputs.pingshutdown.nixosModules.pingshutdown
-            ./modules/tailscale-autoconnect.nix
-            ./modules/tailscale-serve.nix
-            ./modules/deploy-backup.nix
-            ./modules/nomad-server.nix
-            ./modules/nomad-client.nix
-            ./modules/jellyplex-watched.nix
-            ./modules/go-simple-upload-server.nix
-          ];
-        };
 
-        # router
-        sophia = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            ./hosts/sophia/colmena.nix
-            ./hosts/sophia
-          ];
-        };
+        gaia0 =
+          let system = "aarch64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages."${system}";
+            extraModules = [ colmena.nixosModules.deploymentOptions ];
+            modules = defaultImports ++ [
+              { nixpkgs.system = system; }
+              ./hosts/gaia
+              ./hosts/gaia/gaia0.nix
+            ];
+          };
 
-        # server
-        chopper = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            ./hosts/chopper/colmena.nix
-            ./hosts/chopper
-          ];
-        };
-
-        # rpi cluster
-        gaia0 = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          deployment.tags = [ "gaia" ];
-          imports = [
-            ./hosts/gaia
-            ./hosts/gaia/gaia0.nix
-          ];
-        };
-
-        # spdr
-        spdr = { name, nodes, pkgs, modulesPath, lib, ... }: {
-          imports = [
-            ./hosts/spdr
-          ];
-        };
+        spdr =
+          let system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages."${system}";
+            extraModules = [ colmena.nixosModules.deploymentOptions ];
+            modules = defaultImports ++ [
+              ./hosts/spdr
+            ];
+          };
       };
+
+      colmena =
+        let conf = self.nixosConfigurations;
+        in
+        {
+          meta = {
+            nixpkgs = legacyPackages."x86_64-linux";
+            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) conf;
+          };
+        } // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
 
       tests = {
         sophia = nixpkgs.lib.nixos.runTest {
@@ -160,8 +179,8 @@
           hostPkgs = legacyPackages."x86_64-linux";
         };
       };
-
     };
+
 }
 
 

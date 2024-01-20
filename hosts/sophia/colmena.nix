@@ -1,6 +1,4 @@
-{ lib, pkgs, config, modulesPath, ... }:
-{
-
+{ config, ... }: {
   deployment = {
     targetHost = "192.168.10.1";
     targetPort = 22;
@@ -8,7 +6,6 @@
   };
 
   # tailscale
-
   sops.secrets.ts_key = {
     sopsFile = ../../secrets/tailscale.yaml;
   };

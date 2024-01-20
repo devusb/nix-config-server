@@ -45,7 +45,6 @@ with lib;
     settings.trusted-users = [ "mhelton" ];
   };
 
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     micro
     wget

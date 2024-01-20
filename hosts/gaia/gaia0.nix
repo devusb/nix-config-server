@@ -1,6 +1,5 @@
 { lib, pkgs, config, modulesPath, ... }:
 {
-
   deployment = {
     targetHost = "192.168.20.138";
     targetPort = 22;

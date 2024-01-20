@@ -1,0 +1,7 @@
+builds:
+  exclude: []
+  include:
+    - nixosConfigurations.chopper
+    - nixosConfigurations.sophia
+    - nixosConfigurations.spdr
+    - nixosConfigurations.gaia0
