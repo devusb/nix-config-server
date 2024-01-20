@@ -34,6 +34,8 @@
     };
   });
 
+  openvino = prev.openvino.override { stdenv = prev.gcc12Stdenv; };
+
   # https://github.com/NixOS/nixpkgs/pull/281440
   mongodb-4_4 = prev.mongodb-4_4.overrideAttrs (old: {
     buildInputs = old.buildInputs ++ [

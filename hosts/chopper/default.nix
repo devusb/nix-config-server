@@ -31,7 +31,7 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./hass.nix
-      # ./frigate.nix
+      ./frigate.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
