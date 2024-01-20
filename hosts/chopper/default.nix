@@ -57,6 +57,7 @@ in
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   networking.networkmanager.unmanaged = [
     "enp10s0u9u3c2"
+    "tailcale0"
   ];
 
   networking.nat.enable = true;

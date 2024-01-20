@@ -14,5 +14,9 @@
     '';
   };
   systemd.services.vault.serviceConfig.EnvironmentFile = config.sops.secrets.vault_unseal.path;
+  systemd.services.vault = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+  };
 
 }
