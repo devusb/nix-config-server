@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   systemd.tmpfiles.settings."homeassistant"."/var/lib/homeassistant".d = {
     mode = "0666";
   };
@@ -12,6 +12,10 @@
         "--network=host"
       ];
     };
+  };
+
+  services.node-red = {
+    enable = true;
   };
 
 }

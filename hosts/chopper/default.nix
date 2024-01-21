@@ -30,7 +30,7 @@ in
       ./vault.nix
       ./monitoring.nix
       ./unifi.nix
-      ./hass.nix
+      ./homeassistant.nix
       ./frigate.nix
     ];
 
@@ -152,6 +152,7 @@ in
       "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
       "frigate.${wildcardDomain}" = mkSocketVirtualHost "/run/nginx/frigate.sock";
       "hass.${wildcardDomain}" = mkVirtualHost 8123;
+      "node-red.${wildcardDomain}" = mkVirtualHost 1880;
     };
   };
 
