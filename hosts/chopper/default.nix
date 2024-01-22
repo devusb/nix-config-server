@@ -45,7 +45,10 @@ in
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.zfs.extraPools = [ "r2d2_0" ];
-  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "*-*-01,15 00:00:00";
+  };
   services.zfs.trim.enable = true;
 
   hardware.opengl = {
