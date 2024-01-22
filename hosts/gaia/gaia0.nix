@@ -36,7 +36,7 @@
   };
 
   sops.secrets."zigbee2mqtt.yaml" = {
-    sopsFile = ../../secrets/zigbee2mqtt.yaml;
+    sopsFile = ../../secrets/default.yaml;
     owner = "zigbee2mqtt";
   };
   services.zigbee2mqtt = {
@@ -48,7 +48,7 @@
         port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_281736b2e112ec118bd021c7bd930c07-if00-port0";
       };
       mqtt = {
-        server = "mqtt://hass:1883";
+        server = "mqtt://chopper:1883";
         user = "!${config.sops.secrets."zigbee2mqtt.yaml".path} user";
         password = "!${config.sops.secrets."zigbee2mqtt.yaml".path} password";
       };

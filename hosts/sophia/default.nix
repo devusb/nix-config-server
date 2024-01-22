@@ -125,6 +125,10 @@ with lib;
     wantedBy = [ "timers.target" ];
   };
 
+  services.avahi = {
+    enable = true;
+    reflector = true;
+  };
 
   # router configuration
   systemd.network.links."10-wan" = {

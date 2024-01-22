@@ -110,7 +110,7 @@ routes:
 
 
   - from: https://hass.devusb.us
-    to: https://hass-local.devusb.us
+    to: https://hass.chopper.devusb.us
     allow_websockets: true
     allowed_users:
       - ilona.molotoka@gmail.com

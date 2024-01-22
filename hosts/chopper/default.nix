@@ -10,6 +10,7 @@ let
     "cloudflare"
     "pushover"
     "frigate"
+    "mosquitto"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };

@@ -6,8 +6,8 @@
       url = "github:devusb/nix-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    nix-packages = {
+      url = "github:devusb/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {

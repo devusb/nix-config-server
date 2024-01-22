@@ -1,6 +1,7 @@
 { inputs, ... }: final: prev: {
   stable = import inputs.nixpkgs-stable { system = prev.system; };
   nix-config = inputs.nix-config.legacyPackages."${prev.system}";
+  nix-packages = inputs.nix-packages.packages."${prev.system}";
 
   caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
 
