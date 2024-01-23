@@ -3,6 +3,7 @@
     enable = true;
     user = "media";
     group = "media";
+    openFirewall = true;
   };
   systemd.tmpfiles.settings."jellyfin-sock"."/run/jellyfin".d = {
     user = config.users.users.media.name;
