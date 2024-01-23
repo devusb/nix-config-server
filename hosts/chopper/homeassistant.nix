@@ -48,6 +48,7 @@
 
       # HomeKit
       21064
+      21066
     ];
     allowedUDPPorts = [
       # mDNS
