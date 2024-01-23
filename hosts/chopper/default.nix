@@ -22,6 +22,7 @@ in
       ./disko-config.nix
       ../common
       ./containers.nix
+      ./virtualisation.nix
       ./plex.nix
       ./arr.nix
       ./jellyfin.nix
