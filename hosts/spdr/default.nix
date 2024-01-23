@@ -107,6 +107,7 @@
     htop
     bottom
     zellij
+    libva-utils
   ];
 
   # monitoring
