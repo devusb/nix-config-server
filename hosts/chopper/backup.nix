@@ -5,7 +5,6 @@
   };
   services.go-simple-upload-server = {
     enable = true;
-    package = pkgs.nix-config.go-simple-upload-server;
     settings = {
       token = "59af2e561fc9f80a9bb9";
       addr = "127.0.0.1:8081";

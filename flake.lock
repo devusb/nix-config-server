@@ -927,11 +927,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705891689,
-        "narHash": "sha256-zrfACJRf2hGqsjqcqmyHIAFDs3yFTFzU6DszLHpZ3I4=",
+        "lastModified": 1706070767,
+        "narHash": "sha256-hOB748weVdA7jYxcS9lyUanG6UJ4wggMjUQ6dkmunsc=",
         "owner": "devusb",
         "repo": "nix-packages",
-        "rev": "968f43c01e81d2a3158ac32cac3fbaa9910c808b",
+        "rev": "4cef0aa8cbb9e28435828befa2adf389b6c1ea0a",
         "type": "github"
       },
       "original": {

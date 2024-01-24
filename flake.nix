@@ -42,7 +42,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
@@ -65,13 +65,13 @@
         attic.nixosModules.atticd
         disko.nixosModules.disko
         pingshutdown.nixosModules.pingshutdown
+        nix-packages.nixosModules.default
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
         ./modules/nomad-server.nix
         ./modules/nomad-client.nix
         ./modules/jellyplex-watched.nix
-        ./modules/go-simple-upload-server.nix
       ];
     in
     {
