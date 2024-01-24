@@ -51,6 +51,7 @@ with lib;
     tcpdump
     conntrack-tools
     speedtest-cli
+    wol
   ];
 
   # monitoring
@@ -309,6 +310,28 @@ with lib;
         ];
       };
     };
+  };
+
+  services.wolweb = {
+    enable = true;
+    settings = {
+      host = "0.0.0.0";
+      port = 8089;
+      vdir = "/wolweb";
+      bcastip = "255.255.255.255:9";
+    };
+    devices = [
+      {
+        name = "tomservo_on";
+        mac = "D8:BB:C1:D2:DD:CD";
+        ip = "192.168.11.255:40000";
+      }
+      {
+        name = "tomservo_off";
+        mac = "CD:DD:D2:C1:BB:D8";
+        ip = "192.168.11.255:9";
+      }
+    ];
   };
 
 }
