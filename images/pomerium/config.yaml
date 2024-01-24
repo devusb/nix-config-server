@@ -28,45 +28,6 @@ routes:
       - mhelton@gmail.com
     pass_identity_headers: true
 
-  - from: https://proxmox.devusb.us
-    to: https://192.168.99.101:8006
-    tls_skip_verify: true
-    allow_websockets: true
-    policy:
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                  is: *1password
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *yubikey
-
-  - from: https://portainer.devusb.us
-    to: http://192.168.20.133:9000
-    allow_websockets: true
-    allowed_users:
-      - mhelton@gmail.com
-    policy:
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                  is: *1password
-
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *yubikey
-
-
   - from: https://sonarr.devusb.us
     to: https://sonarr.chopper.devusb.us
     allowed_users:
@@ -124,23 +85,6 @@ routes:
       - ilona.molotoka@gmail.com
       - mhelton@gmail.com
 
-  - from: https://pwrctl.devusb.us
-    to: http://192.168.99.13
-    allow_websockets: true
-    policy:
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                  is: *1password
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *yubikey
-
   - from: https://grafana.devusb.us
     to: https://grafana.chopper.devusb.us
     allow_websockets: true
@@ -149,6 +93,6 @@ routes:
     pass_identity_headers: true
 
   - from: https://hass-auth.devusb.us
-    to: https://hass-local.devusb.us
+    to: https://hass.chopper.devusb.us
     allow_public_unauthenticated_access: true
     path: /auth/token
