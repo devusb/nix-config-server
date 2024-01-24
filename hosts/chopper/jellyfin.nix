@@ -17,7 +17,6 @@
 
   services.jellyplex-watched = {
     enable = true;
-    package = pkgs.nix-config.jellyplex-watched;
     environmentFile = config.sops.secrets.jellyplex_creds.path;
     settings = {
       DRYRUN = "False";

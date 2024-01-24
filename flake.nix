@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
-    nix-config = {
-      url = "github:devusb/nix-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-packages = {
       url = "github:devusb/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +67,6 @@
         ./modules/deploy-backup.nix
         ./modules/nomad-server.nix
         ./modules/nomad-client.nix
-        ./modules/jellyplex-watched.nix
       ];
     in
     {
