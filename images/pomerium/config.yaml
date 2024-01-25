@@ -52,24 +52,6 @@ routes:
     set_request_headers:
       Authorization: Basic bnpiZ2V0OktNQTM2Nw==
 
-  - from: https://unifi.devusb.us
-    to: https://unifi.chopper.devusb.us
-    allow_websockets: true
-    policy:
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                  is: *1password
-      - allow:
-          and:
-            - email:
-                is: mhelton@gmail.com
-            - device:
-                is: *yubikey
-
-
   - from: https://hass.devusb.us
     to: https://hass.chopper.devusb.us
     allow_websockets: true
