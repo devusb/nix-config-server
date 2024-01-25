@@ -254,12 +254,9 @@ with lib;
             "reservations" = [
               { "hw-address" = "b0:be:76:ca:dc:9f"; "ip-address" = "192.168.10.131"; hostname = "GR_Lamp"; }
               { "hw-address" = "00:18:dd:06:8a:2e"; "ip-address" = "192.168.10.137"; hostname = "HDHR-1068A2E8"; }
-              { "hw-address" = "7A:10:41:6E:3E:A4"; "ip-address" = "192.168.10.119"; hostname = "homeassistant"; }
               { "hw-address" = "3c:84:6a:b4:93:4f"; "ip-address" = "192.168.10.174"; hostname = "Peloton-Fan"; }
-              { "hw-address" = "78:0f:77:18:6b:74"; "ip-address" = "192.168.10.120"; hostname = "RMMINI-18-6b-74"; }
               { "hw-address" = "b0:be:76:ca:de:06"; "ip-address" = "192.168.10.130"; hostname = "Tree"; }
               { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
-              { "hw-address" = "98:CD:AC:26:01:28"; "ip-address" = "192.168.10.140"; hostname = "tasmota-260128-0296"; }
               { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
               { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
             ];
@@ -273,7 +270,6 @@ with lib;
               { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
             ];
             "reservations" = [
-              { "hw-address" = "5a:33:e2:da:ec:be"; "ip-address" = "192.168.20.133"; hostname = "docker"; }
               { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; hostname = "gaia0"; }
               { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; hostname = "gaia1"; }
               { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
