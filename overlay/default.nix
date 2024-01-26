@@ -34,7 +34,7 @@
     };
   });
 
-  openvino = prev.openvino.override { stdenv = prev.gcc12Stdenv; };
+  openvino = prev.openvino.override { stdenv = with prev; stdenvAdapters.useLibsFrom stdenv gcc12Stdenv; };
 
   # https://github.com/NixOS/nixpkgs/pull/281440
   mongodb-4_4 = prev.mongodb-4_4.overrideAttrs (old: {
