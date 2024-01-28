@@ -73,6 +73,7 @@ in
     exporters = {
       zfs.enable = true;
       node.enable = true;
+      smartctl.enable = true;
     };
     scrapeConfigs = [
       {
@@ -91,6 +92,13 @@ in
         scrape_interval = "1m";
         static_configs = [
           (mkConfig { hostname = "localhost"; alias = "chopper"; exporter = "zfs"; })
+        ];
+      }
+      {
+        job_name = "smartctl";
+        scrape_interval = "1m";
+        static_configs = [
+          (mkConfig { hostname = "localhost"; alias = "chopper"; exporter = "smartctl"; })
         ];
       }
       {
