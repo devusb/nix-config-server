@@ -49,8 +49,23 @@ in
           access = "proxy";
         }
       ];
+      alerting.contactPoints.settings.contactPoints = [
+        {
+          name = "pushover";
+          receivers = lib.singleton {
+            uid = "pushover";
+            type = "pushover";
+            disableResolveMessage = false;
+            settings = {
+              apiToken = "$PINGSHUTDOWN_NOTIFICATIONTOKEN";
+              userKey = "$PINGSHUTDOWN_NOTIFICATIONUSER";
+            };
+          };
+        }
+      ];
     };
   };
+  systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.secrets.pushover.path;
 
   services.prometheus = {
     enable = true;
@@ -80,7 +95,7 @@ in
       }
       {
         job_name = "blocky";
-        scrape_interval = "10s";
+        scrape_interval = "30s";
         static_configs = [
           {
             targets = [
@@ -88,6 +103,20 @@ in
             ];
             labels = {
               alias = "blocky-fly";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "pomerium";
+        scrape_interval = "30s";
+        static_configs = [
+          {
+            targets = [
+              "pomerium:9091"
+            ];
+            labels = {
+              alias = "pomerium";
             };
           }
         ];
