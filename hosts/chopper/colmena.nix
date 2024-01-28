@@ -4,6 +4,7 @@
     targetPort = 22;
     targetUser = "mhelton";
     buildOnTarget = true;
+    replaceUnknownProfiles = false;
   };
 
 }
