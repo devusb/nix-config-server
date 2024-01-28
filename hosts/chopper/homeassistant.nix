@@ -28,6 +28,13 @@
     };
   };
 
+  services.deploy-backup.backups.homeassistant = {
+    files = [
+      ''$(find /var/lib/homeassistant/backups -type f -name "*.tar" -exec ls -t {} + | head -n 1)''
+      "/var/lib/node-red"
+    ];
+  };
+
   services.mosquitto = {
     enable = true;
     listeners = lib.singleton {
