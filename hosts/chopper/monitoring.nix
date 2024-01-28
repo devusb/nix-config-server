@@ -67,6 +67,7 @@ in
         {
           orgid = 1;
           receiver = "pushover";
+          group_by = [ "grafana_folder" "alertname" ];
         }
       ];
     };
