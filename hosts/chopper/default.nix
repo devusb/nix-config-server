@@ -38,10 +38,7 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [
-    "pcie_port_pm=off"
-    "pcie_aspm.policy=performance"
-  ];
+  hardware.igb.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
