@@ -63,6 +63,12 @@ in
           };
         }
       ];
+      alerting.policies.settings.policies = [
+        {
+          orgid = 1;
+          receiver = "pushover";
+        }
+      ];
     };
   };
   systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.secrets.pushover.path;
