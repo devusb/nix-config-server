@@ -73,7 +73,15 @@ in
     exporters = {
       zfs.enable = true;
       node.enable = true;
-      smartctl.enable = true;
+      smartctl = {
+        enable = true;
+        devices = [
+          "/dev/sda"
+          "/dev/sdb"
+          "/dev/sdc"
+          "/dev/sdd"
+        ];
+      };
     };
     scrapeConfigs = [
       {
