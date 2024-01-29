@@ -10,6 +10,14 @@ let
   };
 in
 {
+  services.postgresql = {
+    enable = true;
+    ensureUsers = [{
+      name = "grafana";
+      ensureDBOwnership = true;
+    }];
+    ensureDatabases = [ "grafana" ];
+  };
   services.grafana = {
     enable = true;
     settings = {
@@ -17,6 +25,11 @@ in
         protocol = "socket";
         socket = "/run/grafana/grafana.sock";
         socket_mode = "0666";
+      };
+      database = {
+        type = "postgres";
+        user = "grafana";
+        host = "/run/postgresql";
       };
       users = {
         allow_sign_up = false;
