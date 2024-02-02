@@ -113,6 +113,7 @@ in
           (mkConfig { hostname = "spdr"; alias = "spdr"; exporter = "node"; })
           (mkConfig { hostname = "durandal"; alias = "durandal"; exporter = "node"; })
           (mkConfig { hostname = "gaia0"; alias = "gaia0"; exporter = "node"; })
+          (mkConfig { hostname = "gaia1"; alias = "gaia1"; exporter = "node"; })
         ];
       }
       {
