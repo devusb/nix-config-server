@@ -5,3 +5,4 @@ builds:
     - nixosConfigurations.sophia
     - nixosConfigurations.spdr
     - nixosConfigurations.gaia0
+    - nixosConfigurations.gaia1
