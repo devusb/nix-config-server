@@ -2,7 +2,14 @@
   stable = import inputs.nixpkgs-stable { system = prev.system; };
   nix-packages = inputs.nix-packages.packages."${prev.system}";
 
+  makeModulesClosure = x:
+    prev.makeModulesClosure (x // { allowMissing = true; });
+
   caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
+
+  shairport-sync = prev.shairport-sync.override {
+    enableAirplay2 = true;
+  };
 
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {

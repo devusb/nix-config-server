@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706453801,
-        "narHash": "sha256-LhxOJjuoAikyzGQM+a64OuO+UVDtQLOmItUmVCcUdM8=",
+        "lastModified": 1706833060,
+        "narHash": "sha256-WUsNd33wtR5vCHVhebHNViLsbaYri6s13DvX3VAgSZU=",
         "owner": "devusb",
         "repo": "nix-packages",
-        "rev": "2553e730bc2c7f5ccc329c1fa3658ff1637f484d",
+        "rev": "6432e259c1fcace637c88f7d0ad1c8d79fc202fc",
         "type": "github"
       },
       "original": {
@@ -252,6 +252,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1706782449,
+        "narHash": "sha256-8hEkOJDqR+7gJvXzwIM/VhR9iQzZyrNeh68u+Et2TzA=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "cc65e27670abccced5997d4a93c4c930aef6fd0b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -363,6 +378,7 @@
         "impermanence": "impermanence",
         "nix-packages": "nix-packages",
         "nixos-generators": "nixos-generators",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "pingshutdown": "pingshutdown",

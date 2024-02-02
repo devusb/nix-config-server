@@ -6,6 +6,9 @@
       url = "github:devusb/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -143,6 +146,22 @@
               ./hosts/gaia/gaia0.nix
             ];
           };
+
+        gaia1 =
+          let system = "aarch64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            pkgs = legacyPackages."${system}";
+            specialArgs = { inherit inputs; };
+            extraModules = [ colmena.nixosModules.deploymentOptions ];
+            modules = defaultImports ++ [
+              { nixpkgs.system = system; }
+              ./hosts/gaia
+              ./hosts/gaia/gaia1.nix
+            ];
+          };
+
+
 
         spdr =
           let system = "x86_64-linux";

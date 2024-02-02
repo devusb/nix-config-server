@@ -6,6 +6,7 @@ keys:
   - &admin_mhelton age1m97ls72xcy8v492xrru4keyjve0jcqytqne6jk62zl72j3xsqgrql0ckw2
   - &sophia age1mwrrymv9hsyhk3vtr5gqnhqg76rsh4f4gjpr5d3rg966lze6lc8s8x4z20
   - &gaia0 age1klyhch983y7as7xnceltplys58lhmpu3w0qpy5gf0nmay6fjhadspml7nf
+  - &gaia1 age1swcq9xcguv3t2tgna80hewemc7yg0cdgyjff86q0d6gj24j8xuzshl2pdy
   - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
   - &chopper age154w9fxzva5uy9qzj0nc9002mrlaprnvqml63kmhn2c8c8sfk5swq9hgxnh
 creation_rules:
@@ -15,5 +16,6 @@ creation_rules:
       - *admin_mhelton
       - *sophia
       - *gaia0
+      - *gaia1
       - *spdr
       - *chopper
