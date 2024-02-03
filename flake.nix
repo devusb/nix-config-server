@@ -191,6 +191,7 @@
             ./hosts/sophia/tests.nix
           ];
           hostPkgs = legacyPackages."x86_64-linux";
+          node.specialArgs = { inherit inputs; };
         };
       };
     };

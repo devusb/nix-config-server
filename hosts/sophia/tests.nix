@@ -2,9 +2,10 @@
   name = "sophia";
 
   nodes = {
-    sophia = { config, pkgs, ... }: {
+    sophia = { config, pkgs, inputs, ... }: {
       imports = [
         ./default.nix
+        inputs.nix-packages.nixosModules.default
       ];
       virtualisation = {
         memorySize = 8192;
