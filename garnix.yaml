@@ -6,3 +6,4 @@ builds:
     - nixosConfigurations.spdr
     - nixosConfigurations.gaia0
     - nixosConfigurations.gaia1
+    - 'checks.aarch64-linux.*'

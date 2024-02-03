@@ -185,12 +185,12 @@
           };
         } // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
 
-      tests = {
+      checks."aarch64-linux" = {
         sophia = nixpkgs.lib.nixos.runTest {
           imports = [
             ./hosts/sophia/tests.nix
           ];
-          hostPkgs = legacyPackages."x86_64-linux";
+          hostPkgs = legacyPackages."aarch64-linux";
           node.specialArgs = { inherit inputs; };
         };
       };
