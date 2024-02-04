@@ -96,6 +96,7 @@
           modules = [
             ./hosts/gaia
           ];
+          specialArgs = { inherit inputs; };
           pkgs = legacyPackages."aarch64-linux";
           format = "sd-aarch64-installer";
         };
@@ -139,6 +140,7 @@
           in
           nixpkgs.lib.nixosSystem {
             pkgs = legacyPackages."${system}";
+            specialArgs = { inherit inputs; };
             extraModules = [ colmena.nixosModules.deploymentOptions ];
             modules = defaultImports ++ [
               { nixpkgs.system = system; }

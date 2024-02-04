@@ -1,12 +1,17 @@
-{ lib, pkgs, config, modulesPath, ... }:
+{ lib, pkgs, config, modulesPath, inputs, ... }:
 with lib;
 {
 
   # base image
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
   ];
   sdImage.compressImage = false;
+
+  hardware.raspberry-pi."4" = {
+    poe-hat.enable = true;
+  };
 
   users.mutableUsers = false;
   users.users.mhelton = {
@@ -46,10 +51,12 @@ with lib;
   };
 
   environment.systemPackages = with pkgs; [
-    micro
+    neovim
     wget
     curl
     htop
+    bottom
+    libraspberrypi
   ];
 
 }

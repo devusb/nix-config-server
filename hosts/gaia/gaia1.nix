@@ -1,9 +1,5 @@
-{ lib, pkgs, config, modulesPath, inputs, ... }:
+{ lib, pkgs, config, modulesPath, ... }:
 {
-  imports = [
-    inputs.nixos-hardware.nixosModules.raspberry-pi-4
-  ];
-
   deployment = {
     targetHost = "192.168.20.139";
     targetPort = 22;
@@ -27,10 +23,6 @@
   networking.hostName = "gaia1";
 
   sound.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    libraspberrypi
-  ];
 
   # tailscale
   sops.secrets.ts_key = {
