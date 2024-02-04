@@ -1,4 +1,11 @@
 { lib, pkgs, config, modulesPath, ... }:
+let
+  shairportConfig = ''
+    general = {
+      audio_backend_latency_offset_in_seconds = -0.1
+    }
+  '';
+in
 {
   deployment = {
     targetHost = "192.168.20.139";
@@ -36,7 +43,7 @@
 
   services.shairport-sync = {
     enable = true;
-    arguments = "-v -o alsa -a Office";
+    arguments = "-v -o alsa -a Office -c ${pkgs.writeText "shairport-sync.conf" shairportConfig}";
   };
   services.nqptp.enable = true;
 
