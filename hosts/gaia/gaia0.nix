@@ -18,14 +18,6 @@
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
-  # monitoring
-  services.prometheus.exporters = {
-    node = {
-      enable = true;
-      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
-    };
-  };
-
   virtualisation.oci-containers.containers = {
     zwave-js-ui = {
       image = "zwavejs/zwave-js-ui:9.3.1";

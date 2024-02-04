@@ -6,12 +6,9 @@ with lib;
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    ./fan-control.nix
   ];
   sdImage.compressImage = false;
-
-  hardware.raspberry-pi."4" = {
-    poe-plus-hat.enable = true;
-  };
 
   users.mutableUsers = false;
   users.users.mhelton = {
@@ -58,5 +55,14 @@ with lib;
     bottom
     libraspberrypi
   ];
+
+  # monitoring
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+      disabledCollectors = [ "arp" ];
+    };
+  };
 
 }

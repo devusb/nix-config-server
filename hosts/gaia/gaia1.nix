@@ -34,14 +34,6 @@
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
-  # monitoring
-  services.prometheus.exporters = {
-    node = {
-      enable = true;
-      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
-    };
-  };
-
   services.shairport-sync = {
     enable = true;
     arguments = "-v -o alsa -a Office";
