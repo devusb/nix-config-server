@@ -10,7 +10,7 @@ with lib;
   sdImage.compressImage = false;
 
   hardware.raspberry-pi."4" = {
-    poe-hat.enable = true;
+    poe-plus-hat.enable = true;
   };
 
   users.mutableUsers = false;
