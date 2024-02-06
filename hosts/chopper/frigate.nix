@@ -24,6 +24,7 @@ in
           detect = {
             width = 1280;
             height = 720;
+            enabled = false;
           };
         };
         dining_room = {
@@ -39,6 +40,7 @@ in
           detect = {
             width = 1280;
             height = 720;
+            enabled = false;
           };
         };
       };
