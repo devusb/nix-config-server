@@ -11,6 +11,7 @@ let
     "pushover"
     "frigate"
     "mosquitto"
+    "hercules_join"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
@@ -34,6 +35,7 @@ in
       ./unifi.nix
       ./homeassistant.nix
       ./frigate.nix
+      ./hercules-ci.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
