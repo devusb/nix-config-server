@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  systemd.tmpfiles.settings."rhasspy"."/var/lib/voice-assist/rhasspy".d = {
+  systemd.tmpfiles.settings."whisper"."/var/lib/voice-assist/whisper".d = {
     mode = "0666";
   };
   systemd.tmpfiles.settings."piper"."/var/lib/voice-assist/piper".d = {
@@ -11,12 +11,12 @@
   virtualisation.oci-containers = {
     backend = "podman";
     containers = {
-      rhasspy = {
-        volumes = [ "/var/lib/voice-assist/rhasspy:/data" ];
+      whisper = {
+        volumes = [ "/var/lib/voice-assist/whisper:/data" ];
         image = "rhasspy/wyoming-whisper";
         cmd = [
           "--model"
-          "tiny-int8"
+          "base"
           "--language"
           "en"
         ];
