@@ -92,7 +92,10 @@ in
     port = 9091;
     exporters = {
       zfs.enable = true;
-      node.enable = true;
+      node = {
+        enable = true;
+        disabledCollectors = [ "arp" ];
+      };
       smartctl = {
         enable = true;
         devices = [
