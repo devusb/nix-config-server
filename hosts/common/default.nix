@@ -11,7 +11,7 @@
         "https://nix-community.cachix.org"
         "https://devenv.cachix.org"
         "https://colmena.cachix.org"
-        # "https://cache.garnix.io"
+        "https://cache.garnix.io"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
