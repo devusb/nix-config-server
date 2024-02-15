@@ -55,8 +55,13 @@
         type = "zpool";
         mode = "mirror";
         rootFsOptions = {
-          compression = "zstd";
+          compression = "lz4";
           "com.sun:auto-snapshot" = "true";
+          atime = "off";
+          xattr = "sa";
+        };
+        options = {
+          ashift = "13";
         };
         mountpoint = "/";
         postCreateHook = "zfs snapshot zroot@blank";

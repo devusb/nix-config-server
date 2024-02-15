@@ -8,7 +8,7 @@ keys:
   - &gaia0 age1klyhch983y7as7xnceltplys58lhmpu3w0qpy5gf0nmay6fjhadspml7nf
   - &gaia1 age1swcq9xcguv3t2tgna80hewemc7yg0cdgyjff86q0d6gj24j8xuzshl2pdy
   - &spdr age1zr8jlq26nmm9v9heg2tv5gym87ctk7ry67x32zfux43ta75mrfkqmj748g
-  - &chopper age154w9fxzva5uy9qzj0nc9002mrlaprnvqml63kmhn2c8c8sfk5swq9hgxnh
+  - &chopper age1dkzr6l9t3nx4j0vhk4nwce6f9836gfhx35xr8hnu9qxp36mt6esstlful7
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
