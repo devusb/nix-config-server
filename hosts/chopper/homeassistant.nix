@@ -15,7 +15,7 @@
       homeassistant = {
         volumes = [ "/var/lib/homeassistant:/config" ];
         environment.TZ = "US/Central";
-        image = "ghcr.io/home-assistant/home-assistant:2024.2.0";
+        image = "ghcr.io/home-assistant/home-assistant:2024.2.2";
         extraOptions = [
           "--network=host"
         ];
@@ -23,7 +23,7 @@
       node-red = {
         volumes = [ "/var/lib/node-red:/data:U" ];
         environment.TZ = "US/Central";
-        image = "nodered/node-red";
+        image = "nodered/node-red:3.1";
         extraOptions = [
           "--network=host"
         ];
