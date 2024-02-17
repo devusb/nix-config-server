@@ -13,6 +13,7 @@ let
     "mosquitto"
     "hercules_join"
     "hercules_secrets"
+    "hercules_caches"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
