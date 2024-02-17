@@ -9,6 +9,8 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    hercules-ci-effects.url = "github:mlabs-haskell/hercules-ci-effects/push-cache-effect";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,7 +43,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
@@ -72,132 +74,157 @@
         ./modules/nomad-client.nix
       ];
     in
-    {
-      formatter = forAllSystems (system: legacyPackages.${system}.nixpkgs-fmt);
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        hercules-ci-effects.flakeModule
+        hercules-ci-effects.push-cache-effect
+      ];
 
-      # images
-      images = {
-        sophia = nixos-generators.nixosGenerate {
-          modules = [
-            ./hosts/sophia
-          ];
-          pkgs = legacyPackages."aarch64-linux";
-          format = "sd-aarch64-installer";
-        };
-        blocky-fly =
-          let
-            system = "x86_64-linux";
-            pkgs = legacyPackages.${system};
-          in
-          blocky-tailscale.packages.${system}.blocky-tailscale.override {
-            blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./images/blocky-fly/blocky-config.nix { }));
-          };
-        gaia = nixos-generators.nixosGenerate {
-          modules = [
-            ./hosts/gaia
-          ];
-          specialArgs = { inherit inputs; };
-          pkgs = legacyPackages."aarch64-linux";
-          format = "sd-aarch64-installer";
-        };
-        pomerium =
-          let
-            system = "x86_64-linux";
-            pkgs = legacyPackages.${system};
-          in
-          pkgs.dockerTools.buildLayeredImage (import ./images/pomerium pkgs);
-      };
+      flake = {
+        formatter = forAllSystems (system: legacyPackages.${system}.nixpkgs-fmt);
 
-      nixosConfigurations = {
-        sophia =
-          let system = "aarch64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages."${system}";
-            extraModules = [ colmena.nixosModules.deploymentOptions ];
-            modules = defaultImports ++ [
-              { nixpkgs.system = system; } # needed to use aarch64-linux packages
+        # images
+        images = {
+          sophia = nixos-generators.nixosGenerate {
+            modules = [
               ./hosts/sophia
-              ./hosts/sophia/colmena.nix
             ];
+            pkgs = legacyPackages."aarch64-linux";
+            format = "sd-aarch64-installer";
           };
-
-        chopper =
-          let system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages."${system}";
-            specialArgs = { inherit inputs; };
-            extraModules = [ colmena.nixosModules.deploymentOptions ];
-            modules = defaultImports ++ [
-              ./hosts/chopper
-              ./hosts/chopper/colmena.nix
-            ];
-          };
-
-        gaia0 =
-          let system = "aarch64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages."${system}";
-            specialArgs = { inherit inputs; };
-            extraModules = [ colmena.nixosModules.deploymentOptions ];
-            modules = defaultImports ++ [
-              { nixpkgs.system = system; }
+          blocky-fly =
+            let
+              system = "x86_64-linux";
+              pkgs = legacyPackages.${system};
+            in
+            blocky-tailscale.packages.${system}.blocky-tailscale.override {
+              blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./images/blocky-fly/blocky-config.nix { }));
+            };
+          gaia = nixos-generators.nixosGenerate {
+            modules = [
               ./hosts/gaia
-              ./hosts/gaia/gaia0.nix
             ];
-          };
-
-        gaia1 =
-          let system = "aarch64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages."${system}";
             specialArgs = { inherit inputs; };
-            extraModules = [ colmena.nixosModules.deploymentOptions ];
-            modules = defaultImports ++ [
-              { nixpkgs.system = system; }
-              ./hosts/gaia
-              ./hosts/gaia/gaia1.nix
-            ];
+            pkgs = legacyPackages."aarch64-linux";
+            format = "sd-aarch64-installer";
           };
+          pomerium =
+            let
+              system = "x86_64-linux";
+              pkgs = legacyPackages.${system};
+            in
+            pkgs.dockerTools.buildLayeredImage (import ./images/pomerium pkgs);
+        };
 
+        nixosConfigurations = {
+          sophia =
+            let system = "aarch64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              pkgs = legacyPackages."${system}";
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                { nixpkgs.system = system; } # needed to use aarch64-linux packages
+                ./hosts/sophia
+                ./hosts/sophia/colmena.nix
+              ];
+            };
 
+          chopper =
+            let system = "x86_64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              pkgs = legacyPackages."${system}";
+              specialArgs = { inherit inputs; };
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                ./hosts/chopper
+                ./hosts/chopper/colmena.nix
+              ];
+            };
 
-        spdr =
-          let system = "x86_64-linux";
+          gaia0 =
+            let system = "aarch64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              pkgs = legacyPackages."${system}";
+              specialArgs = { inherit inputs; };
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                { nixpkgs.system = system; }
+                ./hosts/gaia
+                ./hosts/gaia/gaia0.nix
+              ];
+            };
+
+          gaia1 =
+            let system = "aarch64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              pkgs = legacyPackages."${system}";
+              specialArgs = { inherit inputs; };
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                { nixpkgs.system = system; }
+                ./hosts/gaia
+                ./hosts/gaia/gaia1.nix
+              ];
+            };
+
+          spdr =
+            let system = "x86_64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              pkgs = legacyPackages."${system}";
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                ./hosts/spdr
+              ];
+            };
+        };
+
+        colmena =
+          let conf = self.nixosConfigurations;
           in
-          nixpkgs.lib.nixosSystem {
-            pkgs = legacyPackages."${system}";
-            extraModules = [ colmena.nixosModules.deploymentOptions ];
-            modules = defaultImports ++ [
-              ./hosts/spdr
+          {
+            meta = {
+              nixpkgs = legacyPackages."x86_64-linux";
+              nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) conf;
+            };
+          } // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
+
+        checks."x86_64-linux" = {
+          sophia = nixpkgs.lib.nixos.runTest {
+            imports = [
+              ./hosts/sophia/tests.nix
             ];
+            hostPkgs = legacyPackages."x86_64-linux";
+            node.specialArgs = { inherit inputs; };
           };
-      };
-
-      colmena =
-        let conf = self.nixosConfigurations;
-        in
-        {
-          meta = {
-            nixpkgs = legacyPackages."x86_64-linux";
-            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) conf;
-          };
-        } // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
-
-      checks."aarch64-linux" = {
-        sophia = nixpkgs.lib.nixos.runTest {
-          imports = [
-            ./hosts/sophia/tests.nix
-          ];
-          hostPkgs = legacyPackages."aarch64-linux";
-          node.specialArgs = { inherit inputs; };
         };
       };
-    };
 
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+        "aarch64-linux"
+      ];
+
+      herculesCI = { config, lib, ... }: {
+        ciSystems = [ "x86_64-linux" "aarch64-linux" ];
+      };
+
+      push-cache-effect = {
+        enable = true;
+        attic-client-pkg = attic.packages.x86_64-linux.attic-client;
+        caches.r2d2 = {
+          type = "attic";
+          secretName = "attic";
+          packages = map (host: self.nixosConfigurations."${host}".config.system.build.toplevel) (builtins.attrNames self.nixosConfigurations);
+        };
+      };
+
+    };
 }
 
 

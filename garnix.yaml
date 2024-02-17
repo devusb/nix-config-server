@@ -1,9 +1,0 @@
-builds:
-  exclude: []
-  include:
-    - nixosConfigurations.chopper
-    - nixosConfigurations.sophia
-    - nixosConfigurations.spdr
-    - nixosConfigurations.gaia0
-    - nixosConfigurations.gaia1
-    - 'checks.aarch64-linux.*'
