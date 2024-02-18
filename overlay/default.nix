@@ -41,6 +41,4 @@
     };
   });
 
-  openvino = prev.openvino.override { stdenv = with prev; stdenvAdapters.useLibsFrom stdenv gcc12Stdenv; };
-
 }
