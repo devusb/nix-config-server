@@ -81,7 +81,6 @@
       };
 
       flake = with self; {
-        # images
         images = {
           sophia = nixos-generators.nixosGenerate {
             modules = defaultImports ++ [
