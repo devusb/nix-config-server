@@ -91,8 +91,7 @@ in
 
   users.users = {
     mhelton = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "media" ];
+      extraGroups = [ "media" ];
     };
     ilona = {
       isNormalUser = true;
@@ -100,19 +99,6 @@ in
       uid = 1102;
     };
   };
-
-  security.sudo = {
-    enable = true;
-    wheelNeedsPassword = false;
-  };
-
-  environment.systemPackages = with pkgs; [
-    wget
-    neovim
-    curl
-    git
-    bottom
-  ];
 
   services.pingshutdown = {
     enable = true;
@@ -125,8 +111,6 @@ in
       PINGSHUTDOWN_STATUSPORT = "9081";
     };
   };
-
-  services.openssh.enable = true;
 
   security.acme = {
     acceptTerms = true;
