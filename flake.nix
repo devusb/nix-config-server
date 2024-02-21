@@ -84,7 +84,7 @@
         # images
         images = {
           sophia = nixos-generators.nixosGenerate {
-            modules = [
+            modules = defaultImports ++ [
               ./hosts/sophia
             ];
             pkgs = legacyPackages."aarch64-linux";
@@ -99,7 +99,7 @@
               blockyConfig = pkgs.writeText "blocky.conf" (builtins.toJSON (import ./images/blocky-fly/blocky-config.nix { }));
             };
           gaia = nixos-generators.nixosGenerate {
-            modules = [
+            modules = defaultImports ++ [
               ./hosts/gaia
             ];
             specialArgs = { inherit inputs; };
