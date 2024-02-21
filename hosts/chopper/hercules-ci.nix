@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ config, ... }: {
   sops.secrets.hercules_join.owner = "hercules-ci-agent";
   sops.secrets.hercules_secrets.owner = "hercules-ci-agent";
   sops.secrets.hercules_caches.owner = "hercules-ci-agent";

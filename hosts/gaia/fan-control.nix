@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
   hardware.raspberry-pi."4" = {
     poe-plus-hat.enable = true;
   };

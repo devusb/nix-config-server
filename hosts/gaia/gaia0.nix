@@ -1,4 +1,4 @@
-{ lib, pkgs, config, modulesPath, ... }:
+{ config, ... }:
 {
   deployment = {
     targetHost = "192.168.20.138";

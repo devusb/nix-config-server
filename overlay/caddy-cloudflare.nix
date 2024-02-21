@@ -1,4 +1,4 @@
-{ srcOnly, fetchFromGitHub, go, buildGoModule, stdenv, lib, installShellFiles, ... }:
+{ srcOnly, fetchFromGitHub, go, buildGoModule, stdenv, ... }:
 let
   version = "2.6.2";
   caddySrc = srcOnly (fetchFromGitHub {

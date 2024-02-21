@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   systemd.tmpfiles.settings."whisper"."/var/lib/voice-assist/whisper".d = {
     mode = "0666";
   };
