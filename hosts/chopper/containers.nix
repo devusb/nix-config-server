@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }: {
+{ config, inputs, ... }: {
   containers.obsidian = {
     enableTun = true;
     privateNetwork = true;

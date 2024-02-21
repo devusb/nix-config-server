@@ -1,11 +1,12 @@
-({ pkgs, lib, ... }: {
+({ lib, ... }: {
   name = "sophia";
 
   nodes = {
-    sophia = { config, pkgs, inputs, ... }: {
+    sophia = { inputs, ... }: {
       imports = [
         ./default.nix
         inputs.nix-packages.nixosModules.default
+        inputs.sops-nix.nixosModules.sops
       ];
       virtualisation = {
         memorySize = 8192;
@@ -19,7 +20,7 @@
       services.promtail.enable = lib.mkForce false;
     };
 
-    lanClient = { config, pkgs, ... }: {
+    lanClient = { ... }: {
       virtualisation.vlans = [ 0 ];
       networking = {
         useNetworkd = true;
@@ -35,7 +36,7 @@
       };
     };
 
-    serverClient = { config, pkgs, ... }: {
+    serverClient = { ... }: {
       virtualisation.vlans = [ 0 ];
       networking = {
         useNetworkd = true;

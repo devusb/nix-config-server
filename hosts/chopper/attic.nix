@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ inputs, ... }: {
   imports = [
     ../../modules/tailscale-serve.nix
     inputs.attic.nixosModules.atticd

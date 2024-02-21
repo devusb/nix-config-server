@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 let
   mkConfig = { hostname, alias, exporter }: {
     targets = [
