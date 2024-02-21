@@ -6,6 +6,7 @@
       imports = [
         ./default.nix
         inputs.nix-packages.nixosModules.default
+        inputs.sops-nix.nixosModules.sops
       ];
       virtualisation = {
         memorySize = 8192;
@@ -17,7 +18,6 @@
         linkConfig.Name = "wan0";
       };
       services.promtail.enable = lib.mkForce false;
-      sops = lib.mkForce { };
     };
 
     lanClient = { ... }: {
