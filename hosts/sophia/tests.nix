@@ -17,6 +17,7 @@
         linkConfig.Name = "wan0";
       };
       services.promtail.enable = lib.mkForce false;
+      sops = lib.mkForce { };
     };
 
     lanClient = { ... }: {
