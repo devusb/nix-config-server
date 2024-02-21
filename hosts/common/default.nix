@@ -33,7 +33,6 @@
     };
   };
 
-  users.mutableUsers = false;
   users.users.mhelton = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
