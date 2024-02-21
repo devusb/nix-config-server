@@ -45,21 +45,7 @@
 
   outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
     let
-      inherit (nixpkgs.lib) genAttrs;
-      forAllSystems = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
-
       overlays = { default = import ./overlay { inherit inputs; }; };
-      legacyPackages = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues overlays;
-          config = {
-            allowUnfree = true;
-            nvidia.acceptLicense = true;
-          };
-        }
-      );
-
       defaultImports = [
         sops-nix.nixosModules.sops
         impermanence.nixosModule
@@ -80,9 +66,21 @@
         hercules-ci-effects.push-cache-effect
       ];
 
-      flake = {
-        formatter = forAllSystems (system: legacyPackages.${system}.nixpkgs-fmt);
+      perSystem = { system, ... }: rec {
+        legacyPackages =
+          import nixpkgs {
+            inherit system;
+            overlays = builtins.attrValues overlays;
+            config = {
+              allowUnfree = true;
+              nvidia.acceptLicense = true;
+            };
+          };
 
+        formatter = legacyPackages.nixpkgs-fmt;
+      };
+
+      flake = with self; {
         # images
         images = {
           sophia = nixos-generators.nixosGenerate {
