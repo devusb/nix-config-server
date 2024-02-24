@@ -1,7 +1,9 @@
 { lib, config, pkgs, ... }: {
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
-    secrets.attic_pull = { };
+    secrets.attic_pull = {
+      mode = "0444";
+    };
   };
 
   nix = {
