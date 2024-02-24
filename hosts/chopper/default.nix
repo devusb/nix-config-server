@@ -56,6 +56,8 @@ in
   };
   services.zfs.trim.enable = true;
 
+  nix.gc.dates = "monthly";
+
   hardware.opengl = {
     enable = true;
   };
