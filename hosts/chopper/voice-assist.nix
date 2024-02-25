@@ -1,53 +1,29 @@
-{ ... }: {
-  systemd.tmpfiles.settings."whisper"."/var/lib/voice-assist/whisper".d = {
-    mode = "0666";
-  };
-  systemd.tmpfiles.settings."piper"."/var/lib/voice-assist/piper".d = {
-    mode = "0666";
-  };
-  systemd.tmpfiles.settings."openwakeword"."/var/lib/voice-assist/openwakeword".d = {
-    mode = "0666";
-  };
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers = {
-      whisper = {
-        volumes = [ "/var/lib/voice-assist/whisper:/data" ];
-        image = "rhasspy/wyoming-whisper";
-        cmd = [
-          "--model"
-          "base"
-          "--language"
-          "en"
-        ];
-        extraOptions = [
-          "--network=host"
-        ];
-      };
-      piper = {
-        volumes = [ "/var/lib/voice-assist/piper:/data" ];
-        image = "rhasspy/wyoming-piper";
-        cmd = [
-          "--voice"
-          "en_US-lessac-medium"
-        ];
-        extraOptions = [
-          "--network=host"
-        ];
-      };
-      openwakeword = {
-        volumes = [ "/var/lib/voice-assist/openwakeword:/custom" ];
-        image = "rhasspy/wyoming-openwakeword";
-        cmd = [
-          "--preload-model"
-          "ok_nabu"
-          "--custom-model-dir"
-          "/custom"
-        ];
-        extraOptions = [
-          "--network=host"
-        ];
-      };
+{ pkgs, ... }: {
+  services.wyoming = {
+    piper.servers.local = {
+      enable = true;
+      uri = "tcp://127.0.0.1:10200";
+      voice = "en-us-ryan-medium";
+    };
+    faster-whisper.package = pkgs.wyoming-faster-whisper.overrideAttrs (old: {
+      postPatch = ''
+        substituteInPlace setup.py --replace 'whipser' 'whisper'
+      '';
+    });
+    faster-whisper.servers.local = {
+      enable = true;
+      uri = "tcp://127.0.0.1:10300";
+      model = "base";
+      language = "en";
+      beamSize = 2;
+    };
+    openwakeword = {
+      enable = true;
+      uri = "tcp://127.0.0.1:10400";
+      preloadModels = [
+        "ok_nabu"
+        "alexa"
+      ];
     };
   };
 
