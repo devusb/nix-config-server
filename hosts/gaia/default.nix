@@ -11,6 +11,8 @@ with lib;
   ];
   sdImage.compressImage = false;
 
+  services.fstrim.enable = true;
+
   networking.firewall.enable = false;
 
   system.stateVersion = "23.05";
