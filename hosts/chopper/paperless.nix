@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   services.paperless = {
     enable = true;
     passwordFile = config.sops.secrets.paperless_admin.path;
@@ -9,5 +9,11 @@
       "PAPERLESS_CORS_ALLOWED_HOSTS" = "https://paperless.devusb.us,https://paperless.chopper.devusb.us";
       "PAPERLESS_ALLOWED_HOSTS" = "paperless.devusb.us,paperless.chopper.devusb.us";
     };
+  };
+
+  services.deploy-backup.backups.paperless = lib.mkIf config.services.deploy-backup.enable {
+    files = [
+      config.services.paperless.dataDir
+    ];
   };
 }
