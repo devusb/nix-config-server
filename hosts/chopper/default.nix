@@ -14,6 +14,7 @@ let
     "hercules_join"
     "hercules_secrets"
     "hercules_caches"
+    "paperless_admin"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
@@ -38,6 +39,7 @@ in
       ./homeassistant.nix
       #./frigate.nix
       ./hercules-ci.nix
+      ./paperless.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -148,6 +150,7 @@ in
       "frigate.${wildcardDomain}" = mkSocketVirtualHost "/run/nginx/frigate.sock";
       "hass.${wildcardDomain}" = mkVirtualHost 8123;
       "node-red.${wildcardDomain}" = mkVirtualHost 1880;
+      "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
     };
   };
 

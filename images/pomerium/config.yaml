@@ -74,7 +74,9 @@ routes:
       - mhelton@gmail.com
     pass_identity_headers: true
 
-  - from: https://hass-auth.devusb.us
-    to: https://hass.chopper.devusb.us
-    allow_public_unauthenticated_access: true
-    path: /auth/token
+  - from: https://paperless.devusb.us
+    to: https://paperless.chopper.devusb.us
+    allowed_users:
+      - mhelton@gmail.com
+      - ilona.molotoka@gmail.com
+    pass_identity_headers: true
