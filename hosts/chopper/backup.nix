@@ -38,7 +38,7 @@
     script = with pkgs; ''
       cd /r2d2_0/backup/
       ${duplicacy}/bin/duplicacy -log backup -stats -threads 6
-      ${duplicacy}/bin/duplicacy prune -keep 0:30 -keep 7:1
+      ${duplicacy}/bin/duplicacy prune -keep 1:7 -keep 180:30 -keep 0:360
     '';
   };
 
