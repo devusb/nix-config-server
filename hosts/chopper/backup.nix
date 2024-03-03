@@ -20,6 +20,7 @@
     script = with pkgs; ''
       cd /r2d2_0/homes/
       ${duplicacy}/bin/duplicacy -log backup -stats -threads 6
+      ${duplicacy}/bin/duplicacy prune -keep 30:360 -keep 7:30
     '';
   };
 
@@ -38,7 +39,7 @@
     script = with pkgs; ''
       cd /r2d2_0/backup/
       ${duplicacy}/bin/duplicacy -log backup -stats -threads 6
-      ${duplicacy}/bin/duplicacy prune -keep 0:30 -keep 7:1
+      ${duplicacy}/bin/duplicacy prune -keep 0:360 -keep 90:30 -keep 7:1
     '';
   };
 
