@@ -7,7 +7,7 @@ let
     if [ ! -e /dev/net/tun ]; then  mknod /dev/net/tun c 10 200; fi
 
     # Wait 5s for the daemon to start and then run tailscale up to configure
-    /bin/sh -c "${pkgs.coreutils}/bin/sleep 5; ${pkgs.tailscale}/bin/tailscale up --accept-routes --accept-dns --authkey=$TAILSCALE_AUTHKEY" &
+    /bin/sh -c "${pkgs.coreutils}/bin/sleep 5; ${pkgs.tailscale}/bin/tailscale up --accept-routes --accept-dns=false --authkey=$TAILSCALE_AUTHKEY" &
     exec ${pkgs.tailscale}/bin/tailscaled --state=/data/tailscaled.state &
     ${pkgs.pomerium}/bin/pomerium -config "${pomeriumConfig}"
 
