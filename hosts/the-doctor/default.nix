@@ -18,9 +18,13 @@
   };
 
   networking.hostName = "the-doctor";
-  networking.firewall.allowedTCPPorts = [
-    443
-  ];
+  networking.firewall = {
+    allowPing = false;
+    allowedTCPPorts = [
+      443
+    ];
+  };
+  services.openssh.openFirewall = false;
 
   # tailscale
   sops.secrets.ts_key = {
