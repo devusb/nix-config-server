@@ -12,6 +12,8 @@
     targetUser = "mhelton";
   };
 
+  nixpkgs.hostPlatform = "x86_64-linux";
+
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
