@@ -18,6 +18,9 @@
   };
 
   networking.hostName = "the-doctor";
+  networking.firewall.allowedTCPPorts = [
+    443
+  ];
 
   # tailscale
   sops.secrets.ts_key = {
@@ -28,6 +31,23 @@
     useRoutingFeatures = "server";
     extraUpFlags = [ "--advertise-exit-node" "--ssh" ];
     authKeyFile = config.sops.secrets.ts_key.path;
+  };
+
+  sops.secrets.pomerium_secrets = {
+    sopsFile = ../../images/pomerium/secrets.yaml;
+  };
+  services.pomerium = {
+    enable = true;
+    configFile = ../../images/pomerium/config.yaml;
+    secretsFile = config.sops.secrets.pomerium_secrets.path;
+  };
+  services.postgresql = {
+    enable = true;
+    ensureUsers = [{
+      name = "pomerium";
+      ensureDBOwnership = true;
+    }];
+    ensureDatabases = [ "pomerium" ];
   };
 
   system.stateVersion = "23.11";
