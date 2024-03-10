@@ -9,6 +9,8 @@
       postPatch = ''
         substituteInPlace setup.py --replace 'whipser' 'whisper'
       '';
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.python3.pkgs.pythonRelaxDepsHook ];
+      pythonRelaxDeps = true;
     });
     faster-whisper.servers.local = {
       enable = true;
