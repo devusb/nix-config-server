@@ -151,6 +151,7 @@ in
       "hass.${wildcardDomain}" = mkVirtualHost 8123;
       "node-red.${wildcardDomain}" = mkVirtualHost 1880;
       "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
+      "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
     };
   };
 

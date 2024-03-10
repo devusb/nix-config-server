@@ -220,4 +220,17 @@ in
     };
   };
 
+  services.scrutiny = {
+    enable = true;
+    collector = {
+      enable = true;
+      settings = {
+        api.endpoint = "http://localhost:${builtins.toString config.services.scrutiny.settings.web.listen.port}";
+      };
+    };
+    settings = {
+      web.listen.port = 8082;
+    };
+  };
+
 }
