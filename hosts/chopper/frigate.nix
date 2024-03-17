@@ -49,6 +49,7 @@ in
 
   systemd.services.frigate = {
     serviceConfig.EnvironmentFile = config.sops.secrets.frigate.path;
+    serviceConfig.TemporaryFileSystem = [ "/run/secrets" ];
     environment.LIBVA_DRIVER_NAME = "radeonsi";
   };
 

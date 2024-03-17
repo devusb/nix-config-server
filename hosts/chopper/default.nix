@@ -37,7 +37,7 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./homeassistant.nix
-      #./frigate.nix
+      ./frigate.nix
       ./hercules-ci.nix
       ./paperless.nix
     ];
