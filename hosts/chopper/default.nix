@@ -9,7 +9,6 @@ let
     "attic_secret"
     "cloudflare"
     "pushover"
-    "frigate"
     "mosquitto"
     "hercules_join"
     "hercules_secrets"
@@ -37,7 +36,6 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./homeassistant.nix
-      #./frigate.nix
       ./hercules-ci.nix
       ./paperless.nix
     ];
@@ -147,7 +145,6 @@ in
       "loki.${wildcardDomain}" = mkVirtualHost 3100;
       "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
       "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
-      "frigate.${wildcardDomain}" = mkSocketVirtualHost "/run/nginx/frigate.sock";
       "hass.${wildcardDomain}" = mkVirtualHost 8123;
       "node-red.${wildcardDomain}" = mkVirtualHost 1880;
       "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
