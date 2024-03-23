@@ -31,14 +31,4 @@
     ];
   });
 
-  tautulli = prev.tautulli.overrideAttrs (old: rec {
-    version = "2.13.4";
-    src = prev.fetchFromGitHub {
-      owner = "Tautulli";
-      repo = old.pname;
-      rev = "v${version}";
-      sha256 = "sha256-cOHirjYdfPPv7O9o3vnsKBffvqxoaRN32NaUOK0SmQ8=";
-    };
-  });
-
 }
