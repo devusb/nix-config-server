@@ -10,7 +10,6 @@
     targetHost = "spdr";
     targetPort = 22;
     targetUser = "mhelton";
-    buildOnTarget = true;
   };
 
   boot.loader.systemd-boot.enable = true;
