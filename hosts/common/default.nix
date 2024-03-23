@@ -53,6 +53,7 @@
     curl
     htop
     bottom
+    speedtest-go
   ];
 
   # enable passwordless sudo

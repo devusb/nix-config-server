@@ -18,7 +18,6 @@ with lib;
     ethtool
     tcpdump
     conntrack-tools
-    speedtest-cli
     wol
   ];
 
