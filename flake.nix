@@ -160,6 +160,15 @@
                 ./hosts/spdr
               ];
             });
+
+          the-doctor =
+            withSystem "aarch64-linux" ({ pkgs, ... }: nixpkgs.lib.nixosSystem {
+              inherit pkgs;
+              extraModules = [ colmena.nixosModules.deploymentOptions ];
+              modules = defaultImports ++ [
+                ./hosts/the-doctor
+              ];
+            });
         };
 
         colmena =
