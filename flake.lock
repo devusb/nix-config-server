@@ -754,11 +754,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708286103,
-        "narHash": "sha256-MR9qAf2Q7PgwrBaRmKycQznls3IcvMbT1vgZSKl2rmY=",
+        "lastModified": 1713147260,
+        "narHash": "sha256-7GpVREiysF8BAVjGVOPOTlKlaEZBtPiy8Zc7A8eRGFc=",
         "owner": "devusb",
         "repo": "pingshutdown",
-        "rev": "4d9791e78b6f98f4c2a83b68b841d34b720f5e86",
+        "rev": "36ff1ea509f5171e8db3251b538da00dbb4dc17e",
         "type": "github"
       },
       "original": {
