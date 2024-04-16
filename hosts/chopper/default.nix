@@ -36,7 +36,7 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./homeassistant.nix
-      ./hercules-ci.nix
+      ../common/hercules-ci.nix
       ./paperless.nix
       ./filebrowser.nix
     ];
@@ -47,8 +47,6 @@ in
     "pcie_port_pm=off"
     "pcie_aspm.policy=performance"
   ];
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.zfs.extraPools = [ "r2d2_0" ];
   services.zfs.autoScrub = {
