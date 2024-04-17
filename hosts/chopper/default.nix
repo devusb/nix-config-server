@@ -48,6 +48,8 @@ in
     "pcie_aspm.policy=performance"
   ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   boot.zfs.extraPools = [ "r2d2_0" ];
   services.zfs.autoScrub = {
     enable = true;
