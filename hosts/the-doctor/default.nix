@@ -36,7 +36,5 @@
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
-  services.hercules-ci-agent.concurrentTasks = 4;
-
   system.stateVersion = "24.05";
 }
