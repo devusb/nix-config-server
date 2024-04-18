@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ../common
     ./disko-config.nix
-    ../common/hercules-ci.nix
   ];
 
   deployment = {
