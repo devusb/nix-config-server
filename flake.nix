@@ -182,8 +182,8 @@
               };
             }) // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
 
-        checks."x86_64-linux" = {
-          sophia = withSystem "x86_64-linux" ({ pkgs, ... }: nixpkgs.lib.nixos.runTest {
+        checks."aarch64-linux" = {
+          sophia = withSystem "aarch64-linux" ({ pkgs, ... }: nixpkgs.lib.nixos.runTest {
             imports = [
               ./hosts/sophia/tests.nix
             ];
