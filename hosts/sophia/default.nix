@@ -218,6 +218,7 @@ with lib;
               { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
               { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
               { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
+              { "hw-address" = "38:b8:00:7e:a3:c5"; "ip-address" = "192.168.10.160"; hostname = "Living-Room-TV"; }
             ];
           }
           {
