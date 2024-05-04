@@ -58,7 +58,6 @@ in
   services.zfs.trim.enable = true;
 
   nix.gc.dates = "monthly";
-  nix.settings.extra-platforms = lib.mkForce [ "i686-linux" ];
 
   hardware.opengl = {
     enable = true;
