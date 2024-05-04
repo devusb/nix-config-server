@@ -53,6 +53,7 @@
     htop
     bottom
     speedtest-go
+    zellij
   ];
 
   # enable passwordless sudo
