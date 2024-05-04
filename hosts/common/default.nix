@@ -16,12 +16,14 @@
         "https://nix-community.cachix.org"
         "https://devenv.cachix.org"
         "https://colmena.cachix.org"
+        "https://devusb.cachix.org"
         "https://attic.springhare-egret.ts.net/r2d2"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
+        "devusb.cachix.org-1:erGk4mgcE03SfS6LbHz2IAIHAN3sR2Ee5Shb0Qs8C3A="
         "r2d2:dGjwZKsBup19Wq8b3/W2smJjrw55tC0DnCQhu/qsfb4="
       ];
       netrc-file = config.sops.secrets.attic_pull.path;
