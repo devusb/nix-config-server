@@ -31,13 +31,4 @@
     ];
   });
 
-  nzbget = prev.nzbget.overrideAttrs (old: {
-    patches = [
-      (prev.fetchpatch {
-        url = "https://github.com/nzbget-ng/nzbget/commit/8fbbbfb40003c6f32379a562ce1d12515e61e93e.patch";
-        hash = "sha256-mgI/twEoMTFMFGfH1/Jm6mE9u9/CE6RwELCSGx5erUo=";
-      })
-    ];
-  });
-
 }
