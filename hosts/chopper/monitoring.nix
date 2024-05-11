@@ -186,6 +186,7 @@ in
       }];
       limits_config = {
         reject_old_samples = true;
+        allow_structured_metadata = false;
       };
       table_manager = {
         retention_period = "168h";
