@@ -21,6 +21,9 @@ with lib;
     wol
   ];
 
+  networking.useNetworkd = true;
+  services.resolved.enable = false;
+
   services.journald.extraConfig = ''
     Storage=volatile
   '';
@@ -91,6 +94,18 @@ with lib;
   };
 
   # router configuration
+  systemd.network.networks."10-wan" = {
+    matchConfig.PermanentMACAddress = "e4:5f:01:d3:28:e9";
+    networkConfig = {
+      DHCP = "yes";
+    };
+    dhcpV4Config = {
+      RouteMetric = 1;
+    };
+    dhcpV6Config = {
+      RouteMetric = 1;
+    };
+  };
   systemd.network.links."10-wan" = {
     matchConfig.PermanentMACAddress = "e4:5f:01:d3:28:e9";
     linkConfig.Name = "wan0";
@@ -109,10 +124,6 @@ with lib;
       "216.239.35.12"
     ];
 
-    dhcpcd = {
-      enable = true;
-      allowInterfaces = [ "wan0" ];
-    };
     usePredictableInterfaceNames = lib.mkDefault true;
 
     firewall = {
