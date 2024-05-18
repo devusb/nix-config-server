@@ -1,6 +1,5 @@
 { inputs, ... }: final: prev: {
   stable = import inputs.nixpkgs-stable { system = prev.system; config.allowUnfree = true; };
-  nix-packages = inputs.nix-packages.packages."${prev.system}";
 
   makeModulesClosure = x:
     prev.makeModulesClosure (x // { allowMissing = true; });

@@ -164,6 +164,7 @@
           the-doctor =
             withSystem "aarch64-linux" ({ pkgs, ... }: nixpkgs.lib.nixosSystem {
               inherit pkgs;
+              specialArgs = { inherit inputs; };
               extraModules = [ colmena.nixosModules.deploymentOptions ];
               modules = defaultImports ++ [
                 ./hosts/the-doctor
