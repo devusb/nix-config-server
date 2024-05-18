@@ -10,6 +10,10 @@
       url = "github:NixOS/nixos-hardware";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    hercules-ci-agent = {
+      url = "github:hercules-ci/hercules-ci-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hercules-ci-effects.url = "github:mlabs-haskell/hercules-ci-effects/push-cache-effect";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
