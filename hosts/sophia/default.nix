@@ -153,6 +153,7 @@ with lib;
       extraCommands = ''
         iptables -I FORWARD 1 -i guest -d 192.168.0.0/16 -j DROP
         iptables -I FORWARD 1 -i isolated -o wan0 -j DROP
+        iptables -t nat -A POSTROUTING -o wan1 -j MASQUERADE -m mark --mark 0x1
       '';
     };
 
