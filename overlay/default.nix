@@ -20,14 +20,4 @@
     });
   };
 
-  # https://github.com/jellyfin/jellyfin/pull/10275
-  jellyfin = prev.jellyfin.overrideAttrs (old: {
-    patches = old.patches ++ [
-      (prev.fetchpatch {
-        url = "https://pkgs.rpmfusion.org/cgit/free/jellyfin.git/plain/jellyfin-vaapi-sei.patch";
-        hash = "sha256-dk8Haf1jHTI+XWZXFBUu/GGvPPTNyiwBygetRuzYj34=";
-      })
-    ];
-  });
-
 }
