@@ -111,6 +111,19 @@ with lib;
     linkConfig.Name = "wan0";
   };
 
+  systemd.network.networks."11-fallback" = {
+    matchConfig.Name = "wan1";
+    networkConfig = {
+      DHCP = "yes";
+    };
+    dhcpV4Config = {
+      RouteMetric = 2;
+    };
+    dhcpV6Config = {
+      RouteMetric = 2;
+    };
+  };
+
   services.openssh.openFirewall = false;
 
   networking = {
@@ -133,6 +146,7 @@ with lib;
       trustedInterfaces = [ "lan" "server" "mgmt" "tailscale0" ];
       interfaces = {
         wan0.allowedTCPPorts = [ ];
+        wan1.allowedTCPPorts = [ ];
         guest.allowedTCPPorts = [ 53 ];
         guest.allowedUDPPorts = [ 53 ];
       };
@@ -167,6 +181,10 @@ with lib;
       };
       mgmt = {
         id = 99;
+        interface = "enp1s0";
+      };
+      wan1 = {
+        id = 1000;
         interface = "enp1s0";
       };
     };
