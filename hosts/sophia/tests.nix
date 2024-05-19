@@ -62,7 +62,7 @@
     sophia.wait_for_unit("kea-dhcp4-server.service")
 
     lanClient.wait_for_unit("systemd-networkd-wait-online.service")
-    lanClient.succeed("ip add | grep 192.168.10.50")
+    lanClient.succeed("ip add | grep 192.168.10.51")
 
     serverClient.wait_for_unit("systemd-networkd-wait-online.service")
     serverClient.succeed("ip add | grep 192.168.20.109")
@@ -70,7 +70,7 @@
     lanClient.wait_until_succeeds("ping -c 5 192.168.10.1")
     lanClient.wait_until_succeeds("ping -c 5 192.168.20.109")
     serverClient.wait_until_succeeds("ping -c 5 192.168.20.1")
-    serverClient.wait_until_succeeds("ping -c 5 192.168.10.50")
+    serverClient.wait_until_succeeds("ping -c 5 192.168.10.51")
   '';
 
 })
