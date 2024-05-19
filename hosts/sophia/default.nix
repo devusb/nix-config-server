@@ -124,6 +124,29 @@ with lib;
     };
   };
 
+  # backup WAN failover
+  systemd.services.wan-check = {
+    description = "Checking that primary internet is up";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      wan0_status=$(${lib.getExe' pkgs.systemd "networkctl"} status wan0 --json=short | ${lib.getExe pkgs.jq} -r .KernelOperationalStateString)
+      if [[ "''${wan0_status}" == "up" ]]; then
+        if ! ${lib.getExe pkgs.unixtools.ping} -c 1 -w 5 1.1.1.1; then
+          echo "Shutting down wan0"
+          ${lib.getExe' pkgs.systemd "networkctl"} down wan0
+        fi
+      fi
+    '';
+  };
+  systemd.timers.wan-check = {
+    description = "Checking that primary internet is up";
+    timerConfig = {
+      OnBootSec = "30sec";
+      OnUnitActiveSec = "30sec";
+    };
+    wantedBy = [ "timers.target" ];
+  };
+
   services.openssh.openFirewall = false;
 
   networking = {
