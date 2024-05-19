@@ -1,4 +1,4 @@
-{ lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 with lib;
 {
 
@@ -125,15 +125,23 @@ with lib;
   };
 
   # backup WAN failover
+  sops.secrets.pushover = { };
   systemd.services.wan-check = {
     description = "Checking that primary internet is up";
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      EnvironmentFile = config.sops.secrets.pushover.path;
+    };
     script = ''
       wan0_status=$(${lib.getExe' pkgs.systemd "networkctl"} status wan0 --json=short | ${lib.getExe pkgs.jq} -r .KernelOperationalStateString)
       if [[ "''${wan0_status}" == "up" ]]; then
-        if ! ${lib.getExe pkgs.unixtools.ping} -c 1 -w 5 1.1.1.1; then
+        if ! ${lib.getExe pkgs.unixtools.ping} -c 1 -w 5 1.1.1.1 > /dev/null 2>&1; then
           echo "Shutting down wan0"
           ${lib.getExe' pkgs.systemd "networkctl"} down wan0
+          sleep 5
+          ${lib.getExe pkgs.curl} -s --form-string "token=$PINGSHUTDOWN_NOTIFICATIONTOKEN" \
+          --form-string "user=$PINGSHUTDOWN_NOTIFICATIONUSER" --form-string "message=sophia: wan0 has been shut down" \
+          http://api.pushover.net/1/messages.json > /dev/null 2>&1
         fi
       fi
     '';
