@@ -32,7 +32,7 @@
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-exit-node" "--ssh" "--operator=mhelton" ];
+    extraUpFlags = [ "--advertise-exit-node" "--ssh" "--operator=mhelton" "--accept-routes" ];
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
