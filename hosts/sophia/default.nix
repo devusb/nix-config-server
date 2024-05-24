@@ -133,8 +133,8 @@ with lib;
       EnvironmentFile = config.sops.secrets.pushover.path;
     };
     script = ''
-      wan0_status=$(${lib.getExe' pkgs.systemd "networkctl"} status wan0 --json=short | ${lib.getExe pkgs.jq} -r .KernelOperationalStateString)
-      if [[ "''${wan0_status}" == "up" ]]; then
+      wan0_status=$(${lib.getExe' pkgs.systemd "networkctl"} status wan0 --json=short | ${lib.getExe pkgs.jq} -r .OperationalState)
+      if [[ "''${wan0_status}" == "routable" ]]; then
         if ! ${lib.getExe pkgs.unixtools.ping} -c 1 -w 5 1.1.1.1 > /dev/null 2>&1; then
           echo "Shutting down wan0"
           ${lib.getExe' pkgs.systemd "networkctl"} down wan0
