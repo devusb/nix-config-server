@@ -274,6 +274,7 @@ with lib;
           "valid-lifetime" = 4000;
           "subnet4" = [
             {
+              id = 1;
               subnet = "192.168.10.0/23";
               pools = [{ pool = "192.168.10.50 - 192.168.11.254"; }];
               "option-data" = [
@@ -293,6 +294,7 @@ with lib;
               ];
             }
             {
+              id = 2;
               subnet = "192.168.20.0/23";
               pools = [{ pool = "192.168.20.100 - 192.168.21.254"; }];
               "option-data" = [
@@ -307,6 +309,7 @@ with lib;
               ];
             }
             {
+              id = 3;
               subnet = "192.168.30.0/24";
               pools = [{ pool = "192.168.30.2 - 192.168.30.254"; }];
               "option-data" = [
@@ -316,6 +319,7 @@ with lib;
               "reservations" = [ ];
             }
             {
+              id = 4;
               subnet = "192.168.40.0/23";
               pools = [{ pool = "192.168.40.200 - 192.168.41.254"; }];
               "option-data" = [
@@ -325,6 +329,7 @@ with lib;
               "reservations" = [ ];
             }
             {
+              id = 5;
               subnet = "192.168.99.0/24";
               pools = [{ pool = "192.168.99.200 - 192.168.99.254"; }];
               "option-data" = [
