@@ -256,80 +256,88 @@ with lib;
     };
   };
 
-  services.kea = {
-    dhcp4 = {
-      enable = true;
-      settings = {
-        "interfaces-config" = {
-          interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+  services.kea =
+    let
+      socket4Config = {
+        "socket-type" = "unix";
+        "socket-name" = "/run/kea/kea4-ctrl-socket";
+      };
+    in
+    {
+      dhcp4 = {
+        enable = true;
+        settings = {
+          "control-socket" = socket4Config;
+          "interfaces-config" = {
+            interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+          };
+          "valid-lifetime" = 4000;
+          "subnet4" = [
+            {
+              subnet = "192.168.10.0/23";
+              pools = [{ pool = "192.168.10.50 - 192.168.11.254"; }];
+              "option-data" = [
+                { name = "domain-name-servers"; data = "192.168.10.1"; }
+                { name = "routers"; data = "192.168.10.1"; }
+              ];
+              "reservations" = [
+                { "hw-address" = "b0:be:76:ca:dc:9f"; "ip-address" = "192.168.10.131"; hostname = "GR_Lamp"; }
+                { "hw-address" = "00:18:dd:06:8a:2e"; "ip-address" = "192.168.10.137"; hostname = "HDHR-1068A2E8"; }
+                { "hw-address" = "3c:84:6a:b4:93:4f"; "ip-address" = "192.168.10.174"; hostname = "Peloton-Fan"; }
+                { "hw-address" = "b0:be:76:ca:de:06"; "ip-address" = "192.168.10.130"; hostname = "Tree"; }
+                { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
+                { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
+                { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
+                { "hw-address" = "38:b8:00:7e:a3:c5"; "ip-address" = "192.168.10.160"; hostname = "Living-Room-TV"; }
+                { "hw-address" = "00:e4:21:09:56:06"; "ip-address" = "192.168.10.50"; hostname = "PS5-875"; }
+              ];
+            }
+            {
+              subnet = "192.168.20.0/23";
+              pools = [{ pool = "192.168.20.100 - 192.168.21.254"; }];
+              "option-data" = [
+                { name = "domain-name-servers"; data = "192.168.20.1"; }
+                { name = "routers"; data = "192.168.20.1"; }
+                { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
+              ];
+              "reservations" = [
+                { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; hostname = "gaia0"; }
+                { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; hostname = "gaia1"; }
+                { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
+              ];
+            }
+            {
+              subnet = "192.168.30.0/24";
+              pools = [{ pool = "192.168.30.2 - 192.168.30.254"; }];
+              "option-data" = [
+                { name = "domain-name-servers"; data = "192.168.30.1"; }
+                { name = "routers"; data = "192.168.30.1"; }
+              ];
+              "reservations" = [ ];
+            }
+            {
+              subnet = "192.168.40.0/23";
+              pools = [{ pool = "192.168.40.200 - 192.168.41.254"; }];
+              "option-data" = [
+                { name = "domain-name-servers"; data = "192.168.40.1"; }
+                { name = "routers"; data = "192.168.40.1"; }
+              ];
+              "reservations" = [ ];
+            }
+            {
+              subnet = "192.168.99.0/24";
+              pools = [{ pool = "192.168.99.200 - 192.168.99.254"; }];
+              "option-data" = [
+                { name = "domain-name-servers"; data = "192.168.99.1"; }
+                { name = "routers"; data = "192.168.99.1"; }
+                { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
+              ];
+              "reservations" = [ ];
+            }
+          ];
         };
-        "valid-lifetime" = 4000;
-        "subnet4" = [
-          {
-            subnet = "192.168.10.0/23";
-            pools = [{ pool = "192.168.10.50 - 192.168.11.254"; }];
-            "option-data" = [
-              { name = "domain-name-servers"; data = "192.168.10.1"; }
-              { name = "routers"; data = "192.168.10.1"; }
-            ];
-            "reservations" = [
-              { "hw-address" = "b0:be:76:ca:dc:9f"; "ip-address" = "192.168.10.131"; hostname = "GR_Lamp"; }
-              { "hw-address" = "00:18:dd:06:8a:2e"; "ip-address" = "192.168.10.137"; hostname = "HDHR-1068A2E8"; }
-              { "hw-address" = "3c:84:6a:b4:93:4f"; "ip-address" = "192.168.10.174"; hostname = "Peloton-Fan"; }
-              { "hw-address" = "b0:be:76:ca:de:06"; "ip-address" = "192.168.10.130"; hostname = "Tree"; }
-              { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
-              { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
-              { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
-              { "hw-address" = "38:b8:00:7e:a3:c5"; "ip-address" = "192.168.10.160"; hostname = "Living-Room-TV"; }
-              { "hw-address" = "00:e4:21:09:56:06"; "ip-address" = "192.168.10.50"; hostname = "PS5-875"; }
-            ];
-          }
-          {
-            subnet = "192.168.20.0/23";
-            pools = [{ pool = "192.168.20.100 - 192.168.21.254"; }];
-            "option-data" = [
-              { name = "domain-name-servers"; data = "192.168.20.1"; }
-              { name = "routers"; data = "192.168.20.1"; }
-              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
-            ];
-            "reservations" = [
-              { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; hostname = "gaia0"; }
-              { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; hostname = "gaia1"; }
-              { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
-            ];
-          }
-          {
-            subnet = "192.168.30.0/24";
-            pools = [{ pool = "192.168.30.2 - 192.168.30.254"; }];
-            "option-data" = [
-              { name = "domain-name-servers"; data = "192.168.30.1"; }
-              { name = "routers"; data = "192.168.30.1"; }
-            ];
-            "reservations" = [ ];
-          }
-          {
-            subnet = "192.168.40.0/23";
-            pools = [{ pool = "192.168.40.200 - 192.168.41.254"; }];
-            "option-data" = [
-              { name = "domain-name-servers"; data = "192.168.40.1"; }
-              { name = "routers"; data = "192.168.40.1"; }
-            ];
-            "reservations" = [ ];
-          }
-          {
-            subnet = "192.168.99.0/24";
-            pools = [{ pool = "192.168.99.200 - 192.168.99.254"; }];
-            "option-data" = [
-              { name = "domain-name-servers"; data = "192.168.99.1"; }
-              { name = "routers"; data = "192.168.99.1"; }
-              { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
-            ];
-            "reservations" = [ ];
-          }
-        ];
       };
     };
-  };
 
   services.wolweb = {
     enable = true;
