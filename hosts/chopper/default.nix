@@ -59,7 +59,7 @@ in
 
   nix.gc.dates = "monthly";
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
 
