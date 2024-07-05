@@ -264,6 +264,14 @@ with lib;
       };
     in
     {
+      ctrl-agent = {
+        enable = true;
+        settings = {
+          "http-host" = "127.0.0.1";
+          "http-port" = 9090;
+          "control-sockets".dhcp4 = socket4Config;
+        };
+      };
       dhcp4 = {
         enable = true;
         settings = {
