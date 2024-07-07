@@ -299,6 +299,7 @@ with lib;
                 { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
                 { "hw-address" = "38:b8:00:7e:a3:c5"; "ip-address" = "192.168.10.160"; hostname = "Living-Room-TV"; }
                 { "hw-address" = "00:e4:21:09:56:06"; "ip-address" = "192.168.10.50"; hostname = "PS5-875"; }
+                { "hw-address" = "38:42:0b:4e:de:04"; "ip-address" = "192.168.11.13"; hostname = "sonoszp"; }
               ];
             }
             {
