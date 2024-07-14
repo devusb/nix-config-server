@@ -1,8 +1,4 @@
 { config, lib, ... }: {
-  imports = [
-    ./voice-assist.nix
-  ];
-
   systemd.tmpfiles.settings."homeassistant"."/var/lib/homeassistant".d = {
     mode = "0666";
   };
