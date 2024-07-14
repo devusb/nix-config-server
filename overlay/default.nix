@@ -13,6 +13,7 @@
   mongodb-5_0 = prev.callPackage ./mongodb/5.0.nix {
     sasl = prev.cyrus_sasl;
     boost = prev.boost179.override { enableShared = false; };
+    python3 = prev.python311;
     inherit (prev.darwin) cctools;
     inherit (prev.darwin.apple_sdk.frameworks) CoreFoundation Security;
   };

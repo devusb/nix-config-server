@@ -1,12 +1,11 @@
 { stdenv, callPackage, lib, sasl, boost
-, Security, CoreFoundation, cctools, python311
+, Security, CoreFoundation, cctools, python3
 , avxSupport ? stdenv.hostPlatform.avxSupport
 }:
 
 let
   buildMongoDB = callPackage ./mongodb.nix {
-    inherit sasl boost Security CoreFoundation cctools;
-    python3 = python311;
+    inherit sasl boost Security CoreFoundation cctools python3;
   };
   variants = if stdenv.isLinux then
     {

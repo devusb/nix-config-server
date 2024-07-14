@@ -33,7 +33,7 @@ with lib;
 }:
 
 let
-  scons = buildPackages.scons;
+  scons = buildPackages.scons.override { inherit python3; };
   python = scons.python.withPackages (ps: with ps; [
     pyyaml
     cheetah3
