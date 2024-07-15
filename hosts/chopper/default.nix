@@ -38,7 +38,6 @@ in
       ./homeassistant.nix
       ../common/hercules-ci.nix
       ./paperless.nix
-      ./filebrowser.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -150,7 +149,6 @@ in
       "node-red.${wildcardDomain}" = mkVirtualHost 1880;
       "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
       "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
-      "filebrowser.${wildcardDomain}" = mkSocketVirtualHost "/run/filebrowser/filebrowser.sock";
     };
   };
 
