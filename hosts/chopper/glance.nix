@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, ... }: {
   services.glance = {
     enable = true;
     settings = {
@@ -9,6 +9,17 @@
           {
             size = "small";
             widgets = [
+              {
+                type = "bookmarks";
+                groups = lib.lists.singleton {
+                  links = [
+                    { title = "Gmail"; url = "https://gmail.com"; }
+                    { title = "Miniflux"; url = "https://rss.devusb.us"; }
+                    { title = "Github"; url = "https://github.com"; }
+                    { title = "NixOS Status"; url = "https://status.nixos.org"; }
+                  ];
+                };
+              }
               { type = "clock"; hour-format = "12h"; timezones = [{ timezone = "Israel"; }]; }
               { type = "calendar"; }
               { type = "weather"; location = "Mont Belvieu"; units = "imperial"; }
