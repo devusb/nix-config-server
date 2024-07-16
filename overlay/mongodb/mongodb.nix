@@ -27,7 +27,9 @@
 
 with lib;
 
-{ version, sha256, patches ? []
+{ version
+, sha256
+, patches ? [ ]
 , license ? lib.licenses.sspl
 , avxSupport ? stdenv.hostPlatform.avxSupport
 }:
@@ -60,7 +62,8 @@ let
   ] ++ optionals stdenv.isLinux [ "tcmalloc" ];
   inherit (lib) systems subtractLists;
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit version;
   pname = "mongodb";
 
@@ -101,7 +104,7 @@ in stdenv.mkDerivation rec {
     # fix environment variable reading
     substituteInPlace SConstruct \
         --replace "env = Environment(" "env = Environment(ENV = os.environ,"
-   '' + ''
+  '' + ''
     # Fix debug gcc 11 and clang 12 builds on Fedora
     # https://github.com/mongodb/mongo/commit/e78b2bf6eaa0c43bd76dbb841add167b443d2bb0.patch
     substituteInPlace src/mongo/db/query/plan_summary_stats.h --replace '#include <string>' '#include <optional>
