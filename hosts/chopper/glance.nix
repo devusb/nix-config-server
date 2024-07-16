@@ -15,7 +15,7 @@
                   links = [
                     { title = "Gmail"; url = "https://gmail.com"; }
                     { title = "Miniflux"; url = "https://rss.devusb.us"; }
-                    { title = "Github"; url = "https://github.com"; }
+                    { title = "GitHub"; url = "https://github.com"; }
                     { title = "NixOS Status"; url = "https://status.nixos.org"; }
                   ];
                 };
