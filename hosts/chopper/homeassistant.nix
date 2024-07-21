@@ -11,7 +11,7 @@
       homeassistant = {
         volumes = [ "/var/lib/homeassistant:/config" ];
         environment.TZ = "US/Central";
-        image = "ghcr.io/home-assistant/home-assistant:2024.4.4";
+        image = "ghcr.io/home-assistant/home-assistant:2024.7.3";
         extraOptions = [
           "--network=host"
         ];
