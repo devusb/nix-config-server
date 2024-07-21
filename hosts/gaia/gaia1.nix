@@ -29,8 +29,6 @@ in
 
   networking.hostName = "gaia1";
 
-  sound.enable = true;
-
   # tailscale
   sops.secrets.ts_key = {
     sopsFile = ../../secrets/tailscale.yaml;
