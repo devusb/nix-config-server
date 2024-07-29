@@ -6,6 +6,7 @@
     ../common
     ./disko-config.nix
     ../common/hercules-ci.nix
+    ./k3s.nix
   ];
 
   deployment = {
