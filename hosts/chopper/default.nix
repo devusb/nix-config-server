@@ -43,6 +43,7 @@ in
     ./glance.nix
     ./buildbot.nix
     ./calibre.nix
+    ./microvm.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
