@@ -66,11 +66,7 @@ in
   networking.hostName = "chopper"; # Define your hostname.
   networking.hostId = "bf399afd";
 
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  networking.networkmanager.unmanaged = [
-    "enp10s0u9u3c2"
-    "tailscale0"
-  ];
+  networking.useNetworkd = true;
 
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
