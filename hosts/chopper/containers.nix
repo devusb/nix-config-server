@@ -1,4 +1,9 @@
 { config, inputs, ... }: {
+  systemd.network.networks."19-containers" = {
+    matchConfig.Name = "ve-*";
+    linkConfig.Unmanaged = true;
+  };
+
   containers.obsidian = {
     enableTun = true;
     privateNetwork = true;
@@ -12,10 +17,6 @@
       "/var/lib/couchdb".isReadOnly = false;
     };
     config = import ./obsidian.nix;
-  };
-  systemd.network.networks."19-obsidian" = {
-    matchConfig.Name = "ve-obsidian";
-    linkConfig.Unmanaged = true;
   };
 
   containers.attic = {
@@ -39,10 +40,6 @@
     };
     config = import ./attic.nix;
   };
-  systemd.network.networks."19-attic" = {
-    matchConfig.Name = "ve-attic";
-    linkConfig.Unmanaged = true;
-  };
 
   containers.atuin = {
     enableTun = true;
@@ -55,10 +52,6 @@
       "${config.sops.secrets.ts_key.path}".isReadOnly = true;
     };
     config = import ./atuin.nix;
-  };
-  systemd.network.networks."19-atuin" = {
-    matchConfig.Name = "ve-atuin";
-    linkConfig.Unmanaged = true;
   };
 
 }
