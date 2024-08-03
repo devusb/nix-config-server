@@ -67,6 +67,10 @@ in
   networking.hostId = "bf399afd";
 
   networking.useNetworkd = true;
+  systemd.network.networks."18-ipmi" = {
+    matchConfig.Name = "enp10s0u9u3c2";
+    linkConfig.Unmanaged = true;
+  };
 
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
