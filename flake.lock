@@ -801,11 +801,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716061860,
-        "narHash": "sha256-oXRtX3eLGbxC6U4pqSx7t1CMbLfoVelK6vKlGEAGwlw=",
+        "lastModified": 1722716628,
+        "narHash": "sha256-n+CuYyCxhnno7FjT/nUyafCaJFcojfi06z+OrOrCvyU=",
         "owner": "devusb",
         "repo": "pingshutdown",
-        "rev": "e1846c9406749500b8e0767775d7e255115f2d44",
+        "rev": "586bf88300ea8d8d4270931b5fe9c02c406d8b24",
         "type": "github"
       },
       "original": {
