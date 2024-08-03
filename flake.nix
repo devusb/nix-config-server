@@ -45,6 +45,10 @@
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:

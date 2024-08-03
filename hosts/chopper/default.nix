@@ -39,6 +39,7 @@ in
       ../common/hercules-ci.nix
       ./paperless.nix
       ./glance.nix
+      ./microvm.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
