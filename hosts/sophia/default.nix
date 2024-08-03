@@ -276,6 +276,9 @@ with lib;
         enable = true;
         settings = {
           "control-socket" = socket4Config;
+          "hooks-libraries" = [
+            { library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so"; }
+          ];
           "interfaces-config" = {
             interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
           };
