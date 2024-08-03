@@ -42,7 +42,7 @@ in
       ../common/builder.nix
       ./paperless.nix
       ./glance.nix
-      ./buildbot.nix
+      ./microvm.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
