@@ -4,7 +4,10 @@
     owner = "iodined";
   };
 
-  networking.firewall.trustedInterfaces = [ "dns0" ];
+  networking.firewall = {
+    allowedUDPPorts = [ 53 ];
+    trustedInterfaces = [ "dns0" ];
+  };
 
   services.iodine.server = {
     enable = true;

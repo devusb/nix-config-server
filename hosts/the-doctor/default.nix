@@ -24,7 +24,6 @@
   networking.hostName = "the-doctor";
   networking.firewall = {
     allowPing = false;
-    allowedUDPPorts = [ 53 ];
   };
   services.openssh.openFirewall = false;
 
