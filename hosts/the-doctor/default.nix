@@ -6,6 +6,7 @@
     ../common
     ./disko-config.nix
     ../common/hercules-ci.nix
+    ./iodine.nix
     ./k3s.nix
   ];
 
@@ -23,6 +24,7 @@
   networking.hostName = "the-doctor";
   networking.firewall = {
     allowPing = false;
+    allowedUDPPorts = [ 53 ];
   };
   services.openssh.openFirewall = false;
 
