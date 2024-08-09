@@ -9,6 +9,12 @@
     trustedInterfaces = [ "dns0" ];
   };
 
+  networking.nat = {
+    enable = true;
+    externalInterface = "enp0s6";
+    internalInterfaces = [ "dns0" ];
+  };
+
   services.iodine.server = {
     enable = true;
     domain = "t1.goon.ventures";
