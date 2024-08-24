@@ -10,14 +10,6 @@
     enableAirplay2 = true;
   };
 
-  mongodb-5_0 = prev.callPackage ./mongodb/5.0.nix {
-    sasl = prev.cyrus_sasl;
-    boost = prev.boost179.override { enableShared = false; };
-    python3 = prev.python311;
-    inherit (prev.darwin) cctools;
-    inherit (prev.darwin.apple_sdk.frameworks) CoreFoundation Security;
-  };
-
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
       version = "1.40.3.8555-fef15d30c";
