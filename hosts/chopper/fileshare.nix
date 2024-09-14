@@ -11,14 +11,12 @@
 
   services.samba = {
     enable = true;
-    securityType = "user";
-    extraConfig = ''
-      [homes]
-      browsable = no
-      map archive = yes
-      read only = no
-    '';
-    shares = {
+    settings = {
+      homes = {
+        "browsable" = "no";
+        "map archive" = "yes";
+        "read only" = "no";
+      };
       media = {
         path = "/r2d2_0/media";
         browsable = "yes";
