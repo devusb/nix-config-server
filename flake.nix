@@ -41,13 +41,17 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    buildbot-nix = {
+      url = "github:nix-community/buildbot-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
     let
       overlays = { default = import ./overlay { inherit inputs; }; };
       defaultImports = [
@@ -57,6 +61,8 @@
         disko.nixosModules.disko
         pingshutdown.nixosModules.pingshutdown
         nix-packages.nixosModules.default
+        buildbot-nix.nixosModules.buildbot-master
+        buildbot-nix.nixosModules.buildbot-worker
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
