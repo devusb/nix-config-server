@@ -10,6 +10,14 @@
     enableAirplay2 = true;
   };
 
+  tailscale = prev.tailscale.overrideAttrs (old: rec {
+    version = "1.74.1";
+    src = old.src.override {
+      rev = "v${version}";
+      hash = "sha256-672FtDKgz7Nmoufoe4Xg/b8sA8EuKH8X+3n9PAKYjFk=";
+    };
+  });
+
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
       version = "1.40.3.8555-fef15d30c";
