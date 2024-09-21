@@ -23,6 +23,7 @@
 
   # erase your darlings
   boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zpool import -f rpool
     zfs rollback -r rpool/local/root@blank
   '';
   environment.persistence."/persist" = {
