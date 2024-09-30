@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   sops.secrets.buildbot_github_app_secret_key.owner = "buildbot";
   sops.secrets.buildbot_github_oauth_secret.owner = "buildbot";
   sops.secrets.buildbot_github_webhook_secret.owner = "buildbot";
@@ -25,6 +25,8 @@
       ];
     };
   };
+
+  services.nginx.enable = lib.mkForce false;
 
   services.buildbot-nix.worker = {
     enable = true;
