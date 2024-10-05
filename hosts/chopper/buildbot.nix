@@ -58,7 +58,7 @@
 
   systemd.services.attic-watch-store = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
+    after = [ "network-online.target" "tailscaled.service" ];
     environment.HOME = "/var/lib/attic-watch-store";
     serviceConfig = {
       DynamicUser = true;
@@ -66,6 +66,8 @@
       MemoryMax = "10%";
       LoadCredential = "prod-auth-token:${config.sops.secrets.attic_token.path}";
       StateDirectory = "attic-watch-store";
+      Restart = "on-failure";
+      RestartSec = "60";
     };
     path = [ pkgs.attic-client ];
     script = ''
