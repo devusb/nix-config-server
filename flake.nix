@@ -76,7 +76,7 @@
         hercules-ci-effects.push-cache-effect
       ];
 
-      perSystem = { system, ... }: rec {
+      perSystem = { system, lib, ... }: rec {
         legacyPackages =
           import nixpkgs {
             inherit system;
@@ -89,6 +89,22 @@
         _module.args.pkgs = legacyPackages;
 
         formatter = legacyPackages.nixpkgs-fmt;
+
+        checks =
+          let
+            machinesPerSystem = {
+              x86_64-linux = [
+                "chopper"
+                "spdr"
+              ];
+            };
+            nixosMachines = lib.mapAttrs' (n: lib.nameValuePair "nixos-${n}") (
+              lib.genAttrs (machinesPerSystem.${system} or [ ]) (
+                name: self.nixosConfigurations.${name}.config.system.build.toplevel
+              )
+            );
+          in
+          nixosMachines;
       };
 
       flake = {
@@ -210,19 +226,6 @@
         "aarch64-linux"
       ];
 
-      herculesCI = { ... }: {
-        ciSystems = [ "x86_64-linux" "aarch64-linux" ];
-      };
-
-      push-cache-effect = {
-        enable = true;
-        attic-client-pkg = attic.packages.x86_64-linux.attic-client;
-        caches.r2d2 = {
-          type = "attic";
-          secretName = "attic";
-          packages = map (host: self.nixosConfigurations."${host}".config.system.build.toplevel) (builtins.attrNames self.nixosConfigurations);
-        };
-      };
     });
 
 }
