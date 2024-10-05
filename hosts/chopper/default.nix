@@ -11,9 +11,6 @@ let
     "cloudflare"
     "pushover"
     "mosquitto"
-    "hercules_join"
-    "hercules_secrets"
-    "hercules_caches"
     "paperless_admin"
     "buildbot_github_app_secret_key"
     "buildbot_github_oauth_secret"
@@ -42,7 +39,7 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./homeassistant.nix
-      ../common/hercules-ci.nix
+      ../common/builder.nix
       ./paperless.nix
       ./glance.nix
       ./buildbot.nix

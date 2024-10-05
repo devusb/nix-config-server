@@ -10,11 +10,6 @@
       url = "github:NixOS/nixos-hardware";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    hercules-ci-agent = {
-      url = "github:hercules-ci/hercules-ci-agent";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hercules-ci-effects.url = "github:mlabs-haskell/hercules-ci-effects/push-cache-effect";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +46,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
     let
       overlays = { default = import ./overlay { inherit inputs; }; };
       defaultImports = [
@@ -71,11 +66,6 @@
       ];
     in
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
-      imports = [
-        hercules-ci-effects.flakeModule
-        hercules-ci-effects.push-cache-effect
-      ];
-
       perSystem = { system, lib, ... }: rec {
         legacyPackages =
           import nixpkgs {
