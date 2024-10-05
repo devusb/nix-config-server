@@ -97,6 +97,9 @@
                 "chopper"
                 "spdr"
               ];
+              aarch64-linux = [
+                "the-doctor"
+              ];
             };
             nixosMachines = lib.mapAttrs' (n: lib.nameValuePair "nixos-${n}") (
               lib.genAttrs (machinesPerSystem.${system} or [ ]) (
