@@ -58,7 +58,7 @@
 
   systemd.services.attic-watch-store = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" "tailscaled.service" ];
+    after = [ "network-online.target" "tailscaled.service" config.systemd.services."container@attic".name ];
     environment.HOME = "/var/lib/attic-watch-store";
     serviceConfig = {
       DynamicUser = true;
