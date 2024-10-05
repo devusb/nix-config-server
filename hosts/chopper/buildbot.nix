@@ -12,6 +12,11 @@
 
     workersFile = config.sops.secrets.buildbot_nix_workers.path;
 
+    buildSystems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+
     github = {
       authType.app = {
         id = 1016931;

@@ -99,6 +99,9 @@
               ];
               aarch64-linux = [
                 "the-doctor"
+                "gaia0"
+                "gaia1"
+                "sophia"
               ];
             };
             nixosMachines = lib.mapAttrs' (n: lib.nameValuePair "nixos-${n}") (
