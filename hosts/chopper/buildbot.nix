@@ -73,7 +73,6 @@
     script = ''
       set -eux -o pipefail
       ATTIC_TOKEN=$(< $CREDENTIALS_DIRECTORY/prod-auth-token)
-      # Replace https://cache.<domain> with your own cache URL.
       attic login r2d2 https://attic.springhare-egret.ts.net $ATTIC_TOKEN
       attic use r2d2
       exec attic watch-store r2d2
