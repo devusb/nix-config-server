@@ -80,3 +80,8 @@ routes:
       - mhelton@gmail.com
       - ilona.molotoka@gmail.com
     pass_identity_headers: true
+
+  - from: https://buildbot.devusb.us
+    to: https://buildbot.chopper.devusb.us
+    allow_public_unauthenticated_access: true
+    allow_websockets: true

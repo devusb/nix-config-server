@@ -22,5 +22,9 @@
     passwordFile = config.sops.secrets.iodine_password.path;
     extraConfig = "-c";
   };
+  systemd.services.iodined.serviceConfig = {
+    RestartSec = "30";
+    Restart = "on-failure";
+  };
 
 }

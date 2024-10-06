@@ -10,11 +10,6 @@
       url = "github:NixOS/nixos-hardware";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    hercules-ci-agent = {
-      url = "github:hercules-ci/hercules-ci-agent";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hercules-ci-effects.url = "github:mlabs-haskell/hercules-ci-effects/push-cache-effect";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,13 +36,17 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    buildbot-nix = {
+      url = "github:nix-community/buildbot-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, hercules-ci-effects, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
     let
       overlays = { default = import ./overlay { inherit inputs; }; };
       defaultImports = [
@@ -57,6 +56,8 @@
         disko.nixosModules.disko
         pingshutdown.nixosModules.pingshutdown
         nix-packages.nixosModules.default
+        buildbot-nix.nixosModules.buildbot-master
+        buildbot-nix.nixosModules.buildbot-worker
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
@@ -65,12 +66,7 @@
       ];
     in
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
-      imports = [
-        hercules-ci-effects.flakeModule
-        hercules-ci-effects.push-cache-effect
-      ];
-
-      perSystem = { system, ... }: rec {
+      perSystem = { system, lib, ... }: rec {
         legacyPackages =
           import nixpkgs {
             inherit system;
@@ -83,6 +79,28 @@
         _module.args.pkgs = legacyPackages;
 
         formatter = legacyPackages.nixpkgs-fmt;
+
+        checks =
+          let
+            machinesPerSystem = {
+              x86_64-linux = [
+                "chopper"
+                "spdr"
+              ];
+              aarch64-linux = [
+                "the-doctor"
+                "gaia0"
+                "gaia1"
+                "sophia"
+              ];
+            };
+            nixosMachines = lib.mapAttrs' (n: lib.nameValuePair "nixos-${n}") (
+              lib.genAttrs (machinesPerSystem.${system} or [ ]) (
+                name: self.nixosConfigurations.${name}.config.system.build.toplevel
+              )
+            );
+          in
+          nixosMachines;
       };
 
       flake = {
@@ -204,19 +222,6 @@
         "aarch64-linux"
       ];
 
-      herculesCI = { ... }: {
-        ciSystems = [ "x86_64-linux" "aarch64-linux" ];
-      };
-
-      push-cache-effect = {
-        enable = true;
-        attic-client-pkg = attic.packages.x86_64-linux.attic-client;
-        caches.r2d2 = {
-          type = "attic";
-          secretName = "attic";
-          packages = map (host: self.nixosConfigurations."${host}".config.system.build.toplevel) (builtins.attrNames self.nixosConfigurations);
-        };
-      };
     });
 
 }

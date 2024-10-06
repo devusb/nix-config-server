@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../common
     ./disko-config.nix
-    ../common/hercules-ci.nix
+    ../common/builder.nix
     ./iodine.nix
     ./k3s.nix
   ];

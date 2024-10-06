@@ -7,13 +7,16 @@ let
     "couchdb_admin"
     "vault_unseal"
     "attic_secret"
+    "attic_token"
     "cloudflare"
     "pushover"
     "mosquitto"
-    "hercules_join"
-    "hercules_secrets"
-    "hercules_caches"
     "paperless_admin"
+    "buildbot_github_app_secret_key"
+    "buildbot_github_oauth_secret"
+    "buildbot_github_webhook_secret"
+    "buildbot_nix_worker_password"
+    "buildbot_nix_workers"
   ];
   wildcardDomain = "chopper.devusb.us";
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
@@ -36,9 +39,10 @@ in
       ./monitoring.nix
       ./unifi.nix
       ./homeassistant.nix
-      ../common/hercules-ci.nix
+      ../common/builder.nix
       ./paperless.nix
       ./glance.nix
+      ./buildbot.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -47,8 +51,6 @@ in
     "pcie_port_pm=off"
     "pcie_aspm.policy=performance"
   ];
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.zfs.extraPools = [ "r2d2_0" ];
   services.zfs.autoScrub = {
@@ -151,6 +153,7 @@ in
       "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
       "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
       "glance.${wildcardDomain}" = mkVirtualHost config.services.glance.settings.server.port;
+      "buildbot.${wildcardDomain}" = mkVirtualHost config.services.buildbot-master.port;
     };
   };
 
