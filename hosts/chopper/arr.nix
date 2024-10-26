@@ -15,6 +15,24 @@
     user = "media";
     group = "media";
   };
+  services.readarr = {
+    enable = true;
+    user = "media";
+    group = "media";
+    package = pkgs.readarr.overrideAttrs (old:
+      let
+        os = "linux";
+        arch = "x64";
+        version = "0.4.1.2648";
+      in
+      {
+        inherit version;
+        src = pkgs.fetchurl {
+          url = "https://github.com/Readarr/Readarr/releases/download/v${version}/Readarr.develop.${version}.${os}-core-${arch}.tar.gz";
+          hash = "sha256-oEdO9V9QLPXkZh+QUyVjlMY21iFT1p8i2DoPWpR3Qlg=";
+        };
+      });
+  };
 
   environment.systemPackages = with pkgs; [
     p7zip
