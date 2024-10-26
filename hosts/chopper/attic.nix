@@ -1,7 +1,6 @@
-{ inputs, ... }: {
+{ ... }: {
   imports = [
     ../../modules/tailscale-serve.nix
-    inputs.attic.nixosModules.atticd
   ];
   networking.hostName = "attic";
   services.tailscale-serve = {
@@ -13,7 +12,7 @@
 
   services.atticd = {
     enable = true;
-    credentialsFile = "/run/secrets/attic_secret";
+    environmentFile = "/run/secrets/attic_secret";
     settings = {
       storage = {
         type = "local";

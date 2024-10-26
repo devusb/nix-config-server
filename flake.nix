@@ -25,9 +25,6 @@
       url = "github:devusb/blocky-tailscale";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    attic = {
-      url = "github:zhaofengli/attic";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,13 +43,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, attic, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
     let
       overlays = { default = import ./overlay { inherit inputs; }; };
       defaultImports = [
         sops-nix.nixosModules.sops
         impermanence.nixosModule
-        attic.nixosModules.atticd
         disko.nixosModules.disko
         pingshutdown.nixosModules.pingshutdown
         nix-packages.nixosModules.default
