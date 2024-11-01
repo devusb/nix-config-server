@@ -41,9 +41,13 @@
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, disko, colmena, buildbot-nix, pingshutdown, ... }@inputs:
+  outputs = { self, nixpkgs, nix-packages, nixos-generators, flake-parts, sops-nix, impermanence, blocky-tailscale, disko, colmena, buildbot-nix, pingshutdown, lix-module, ... }@inputs:
     let
       overlays = { default = import ./overlay { inherit inputs; }; };
       defaultImports = [
@@ -54,6 +58,7 @@
         nix-packages.nixosModules.default
         buildbot-nix.nixosModules.buildbot-master
         buildbot-nix.nixosModules.buildbot-worker
+        lix-module.nixosModules.default
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
