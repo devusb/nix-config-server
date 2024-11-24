@@ -21,6 +21,8 @@
         };
       in
       {
+        curl-netrc-fix = curl;
+        git-netrc-fix = git;
         nix = prev.nix.override {
           inherit git curl;
         };
