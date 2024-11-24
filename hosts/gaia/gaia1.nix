@@ -14,9 +14,6 @@ in
   };
 
   boot = {
-    loader.raspberryPi.firmwareConfig = ''
-      dtparam=audio=on
-    '';
     extraModprobeConfig = ''
       options snd_bcm2835 enable_headphones=1
     '';
@@ -25,6 +22,7 @@ in
   hardware.raspberry-pi."4" = {
     dwc2.enable = true;
     fkms-3d.enable = true;
+    audio.enable = true;
   };
 
   networking.hostName = "gaia1";
