@@ -1,4 +1,8 @@
 { lib, config, pkgs, ... }: {
+  imports = [
+    ./curl-netrc
+  ];
+
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
     secrets.attic_pull = {
