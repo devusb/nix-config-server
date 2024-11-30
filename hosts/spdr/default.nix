@@ -21,6 +21,12 @@
   networking.hostId = "9141a4f1";
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "*-*-01,15 00:00:00";
+  };
+  services.zfs.trim.enable = true;
+
   # erase your darlings
   boot.initrd.postResumeCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
