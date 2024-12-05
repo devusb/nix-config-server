@@ -42,6 +42,7 @@ in
     ./paperless.nix
     ./glance.nix
     ./buildbot.nix
+    ./calibre.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -156,6 +157,7 @@ in
       "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
       "glance.${wildcardDomain}" = mkVirtualHost config.services.glance.settings.server.port;
       "buildbot.${wildcardDomain}" = mkVirtualHost config.services.buildbot-master.port;
+      "calibre.${wildcardDomain}" = mkVirtualHost config.services.calibre-web.listen.port;
     };
   };
 
