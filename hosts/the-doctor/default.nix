@@ -7,7 +7,6 @@
     ./disko-config.nix
     ../common/builder.nix
     ./iodine.nix
-    ./k3s.nix
   ];
 
   deployment = {
