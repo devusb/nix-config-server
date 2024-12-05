@@ -6,7 +6,6 @@
     ../common
     ./disko-config.nix
     ../common/builder.nix
-    ./iodine.nix
   ];
 
   deployment = {
