@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   virtualisation.libvirtd = {
     enable = true;
     allowedBridges = [
@@ -9,7 +10,10 @@
   users.users.mhelton.extraGroups = [ "libvirtd" ];
 
   systemd.network.networks."20-lan" = {
-    matchConfig.Name = [ "enp5s0" "vm-*" ];
+    matchConfig.Name = [
+      "enp5s0"
+      "vm-*"
+    ];
     networkConfig = {
       Bridge = "br0";
     };

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 with lib;
 {
 
@@ -71,8 +77,14 @@ with lib;
     enable = true;
     settings = import ../../images/blocky-fly/blocky-config.nix { };
   };
-  systemd.services.blocky.after = [ "network-online.target" "unbound.service" ];
-  systemd.services.blocky.wants = [ "network-online.target" "unbound.service" ];
+  systemd.services.blocky.after = [
+    "network-online.target"
+    "unbound.service"
+  ];
+  systemd.services.blocky.wants = [
+    "network-online.target"
+    "unbound.service"
+  ];
   systemd.services.blocky-check = {
     description = "checking that ad-blocking is working";
     serviceConfig.Type = "oneshot";
@@ -174,7 +186,12 @@ with lib;
       enable = true;
       allowPing = false;
       logRefusedConnections = false;
-      trustedInterfaces = [ "lan" "server" "mgmt" "tailscale0" ];
+      trustedInterfaces = [
+        "lan"
+        "server"
+        "mgmt"
+        "tailscale0"
+      ];
       interfaces = {
         wan0.allowedTCPPorts = [ ];
         wan1.allowedTCPPorts = [ ];
@@ -192,7 +209,13 @@ with lib;
     nat = {
       enable = true;
       externalInterface = "wan0";
-      internalInterfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+      internalInterfaces = [
+        "lan"
+        "server"
+        "guest"
+        "isolated"
+        "mgmt"
+      ];
     };
 
     vlans = {
@@ -225,31 +248,46 @@ with lib;
     interfaces = {
       lan = {
         ipv4.addresses = [
-          { address = "192.168.10.1"; prefixLength = 23; }
+          {
+            address = "192.168.10.1";
+            prefixLength = 23;
+          }
         ];
         useDHCP = false;
       };
       server = {
         ipv4.addresses = [
-          { address = "192.168.20.1"; prefixLength = 23; }
+          {
+            address = "192.168.20.1";
+            prefixLength = 23;
+          }
         ];
         useDHCP = false;
       };
       guest = {
         ipv4.addresses = [
-          { address = "192.168.30.1"; prefixLength = 24; }
+          {
+            address = "192.168.30.1";
+            prefixLength = 24;
+          }
         ];
         useDHCP = false;
       };
       isolated = {
         ipv4.addresses = [
-          { address = "192.168.40.1"; prefixLength = 23; }
+          {
+            address = "192.168.40.1";
+            prefixLength = 23;
+          }
         ];
         useDHCP = false;
       };
       mgmt = {
         ipv4.addresses = [
-          { address = "192.168.99.1"; prefixLength = 24; }
+          {
+            address = "192.168.99.1";
+            prefixLength = 24;
+          }
         ];
         useDHCP = false;
       };
@@ -280,74 +318,170 @@ with lib;
             { library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so"; }
           ];
           "interfaces-config" = {
-            interfaces = [ "lan" "server" "guest" "isolated" "mgmt" ];
+            interfaces = [
+              "lan"
+              "server"
+              "guest"
+              "isolated"
+              "mgmt"
+            ];
           };
           "valid-lifetime" = 4000;
           "subnet4" = [
             {
               id = 1;
               subnet = "192.168.10.0/23";
-              pools = [{ pool = "192.168.10.50 - 192.168.11.254"; }];
+              pools = [ { pool = "192.168.10.50 - 192.168.11.254"; } ];
               "option-data" = [
-                { name = "domain-name-servers"; data = "192.168.10.1"; }
-                { name = "routers"; data = "192.168.10.1"; }
+                {
+                  name = "domain-name-servers";
+                  data = "192.168.10.1";
+                }
+                {
+                  name = "routers";
+                  data = "192.168.10.1";
+                }
               ];
               "reservations" = [
-                { "hw-address" = "b0:be:76:ca:dc:9f"; "ip-address" = "192.168.10.131"; hostname = "GR_Lamp"; }
-                { "hw-address" = "00:18:dd:06:8a:2e"; "ip-address" = "192.168.10.137"; hostname = "HDHR-1068A2E8"; }
-                { "hw-address" = "3c:84:6a:b4:93:4f"; "ip-address" = "192.168.10.174"; hostname = "Peloton-Fan"; }
-                { "hw-address" = "b0:be:76:ca:de:06"; "ip-address" = "192.168.10.130"; hostname = "Tree"; }
-                { "hw-address" = "14:91:82:08:91:21"; "ip-address" = "192.168.10.106"; hostname = "Wemo"; }
-                { "hw-address" = "a4:cf:12:de:9c:d6"; "ip-address" = "192.168.10.153"; hostname = "ESP_DE9CD6"; }
-                { "hw-address" = "d8:bb:c1:d2:dd:cd"; "ip-address" = "192.168.10.110"; hostname = "tomservo"; }
-                { "hw-address" = "38:b8:00:7e:a3:c5"; "ip-address" = "192.168.10.160"; hostname = "Living-Room-TV"; }
-                { "hw-address" = "00:e4:21:09:56:06"; "ip-address" = "192.168.10.50"; hostname = "PS5-875"; }
-                { "hw-address" = "38:42:0b:4e:de:04"; "ip-address" = "192.168.11.13"; hostname = "sonoszp"; }
+                {
+                  "hw-address" = "b0:be:76:ca:dc:9f";
+                  "ip-address" = "192.168.10.131";
+                  hostname = "GR_Lamp";
+                }
+                {
+                  "hw-address" = "00:18:dd:06:8a:2e";
+                  "ip-address" = "192.168.10.137";
+                  hostname = "HDHR-1068A2E8";
+                }
+                {
+                  "hw-address" = "3c:84:6a:b4:93:4f";
+                  "ip-address" = "192.168.10.174";
+                  hostname = "Peloton-Fan";
+                }
+                {
+                  "hw-address" = "b0:be:76:ca:de:06";
+                  "ip-address" = "192.168.10.130";
+                  hostname = "Tree";
+                }
+                {
+                  "hw-address" = "14:91:82:08:91:21";
+                  "ip-address" = "192.168.10.106";
+                  hostname = "Wemo";
+                }
+                {
+                  "hw-address" = "a4:cf:12:de:9c:d6";
+                  "ip-address" = "192.168.10.153";
+                  hostname = "ESP_DE9CD6";
+                }
+                {
+                  "hw-address" = "d8:bb:c1:d2:dd:cd";
+                  "ip-address" = "192.168.10.110";
+                  hostname = "tomservo";
+                }
+                {
+                  "hw-address" = "38:b8:00:7e:a3:c5";
+                  "ip-address" = "192.168.10.160";
+                  hostname = "Living-Room-TV";
+                }
+                {
+                  "hw-address" = "00:e4:21:09:56:06";
+                  "ip-address" = "192.168.10.50";
+                  hostname = "PS5-875";
+                }
+                {
+                  "hw-address" = "38:42:0b:4e:de:04";
+                  "ip-address" = "192.168.11.13";
+                  hostname = "sonoszp";
+                }
               ];
             }
             {
               id = 2;
               subnet = "192.168.20.0/23";
-              pools = [{ pool = "192.168.20.100 - 192.168.21.254"; }];
+              pools = [ { pool = "192.168.20.100 - 192.168.21.254"; } ];
               "option-data" = [
-                { name = "domain-name-servers"; data = "192.168.20.1"; }
-                { name = "routers"; data = "192.168.20.1"; }
-                { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
+                {
+                  name = "domain-name-servers";
+                  data = "192.168.20.1";
+                }
+                {
+                  name = "routers";
+                  data = "192.168.20.1";
+                }
+                {
+                  name = "vendor-encapsulated-options";
+                  data = "01:04:c0:a8:14:6d";
+                  csv-format = false;
+                }
               ];
               "reservations" = [
-                { "hw-address" = "dc:a6:32:43:d4:5e"; "ip-address" = "192.168.20.138"; hostname = "gaia0"; }
-                { "hw-address" = "e4:5f:01:9c:c9:8c"; "ip-address" = "192.168.20.139"; hostname = "gaia1"; }
-                { "hw-address" = "9c:6b:00:22:1d:20"; "ip-address" = "192.168.20.109"; hostname = "chopper"; }
+                {
+                  "hw-address" = "dc:a6:32:43:d4:5e";
+                  "ip-address" = "192.168.20.138";
+                  hostname = "gaia0";
+                }
+                {
+                  "hw-address" = "e4:5f:01:9c:c9:8c";
+                  "ip-address" = "192.168.20.139";
+                  hostname = "gaia1";
+                }
+                {
+                  "hw-address" = "9c:6b:00:22:1d:20";
+                  "ip-address" = "192.168.20.109";
+                  hostname = "chopper";
+                }
               ];
             }
             {
               id = 3;
               subnet = "192.168.30.0/24";
-              pools = [{ pool = "192.168.30.2 - 192.168.30.254"; }];
+              pools = [ { pool = "192.168.30.2 - 192.168.30.254"; } ];
               "option-data" = [
-                { name = "domain-name-servers"; data = "192.168.30.1"; }
-                { name = "routers"; data = "192.168.30.1"; }
+                {
+                  name = "domain-name-servers";
+                  data = "192.168.30.1";
+                }
+                {
+                  name = "routers";
+                  data = "192.168.30.1";
+                }
               ];
               "reservations" = [ ];
             }
             {
               id = 4;
               subnet = "192.168.40.0/23";
-              pools = [{ pool = "192.168.40.200 - 192.168.41.254"; }];
+              pools = [ { pool = "192.168.40.200 - 192.168.41.254"; } ];
               "option-data" = [
-                { name = "domain-name-servers"; data = "192.168.40.1"; }
-                { name = "routers"; data = "192.168.40.1"; }
+                {
+                  name = "domain-name-servers";
+                  data = "192.168.40.1";
+                }
+                {
+                  name = "routers";
+                  data = "192.168.40.1";
+                }
               ];
               "reservations" = [ ];
             }
             {
               id = 5;
               subnet = "192.168.99.0/24";
-              pools = [{ pool = "192.168.99.200 - 192.168.99.254"; }];
+              pools = [ { pool = "192.168.99.200 - 192.168.99.254"; } ];
               "option-data" = [
-                { name = "domain-name-servers"; data = "192.168.99.1"; }
-                { name = "routers"; data = "192.168.99.1"; }
-                { name = "vendor-encapsulated-options"; data = "01:04:c0:a8:14:6d"; csv-format = false; }
+                {
+                  name = "domain-name-servers";
+                  data = "192.168.99.1";
+                }
+                {
+                  name = "routers";
+                  data = "192.168.99.1";
+                }
+                {
+                  name = "vendor-encapsulated-options";
+                  data = "01:04:c0:a8:14:6d";
+                  csv-format = false;
+                }
               ];
               "reservations" = [ ];
             }

@@ -1,4 +1,5 @@
-{ wildcardDomain, ... }: {
+{ wildcardDomain, ... }:
+{
   mkVirtualHost = port: {
     useACMEHost = wildcardDomain;
     extraConfig = ''

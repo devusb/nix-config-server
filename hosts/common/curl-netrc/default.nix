@@ -1,7 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # https://github.com/NixOS/nixpkgs/pull/356133
   nixpkgs.overlays = [
-    (final: prev:
+    (
+      final: prev:
       let
         inherit (pkgs) fetchpatch2;
         curl = prev.curl.overrideAttrs (old: {
@@ -29,7 +31,8 @@
         nix-eval-jobs = prev.nix-eval-jobs.override {
           inherit curl;
         };
-      })
+      }
+    )
   ];
 
 }

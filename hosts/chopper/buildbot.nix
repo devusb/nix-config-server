@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   sops.secrets.buildbot_github_app_secret_key.owner = "buildbot";
   sops.secrets.buildbot_github_oauth_secret.owner = "buildbot";
   sops.secrets.buildbot_github_webhook_secret.owner = "buildbot";
@@ -78,7 +84,11 @@
 
   systemd.services.attic-watch-store = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" "tailscaled.service" config.systemd.services."container@attic".name ];
+    after = [
+      "network-online.target"
+      "tailscaled.service"
+      config.systemd.services."container@attic".name
+    ];
     environment.HOME = "/var/lib/attic-watch-store";
     serviceConfig = {
       DynamicUser = true;

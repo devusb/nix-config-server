@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -57,25 +62,32 @@ in
 
       serviceConfig.Type = "oneshot";
 
-      script = with pkgs; ''
-        # handle first deployment case, wait for tailscale to be ready
-        sleep 15
-        service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("TCP")')"
-        funnel_active="$(${cfg.package}/bin/tailscale funnel status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
-      '' +
-      (if !cfg.funnel then ''
-        # deactivate funnel if it is currently active
-        # expose service if not active
-        if [[ $service_active == false || $funnel_active == true ]]; then
-          ${cfg.package}/bin/tailscale serve --bg --yes --tcp 443 443
-        fi
-      '' else ''
-        # if currently serving but not funneling
-        # if not funneling and not serving
-        if [[ ($service_active == true && $funnel_active == false) || $service_active == false ]]; then
-          ${cfg.package}/bin/tailscale funnel --bg --yes --tcp 443 443
-        fi
-      '');
+      script =
+        with pkgs;
+        ''
+          # handle first deployment case, wait for tailscale to be ready
+          sleep 15
+          service_active="$(${cfg.package}/bin/tailscale serve status -json | ${jq}/bin/jq -r 'has("TCP")')"
+          funnel_active="$(${cfg.package}/bin/tailscale funnel status -json | ${jq}/bin/jq -r 'has("AllowFunnel")')"
+        ''
+        + (
+          if !cfg.funnel then
+            ''
+              # deactivate funnel if it is currently active
+              # expose service if not active
+              if [[ $service_active == false || $funnel_active == true ]]; then
+                ${cfg.package}/bin/tailscale serve --bg --yes --tcp 443 443
+              fi
+            ''
+          else
+            ''
+              # if currently serving but not funneling
+              # if not funneling and not serving
+              if [[ ($service_active == true && $funnel_active == false) || $service_active == false ]]; then
+                ${cfg.package}/bin/tailscale funnel --bg --yes --tcp 443 443
+              fi
+            ''
+        );
     };
 
     systemd.timers.tailscale-serve = {

@@ -1,21 +1,29 @@
 { lib, config, ... }:
 let
-  mkConfig = { hostname, alias, exporter }: {
-    targets = [
-      "${hostname}:${toString config.services.prometheus.exporters."${exporter}".port}"
-    ];
-    labels = {
-      inherit alias;
+  mkConfig =
+    {
+      hostname,
+      alias,
+      exporter,
+    }:
+    {
+      targets = [
+        "${hostname}:${toString config.services.prometheus.exporters."${exporter}".port}"
+      ];
+      labels = {
+        inherit alias;
+      };
     };
-  };
 in
 {
   services.postgresql = {
     enable = true;
-    ensureUsers = [{
-      name = "grafana";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "grafana";
+        ensureDBOwnership = true;
+      }
+    ];
     ensureDatabases = [ "grafana" ];
   };
   services.grafana = {
@@ -80,7 +88,10 @@ in
         {
           orgid = 1;
           receiver = "pushover";
-          group_by = [ "grafana_folder" "alertname" ];
+          group_by = [
+            "grafana_folder"
+            "alertname"
+          ];
         }
       ];
     };
@@ -107,27 +118,63 @@ in
         job_name = "node";
         scrape_interval = "10s";
         static_configs = [
-          (mkConfig { hostname = "localhost"; alias = "chopper"; exporter = "node"; })
-          (mkConfig { hostname = "sophia"; alias = "sophia"; exporter = "node"; })
-          (mkConfig { hostname = "spdr"; alias = "spdr"; exporter = "node"; })
-          (mkConfig { hostname = "durandal"; alias = "durandal"; exporter = "node"; })
-          (mkConfig { hostname = "gaia0"; alias = "gaia0"; exporter = "node"; })
-          (mkConfig { hostname = "gaia1"; alias = "gaia1"; exporter = "node"; })
-          (mkConfig { hostname = "the-doctor"; alias = "the-doctor"; exporter = "node"; })
+          (mkConfig {
+            hostname = "localhost";
+            alias = "chopper";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "sophia";
+            alias = "sophia";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "spdr";
+            alias = "spdr";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "durandal";
+            alias = "durandal";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "gaia0";
+            alias = "gaia0";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "gaia1";
+            alias = "gaia1";
+            exporter = "node";
+          })
+          (mkConfig {
+            hostname = "the-doctor";
+            alias = "the-doctor";
+            exporter = "node";
+          })
         ];
       }
       {
         job_name = "zfs";
         scrape_interval = "1m";
         static_configs = [
-          (mkConfig { hostname = "localhost"; alias = "chopper"; exporter = "zfs"; })
+          (mkConfig {
+            hostname = "localhost";
+            alias = "chopper";
+            exporter = "zfs";
+          })
         ];
       }
       {
         job_name = "smartctl";
         scrape_interval = "1m";
         static_configs = [
-          (mkConfig { hostname = "localhost"; alias = "chopper"; exporter = "smartctl"; })
+          (mkConfig {
+            hostname = "localhost";
+            alias = "chopper";
+            exporter = "smartctl";
+          })
         ];
       }
       {
@@ -175,16 +222,18 @@ in
         replication_factor = 1;
         ring.kvstore.store = "inmemory";
       };
-      schema_config.configs = [{
-        from = "2023-10-10";
-        store = "tsdb";
-        object_store = "filesystem";
-        schema = "v12";
-        index = {
-          prefix = "index_";
-          period = "24h";
-        };
-      }];
+      schema_config.configs = [
+        {
+          from = "2023-10-10";
+          store = "tsdb";
+          object_store = "filesystem";
+          schema = "v12";
+          index = {
+            prefix = "index_";
+            period = "24h";
+          };
+        }
+      ];
       limits_config = {
         reject_old_samples = true;
         allow_structured_metadata = false;

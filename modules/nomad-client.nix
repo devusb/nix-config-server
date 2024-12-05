@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -42,7 +47,11 @@ in
     services.tailscale-autoconnect = {
       enable = true;
     };
-    systemd.services.tailscaled.wantedBy = [ "docker.service" "nomad.service" "consul.service" ];
+    systemd.services.tailscaled.wantedBy = [
+      "docker.service"
+      "nomad.service"
+      "consul.service"
+    ];
 
     services.nomad = {
       enable = true;

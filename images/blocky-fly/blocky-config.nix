@@ -1,4 +1,9 @@
-{ upstreamDns ? [ "127.0.0.1:5353" ], bootstrapDns ? "1.1.1.1", ... }: {
+{
+  upstreamDns ? [ "127.0.0.1:5353" ],
+  bootstrapDns ? "1.1.1.1",
+  ...
+}:
+{
   port = 53;
   httpPort = 4000;
   upstream = {
@@ -22,7 +27,10 @@
       ];
     };
     clientGroupsBlock = {
-      default = [ "ads" "smart_home" ];
+      default = [
+        "ads"
+        "smart_home"
+      ];
     };
   };
 }

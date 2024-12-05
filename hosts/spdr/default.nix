@@ -1,10 +1,14 @@
-{ config, pkgs, lib, ... }:
 {
-  imports =
-    [
-      ../common
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  imports = [
+    ../common
+    ./hardware-configuration.nix
+  ];
 
   deployment = {
     targetHost = "spdr";
@@ -51,7 +55,10 @@
     ];
     users.mhelton = {
       directories = [
-        { directory = ".ssh"; mode = "0700"; }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
       ];
       files = [
         ".bash_history"
@@ -76,7 +83,10 @@
   };
   services.tailscale-autoconnect = {
     enable = true;
-    extraTailscaleArgs = [ "--advertise-exit-node" "--accept-routes" ];
+    extraTailscaleArgs = [
+      "--advertise-exit-node"
+      "--accept-routes"
+    ];
   };
   services.tailscale-serve = {
     enable = true;
@@ -115,4 +125,3 @@
   };
 
 }
-
