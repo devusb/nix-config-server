@@ -1,4 +1,5 @@
-{ config, inputs, ... }: {
+{ config, inputs, ... }:
+{
   systemd.network.networks."19-containers" = {
     matchConfig.Name = "ve-*";
     linkConfig.Unmanaged = true;

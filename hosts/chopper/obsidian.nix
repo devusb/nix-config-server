@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   configFile = "/var/lib/couchdb/local.ini";
   initScript = pkgs.writeShellScriptBin "couchdb-init.sh" ''

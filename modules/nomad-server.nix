@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -44,7 +49,11 @@ in
       enable = true;
       extraTailscaleArgs = [ "--operator=caddy" ];
     };
-    systemd.services.tailscaled.wantedBy = [ "docker.service" "nomad.service" "consul.service" ];
+    systemd.services.tailscaled.wantedBy = [
+      "docker.service"
+      "nomad.service"
+      "consul.service"
+    ];
 
     sops.secrets.nomad = {
       sopsFile = ../secrets/nomad.yaml;
@@ -104,7 +113,6 @@ in
         ports.grpc = 8502;
       };
     };
-
 
     sops.secrets.cloudflare = {
       sopsFile = ../secrets/cloudflare.yaml;

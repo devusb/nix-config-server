@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./curl-netrc
   ];
@@ -12,7 +18,10 @@
 
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
       warn-dirty = false;
       trusted-users = [ "mhelton" ];
@@ -42,7 +51,10 @@
 
   users.users.mhelton = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
   };
   users.users.mhelton.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD+tZ4hf4MhEW+akoZbXPN3Zi4cijSkQlX6bZlnV+Aq mhelton@gmail.com"
@@ -80,7 +92,11 @@
   services.prometheus.exporters = {
     node = {
       enable = true;
-      enabledCollectors = [ "systemd" "ethtool" "netstat" ];
+      enabledCollectors = [
+        "systemd"
+        "ethtool"
+        "netstat"
+      ];
       disabledCollectors = [ "arp" ];
     };
   };

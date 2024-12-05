@@ -22,28 +22,27 @@ let
   caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./disko-config.nix
-      ../common
-      ./containers.nix
-      ./virtualisation.nix
-      ./plex.nix
-      ./arr.nix
-      ./jellyfin.nix
-      ./fileshare.nix
-      ./miniflux.nix
-      ./backup.nix
-      ./vault.nix
-      ./monitoring.nix
-      ./unifi.nix
-      ./homeassistant.nix
-      ../common/builder.nix
-      ./paperless.nix
-      ./glance.nix
-      ./buildbot.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./disko-config.nix
+    ../common
+    ./containers.nix
+    ./virtualisation.nix
+    ./plex.nix
+    ./arr.nix
+    ./jellyfin.nix
+    ./fileshare.nix
+    ./miniflux.nix
+    ./backup.nix
+    ./vault.nix
+    ./monitoring.nix
+    ./unifi.nix
+    ./homeassistant.nix
+    ../common/builder.nix
+    ./paperless.nix
+    ./glance.nix
+    ./buildbot.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -87,7 +86,10 @@ in
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-exit-node" "--ssh" ];
+    extraUpFlags = [
+      "--advertise-exit-node"
+      "--ssh"
+    ];
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
@@ -169,4 +171,3 @@ in
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

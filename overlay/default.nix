@@ -1,8 +1,11 @@
-{ inputs, ... }: final: prev: {
-  stable = import inputs.nixpkgs-stable { system = prev.system; config.allowUnfree = true; };
+{ inputs, ... }:
+final: prev: {
+  stable = import inputs.nixpkgs-stable {
+    system = prev.system;
+    config.allowUnfree = true;
+  };
 
-  makeModulesClosure = x:
-    prev.makeModulesClosure (x // { allowMissing = true; });
+  makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
 
   caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
 

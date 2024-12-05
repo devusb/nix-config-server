@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ../../modules/tailscale-serve.nix
   ];
@@ -32,10 +33,12 @@
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "atticd" ];
-    ensureUsers = [{
-      name = "atticd";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "atticd";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   system.stateVersion = "24.05";

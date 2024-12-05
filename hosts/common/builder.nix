@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   users.users.nix = {
     isNormalUser = true;
     home = "/home/nix";

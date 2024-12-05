@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   systemd.tmpfiles.settings."homeassistant"."/var/lib/homeassistant".d = {
     mode = "0666";
   };

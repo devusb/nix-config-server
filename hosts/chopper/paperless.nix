@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   services.paperless = {
     enable = true;
     passwordFile = config.sops.secrets.paperless_admin.path;
