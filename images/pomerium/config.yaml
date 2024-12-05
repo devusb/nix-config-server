@@ -85,3 +85,11 @@ routes:
     to: https://buildbot.chopper.devusb.us
     allow_public_unauthenticated_access: true
     allow_websockets: true
+
+  - from: https://calibre.devusb.us
+    to: https://calibre.chopper.devusb.us
+    allowed_users:
+      - mhelton@gmail.com
+      - ilona.molotoka@gmail.com
+    pass_identity_headers: true
+    allow_websockets: true
