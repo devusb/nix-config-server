@@ -10,9 +10,14 @@
     backend = "podman";
     containers = {
       homeassistant = {
-        volumes = [ "/var/lib/homeassistant:/config" ];
-        environment.TZ = "US/Central";
-        image = "ghcr.io/home-assistant/home-assistant:2024.7.3";
+        volumes = [
+          "/var/lib/homeassistant:/config"
+          "homeassistant-dockerenv:/.dockerenv" # workaround for https://github.com/home-assistant/core/issues/127966
+        ];
+        environment = {
+          TZ = "US/Central";
+        };
+        image = "ghcr.io/home-assistant/home-assistant:2024.12.3";
         extraOptions = [
           "--network=host"
         ];
@@ -20,7 +25,7 @@
       node-red = {
         volumes = [ "/var/lib/node-red:/data:U" ];
         environment.TZ = "US/Central";
-        image = "nodered/node-red:3.1.7";
+        image = "nodered/node-red:3.1.14";
         extraOptions = [
           "--network=host"
         ];
