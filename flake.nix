@@ -35,7 +35,6 @@
     };
     buildbot-nix = {
       url = "github:nix-community/buildbot-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
