@@ -45,6 +45,10 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # treefmt-nix
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+    };
   };
 
   outputs =
@@ -62,6 +66,7 @@
       buildbot-nix,
       pingshutdown,
       lix-module,
+      treefmt-nix,
       ...
     }@inputs:
     let
@@ -87,8 +92,16 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, ... }:
       {
+        imports = [
+          treefmt-nix.flakeModule
+        ];
         perSystem =
-          { system, lib, ... }:
+          {
+            system,
+            lib,
+            pkgs,
+            ...
+          }:
           rec {
             legacyPackages = import nixpkgs {
               inherit system;
@@ -107,7 +120,21 @@
             };
             _module.args.pkgs = legacyPackages;
 
-            formatter = legacyPackages.nixfmt-rfc-style;
+            treefmt = {
+              programs.nixfmt.enable = true;
+              programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+              programs.yamlfmt.enable = true;
+              programs.mdformat.enable = true;
+              programs.toml-sort.enable = true;
+              programs.black.enable = true;
+              programs.shfmt.enable = true;
+              settings.excludes = [
+                ".editorconfig"
+                ".gitignore"
+                "flake.lock"
+                "*secrets*"
+              ];
+            };
 
             checks =
               let

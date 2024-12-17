@@ -8,21 +8,21 @@ processes = []
 [env]
 
 [experimental]
-  allowed_public_ports = []
-  auto_rollback = true
+allowed_public_ports = []
+auto_rollback = true
 
 [mounts]
-  destination = "/data"
-  source = "pomerium_data"
+destination = "/data"
+source = "pomerium_data"
 
 [[services]]
-  internal_port = 443
-  protocol = "tcp"
+internal_port = 443
+protocol = "tcp"
 
-  [[services.ports]]
-    port = "443"
+[services.concurrency]
+type = "connections"
+hard_limit = 1000
+soft_limit = 1000
 
-  [services.concurrency]
-    type = "connections"
-    hard_limit = 1000
-    soft_limit = 1000
+[[services.ports]]
+port = "443"
