@@ -35,14 +35,13 @@
     };
     buildbot-nix = {
       url = "github:nix-community/buildbot-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # treefmt-nix
