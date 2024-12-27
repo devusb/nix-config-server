@@ -67,7 +67,7 @@
     htop
     bottom
     speedtest-go
-    zellij
+    tmux
   ];
 
   # enable passwordless sudo
