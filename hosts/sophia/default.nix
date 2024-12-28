@@ -24,7 +24,6 @@ with lib;
     ethtool
     tcpdump
     conntrack-tools
-    wol
   ];
 
   networking.useNetworkd = true;
