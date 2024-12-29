@@ -8,6 +8,7 @@
   imports = [
     ../common
     ./hardware-configuration.nix
+    ./disko-config.nix
   ];
 
   deployment = {
