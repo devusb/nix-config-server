@@ -7,8 +7,6 @@ final: prev: {
 
   makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
 
-  caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
-
   buildbot = prev.buildbot.overrideAttrs (old: {
     patches = old.patches ++ [
       (prev.fetchpatch {
