@@ -71,9 +71,11 @@
         start_all()
         sophia.wait_for_unit("kea-dhcp4-server.service")
 
+        lanClient.systemctl("start systemd-networkd-wait-online.service")
         lanClient.wait_for_unit("systemd-networkd-wait-online.service")
         lanClient.succeed("ip add | grep 192.168.10.51")
 
+        serverClient.systemctl("start systemd-networkd-wait-online.service")
         serverClient.wait_for_unit("systemd-networkd-wait-online.service")
         serverClient.succeed("ip add | grep 192.168.20.109")
 
