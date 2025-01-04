@@ -4,9 +4,11 @@
   ...
 }:
 {
-  port = 53;
-  httpPort = 4000;
-  upstream = {
+  ports = {
+    dns = 53;
+    http = 4000;
+  };
+  upstreams.groups = {
     default = upstreamDns;
   };
   bootstrapDns = {
@@ -17,12 +19,19 @@
   };
   conditional = { };
   blocking = {
-    blackLists = {
+    denylists = {
       ads = [ "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" ];
       smart_home = [
         ''
           n-devs.tplinkcloud.com
           n-deventry.tplinkcloud.com
+        ''
+      ];
+    };
+    allowlists = {
+      ads = [
+        ''
+          tags.tiqcdn.com
         ''
       ];
     };
