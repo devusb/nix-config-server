@@ -9,20 +9,6 @@ final: prev: {
 
   caddy-cloudflare = prev.callPackage ./caddy-cloudflare.nix { };
 
-  shairport-sync =
-    let
-      shairport-sync' = prev.shairport-sync.overrideAttrs (old: {
-        version = "4.3.4-unstable-2024-11-02";
-        src = old.src.override {
-          rev = "ab6225c1ac1c57f5af50890d722437ec8a921d0d";
-          hash = "sha256-iwyIUUFA5DzTkm/DXvEa3buVX4Dje0P0svteRAKIS20=";
-        };
-      });
-    in
-    shairport-sync'.override {
-      enableAirplay2 = true;
-    };
-
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
       version = "1.41.3.9314-a0bfb8370";
