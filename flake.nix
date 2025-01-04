@@ -84,8 +84,6 @@
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
-        ./modules/nomad-server.nix
-        ./modules/nomad-client.nix
       ];
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
