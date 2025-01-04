@@ -40,6 +40,7 @@ in
   services.shairport-sync = {
     enable = true;
     arguments = "-v -o alsa -a Office -c ${pkgs.writeText "shairport-sync.conf" shairportConfig}";
+    package = pkgs.shairport-sync-airplay2;
   };
   services.nqptp.enable = true;
 
