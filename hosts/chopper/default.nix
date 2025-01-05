@@ -70,13 +70,13 @@ in
 
   networking.useNetworkd = true;
   systemd.network.networks."18-ipmi" = {
-    matchConfig.Name = "enp10s0u9u3c2";
+    matchConfig.Name = "enp11s0u9u3c2";
     linkConfig.Unmanaged = true;
   };
 
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
-  networking.nat.externalInterface = "enp4s0";
+  networking.nat.externalInterface = "enp5s0";
 
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
