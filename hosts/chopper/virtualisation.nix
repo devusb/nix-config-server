@@ -11,7 +11,7 @@
 
   systemd.network.networks."20-lan" = {
     matchConfig.Name = [
-      "enp5s0"
+      "enp6s0"
       "vm-*"
     ];
     networkConfig = {
