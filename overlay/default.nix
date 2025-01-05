@@ -16,6 +16,16 @@ final: prev: {
     ];
   });
 
+  # https://github.com/jellyfin/jellyfin/issues/13147
+  jellyfin = prev.jellyfin.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      (prev.fetchpatch2 {
+        url = "https://patch-diff.githubusercontent.com/raw/jellyfin/jellyfin/pull/13227.diff";
+        hash = "sha256-gVmLWsvGk6dqSpjdnuKWmghH8hp7WbaiZC5z9VwxOv4=";
+      })
+    ];
+  });
+
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
       version = "1.41.3.9314-a0bfb8370";
