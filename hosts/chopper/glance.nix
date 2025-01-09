@@ -24,6 +24,10 @@
                         url = "https://rss.devusb.us";
                       }
                       {
+                        title = "Home Assistant";
+                        url = "https://hass.devusb.us";
+                      }
+                      {
                         title = "GitHub";
                         url = "https://github.com";
                       }
@@ -58,11 +62,33 @@
             {
               size = "full";
               widgets = [
-                { type = "hacker-news"; }
-                { type = "lobsters"; }
                 {
-                  type = "reddit";
-                  subreddit = "houston";
+                  type = "group";
+                  widgets = [
+                    { type = "hacker-news"; }
+                    { type = "lobsters"; }
+
+                  ];
+                }
+                {
+                  type = "group";
+                  widgets =
+                    let
+                      subreddits = [
+                        "houston"
+                        "gamedeals"
+                        "buildapcsales"
+                        "nixos"
+                        "selfhosted"
+                        "steamdeck"
+                        "ockytop"
+                      ];
+                      mkRedditWidget = subreddit: {
+                        inherit subreddit;
+                        type = "reddit";
+                      };
+                    in
+                    map mkRedditWidget subreddits;
                 }
               ];
             }
