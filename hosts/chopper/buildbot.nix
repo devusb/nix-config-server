@@ -70,6 +70,9 @@
       "tailscaled.service"
       config.systemd.services."container@attic".name
     ];
+    requires = [
+      "network-online.target"
+    ];
     environment.HOME = "/var/lib/attic-watch-store";
     serviceConfig = {
       DynamicUser = true;
