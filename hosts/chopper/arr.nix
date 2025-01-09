@@ -27,6 +27,22 @@
     group = "media";
   };
 
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers = {
+      whisper-asr-webservice = {
+        image = "onerahmet/openai-whisper-asr-webservice:latest";
+        ports = [
+          "9000:9000"
+        ];
+        environment = {
+          ASR_MODEL = "small";
+          ASR_ENGINE = "faster_whisper";
+        };
+      };
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     p7zip
     unrar
