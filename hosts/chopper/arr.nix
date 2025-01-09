@@ -21,6 +21,11 @@
     user = "media";
     group = "media";
   };
+  services.bazarr = {
+    enable = true;
+    user = "media";
+    group = "media";
+  };
 
   environment.systemPackages = with pkgs; [
     p7zip

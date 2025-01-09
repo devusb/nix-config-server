@@ -138,6 +138,7 @@ in
       "plex.${wildcardDomain}" = mkVirtualHost 32400;
       "sonarr.${wildcardDomain}" = mkVirtualHost 8989;
       "radarr.${wildcardDomain}" = mkVirtualHost 7878;
+      "bazarr.${wildcardDomain}" = mkVirtualHost config.services.bazarr.listenPort;
       "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
       "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
