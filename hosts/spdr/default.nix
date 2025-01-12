@@ -24,7 +24,6 @@
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "9141a4f1";
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   services.zfs.autoScrub = {
     enable = true;
