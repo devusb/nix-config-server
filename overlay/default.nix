@@ -7,15 +7,6 @@ final: prev: {
 
   makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
 
-  buildbot = prev.buildbot.overrideAttrs (old: {
-    patches = old.patches ++ [
-      (prev.fetchpatch {
-        url = "https://github.com/buildbot/buildbot/commit/ac46c0aa77be46eaa64e09bef03da6f8dbaacfa7.patch";
-        hash = "sha256-XoODSKY0GzFh2H5gWxiXm/QxngGN2MM0yId5D1RQflQ=";
-      })
-    ];
-  });
-
   # https://github.com/jellyfin/jellyfin/issues/13147
   jellyfin = prev.jellyfin.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
