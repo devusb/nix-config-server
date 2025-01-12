@@ -4,6 +4,10 @@
   lib,
   ...
 }:
+let
+  wildcardDomain = "spdr.devusb.us";
+  caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
+in
 {
   imports = [
     ../common
@@ -42,6 +46,7 @@
       "/var/lib/tailscale"
       "/var/lib/plex"
       "/var/lib/jellyfin"
+      "/var/lib/acme"
       "/var/log"
       "/etc/NetworkManager/system-connections"
       "/var/lib/systemd/coredump"
@@ -88,10 +93,6 @@
       "--advertise-exit-node"
       "--accept-routes"
     ];
-  };
-  services.tailscale-serve = {
-    enable = true;
-    port = 8096;
     authKeyFile = config.sops.secrets.ts_key.path;
   };
 
@@ -113,6 +114,19 @@
     libva-utils
   ];
 
+  sops.secrets.cloudflare = { };
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "devusb@devusb.us";
+    certs = {
+      "${wildcardDomain}" = {
+        domain = "*.${wildcardDomain}";
+        dnsProvider = "cloudflare";
+        environmentFile = config.sops.secrets.cloudflare.path;
+      };
+    };
+  };
+
   services.plex = {
     enable = true;
     dataDir = "/var/lib/plex";
@@ -122,6 +136,14 @@
 
   services.jellyfin = {
     enable = true;
+  };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts = with caddy-helpers; {
+      "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
+      "plex.${wildcardDomain}" = mkVirtualHost 32400;
+    };
   };
 
 }
