@@ -393,6 +393,11 @@ with lib;
                   "ip-address" = "192.168.11.13";
                   hostname = "sonoszp";
                 }
+                {
+                  "hw-address" = "88:87:17:21:77:4e";
+                  "ip-address" = "192.168.10.124";
+                  hostname = "canon-printer";
+                }
               ];
             }
             {
