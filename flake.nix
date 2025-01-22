@@ -140,7 +140,7 @@
 
             checks =
               let
-                machinesPerSystem = {
+                nixosMachinesPerSystem = {
                   x86_64-linux = [
                     "chopper"
                     "spdr"
@@ -152,13 +152,23 @@
                     "sophia"
                   ];
                 };
+                darwinMachinesPerSystem = {
+                  aarch64-darwin = [
+                    "cortana"
+                  ];
+                };
                 nixosMachines = lib.mapAttrs' (n: lib.nameValuePair "nixos-${n}") (
-                  lib.genAttrs (machinesPerSystem.${system} or [ ]) (
+                  lib.genAttrs (nixosMachinesPerSystem.${system} or [ ]) (
                     name: self.nixosConfigurations.${name}.config.system.build.toplevel
                   )
                 );
+                darwinMachines = lib.mapAttrs' (n: lib.nameValuePair "darwin-${n}") (
+                  lib.genAttrs (darwinMachinesPerSystem.${system} or [ ]) (
+                    name: self.darwinConfigurations.${name}.config.system.build.toplevel
+                  )
+                );
               in
-              nixosMachines;
+              nixosMachines // darwinMachines;
           };
 
         flake = {
