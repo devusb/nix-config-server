@@ -153,6 +153,11 @@ in
             alias = "the-doctor";
             exporter = "node";
           })
+          (mkConfig {
+            hostname = "cortana";
+            alias = "cortana";
+            exporter = "node";
+          })
         ];
       }
       {
