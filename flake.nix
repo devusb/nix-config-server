@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-packages = {
       url = "github:devusb/nix-packages";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +58,7 @@
     {
       self,
       nixpkgs,
+      darwin,
       nix-packages,
       nixos-generators,
       flake-parts,
@@ -281,6 +286,23 @@
             );
           };
 
+          darwinConfigurations = {
+            cortana = withSystem "aarch64-darwin" (
+              { pkgs, ... }:
+              darwin.lib.darwinSystem {
+                specialArgs = { inherit inputs; };
+                modules = [
+                  sops-nix.darwinModules.sops
+                  nix-packages.darwinModules.default
+                  lix-module.nixosModules.default
+                  { nixpkgs.pkgs = pkgs; }
+                  ./hosts/common/darwin.nix
+                  ./hosts/cortana
+                ];
+              }
+            );
+          };
+
           colmena =
             let
               conf = self.nixosConfigurations;
@@ -315,6 +337,7 @@
         systems = [
           "x86_64-linux"
           "aarch64-linux"
+          "aarch64-darwin"
         ];
 
       }

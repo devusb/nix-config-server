@@ -66,6 +66,27 @@
         "type": "github"
       }
     },
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737162735,
+        "narHash": "sha256-5T+HkouTMGaRm0rh3kgD4Z1O7ONKfgjyoPQH5rSyreU=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "87131f51f8256952d1a306b5521cedc2dc61aa08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "deckbd": {
       "inputs": {
         "nixpkgs": [
@@ -629,6 +650,7 @@
         "blocky-tailscale": "blocky-tailscale",
         "buildbot-nix": "buildbot-nix",
         "colmena": "colmena",
+        "darwin": "darwin",
         "disko": "disko",
         "flake-parts": "flake-parts_2",
         "impermanence": "impermanence",
