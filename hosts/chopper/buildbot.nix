@@ -21,6 +21,7 @@
     buildSystems = [
       "x86_64-linux"
       "aarch64-linux"
+      "aarch64-darwin"
     ];
 
     admins = [
@@ -59,6 +60,19 @@
         "big-parallel"
         "kvm"
         "nixos-test"
+      ];
+    }
+    {
+      hostName = "cortana";
+      protocol = "ssh-ng";
+      sshUser = "nix";
+      systems = [
+        "aarch64-darwin"
+      ];
+      maxJobs = 4;
+      supportedFeatures = [
+        "big-parallel"
+        "kvm"
       ];
     }
   ];
