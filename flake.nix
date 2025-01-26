@@ -48,9 +48,11 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # treefmt-nix
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
+    };
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
     };
   };
 
