@@ -1,4 +1,10 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 {
   systemd.tmpfiles.settings."homeassistant"."/var/lib/homeassistant".d = {
     mode = "0666";
@@ -32,6 +38,11 @@
         user = config.users.users.root.name;
       };
     };
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "hass.${wildcardDomain}" = mkVirtualHost 8123;
+    "node-red.${wildcardDomain}" = mkVirtualHost 1880;
   };
 
   services.deploy-backup.backups.homeassistant = {

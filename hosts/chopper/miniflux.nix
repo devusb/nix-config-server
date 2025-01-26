@@ -2,6 +2,8 @@
   pkgs,
   lib,
   config,
+  caddyHelpers,
+  wildcardDomain,
   ...
 }:
 let
@@ -17,6 +19,10 @@ in
     };
   };
   systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "miniflux.${wildcardDomain}" = mkSocketVirtualHost "/run/miniflux/miniflux.sock";
+  };
 
   services.deploy-backup.backups.miniflux = lib.mkIf config.services.deploy-backup.enable {
     files = [

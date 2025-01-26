@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+args@{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   secrets = [
     "ts_key"
@@ -19,10 +24,9 @@ let
     "buildbot_nix_workers"
   ];
   wildcardDomain = "chopper.devusb.us";
-  caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
-in
-{
-  imports = [
+  caddyHelpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
+
+  importList = [
     ./hardware-configuration.nix
     ./disko-config.nix
     ../common
@@ -44,6 +48,11 @@ in
     ./buildbot.nix
     ./calibre.nix
   ];
+in
+{
+  imports = builtins.map (
+    path: import path (args // { inherit wildcardDomain caddyHelpers; })
+  ) importList;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -134,31 +143,9 @@ in
 
   services.caddy = {
     enable = true;
-    virtualHosts = with caddy-helpers; {
-      "plex.${wildcardDomain}" = mkVirtualHost 32400;
-      "sonarr.${wildcardDomain}" = mkVirtualHost 8989;
-      "radarr.${wildcardDomain}" = mkVirtualHost 7878;
-      "bazarr.${wildcardDomain}" = mkVirtualHost config.services.bazarr.listenPort;
-      "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
-      "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
+    virtualHosts = with caddyHelpers; {
       "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
-      "miniflux.${wildcardDomain}" = mkSocketVirtualHost "/run/miniflux/miniflux.sock";
-      "jellyfin.${wildcardDomain}" = mkSocketVirtualHost "/run/jellyfin/jellyfin.sock";
-      "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
-      "backup.${wildcardDomain}" = mkVirtualHost 8081;
-      "vault.${wildcardDomain}" = mkVirtualHost 8200;
-      "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
-      "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
-      "loki.${wildcardDomain}" = mkVirtualHost 3100;
-      "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
       "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
-      "hass.${wildcardDomain}" = mkVirtualHost 8123;
-      "node-red.${wildcardDomain}" = mkVirtualHost 1880;
-      "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
-      "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
-      "glance.${wildcardDomain}" = mkVirtualHost config.services.glance.settings.server.port;
-      "buildbot.${wildcardDomain}" = mkVirtualHost config.services.buildbot-master.port;
-      "calibre.${wildcardDomain}" = mkVirtualHost config.services.calibre-web.listen.port;
     };
   };
 

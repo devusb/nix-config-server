@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  config,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 {
   services.jellyfin = {
     enable = true;
@@ -14,6 +19,10 @@
     "JELLYFIN_kestrel__socketPermissions" = "0666";
     "JELLYFIN_kestrel__socketPath" = "/run/jellyfin/jellyfin.sock";
     "JELLYFIN_kestrel__socket" = "true";
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "jellyfin.${wildcardDomain}" = mkSocketVirtualHost "/run/jellyfin/jellyfin.sock";
   };
 
   services.jellyplex-watched = {

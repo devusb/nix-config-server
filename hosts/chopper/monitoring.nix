@@ -1,4 +1,10 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 let
   mkConfig =
     {
@@ -306,6 +312,13 @@ in
     settings = {
       web.listen.port = 8082;
     };
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
+    "loki.${wildcardDomain}" = mkVirtualHost 3100;
+    "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
+    "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
   };
 
 }

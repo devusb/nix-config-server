@@ -2,6 +2,8 @@
   pkgs,
   lib,
   config,
+  caddyHelpers,
+  wildcardDomain,
   ...
 }:
 {
@@ -25,6 +27,13 @@
     enable = true;
     user = "media";
     group = "media";
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "sonarr.${wildcardDomain}" = mkVirtualHost 8989;
+    "radarr.${wildcardDomain}" = mkVirtualHost 7878;
+    "bazarr.${wildcardDomain}" = mkVirtualHost config.services.bazarr.listenPort;
+    "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
   };
 
   virtualisation.oci-containers = {

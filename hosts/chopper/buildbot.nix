@@ -2,6 +2,8 @@
   config,
   pkgs,
   lib,
+  caddyHelpers,
+  wildcardDomain,
   ...
 }:
 {
@@ -44,6 +46,10 @@
   services.buildbot-nix.worker = {
     enable = true;
     workerPasswordFile = config.sops.secrets.buildbot_nix_worker_password.path;
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "buildbot.${wildcardDomain}" = mkVirtualHost config.services.buildbot-master.port;
   };
 
   nix.distributedBuilds = true;

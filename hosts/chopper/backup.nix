@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 {
   users.groups.backup = {
     gid = 1003;
@@ -12,6 +18,10 @@
       document_root = "/r2d2_0/backup/config";
     };
     group = config.users.groups.backup.name;
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "backup.${wildcardDomain}" = mkVirtualHost 8081;
   };
 
   systemd.services.upload-home-backup = {

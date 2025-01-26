@@ -1,10 +1,19 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 {
   services.unifi = {
     enable = true;
     unifiPackage = pkgs.unifi8;
     mongodbPackage = pkgs.mongodb-6_0;
     openFirewall = true;
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
   };
 
   services.deploy-backup.backups.unifi = {

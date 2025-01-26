@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  caddyHelpers,
+  wildcardDomain,
+  ...
+}:
 {
   services.vault = {
     enable = true;
@@ -18,6 +24,10 @@
   systemd.services.vault = {
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
+  };
+
+  services.caddy.virtualHosts = with caddyHelpers; {
+    "vault.${wildcardDomain}" = mkVirtualHost 8200;
   };
 
 }
