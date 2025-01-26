@@ -5,8 +5,8 @@
   ...
 }:
 let
-  wildcardDomain = "spdr.devusb.us";
-  caddy-helpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
+  domain = "spdr.devusb.us";
+  caddyHelpers = import ../../lib/caddy-helpers.nix { inherit domain; };
 in
 {
   imports = [
@@ -119,8 +119,8 @@ in
     acceptTerms = true;
     defaults.email = "devusb@devusb.us";
     certs = {
-      "${wildcardDomain}" = {
-        domain = "*.${wildcardDomain}";
+      "${domain}" = {
+        domain = "*.${domain}";
         dnsProvider = "cloudflare";
         environmentFile = config.sops.secrets.cloudflare.path;
       };
@@ -140,9 +140,9 @@ in
 
   services.caddy = {
     enable = true;
-    virtualHosts = with caddy-helpers; {
-      "jellyfin.${wildcardDomain}" = mkVirtualHost 8096;
-      "plex.${wildcardDomain}" = mkVirtualHost 32400;
+    virtualHosts = with caddyHelpers; {
+      "jellyfin.${domain}" = helpers.mkVirtualHost 8096;
+      "plex.${domain}" = helpers.mkVirtualHost 32400;
     };
   };
 

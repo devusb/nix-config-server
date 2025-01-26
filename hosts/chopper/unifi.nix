@@ -1,7 +1,6 @@
 {
   pkgs,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -13,7 +12,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "unifi.${wildcardDomain}" = mkHttpsVirtualHost 8443;
+    "unifi.${domain}" = helpers.mkHttpsVirtualHost 8443;
   };
 
   services.deploy-backup.backups.unifi = {

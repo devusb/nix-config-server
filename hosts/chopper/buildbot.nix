@@ -3,7 +3,6 @@
   pkgs,
   lib,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -49,7 +48,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "buildbot.${wildcardDomain}" = mkVirtualHost config.services.buildbot-master.port;
+    "buildbot.${domain}" = helpers.mkVirtualHost config.services.buildbot-master.port;
   };
 
   nix.distributedBuilds = true;

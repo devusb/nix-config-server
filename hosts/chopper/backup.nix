@@ -2,7 +2,6 @@
   pkgs,
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -21,7 +20,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "backup.${wildcardDomain}" = mkVirtualHost 8081;
+    "backup.${domain}" = helpers.mkVirtualHost 8081;
   };
 
   systemd.services.upload-home-backup = {

@@ -3,7 +3,6 @@
   lib,
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -30,10 +29,10 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "sonarr.${wildcardDomain}" = mkVirtualHost 8989;
-    "radarr.${wildcardDomain}" = mkVirtualHost 7878;
-    "bazarr.${wildcardDomain}" = mkVirtualHost config.services.bazarr.listenPort;
-    "nzbget.${wildcardDomain}" = mkVirtualHost 6789;
+    "sonarr.${domain}" = helpers.mkVirtualHost 8989;
+    "radarr.${domain}" = helpers.mkVirtualHost 7878;
+    "bazarr.${domain}" = helpers.mkVirtualHost config.services.bazarr.listenPort;
+    "nzbget.${domain}" = helpers.mkVirtualHost 6789;
   };
 
   virtualisation.oci-containers = {

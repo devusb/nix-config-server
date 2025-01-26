@@ -1,7 +1,6 @@
 {
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -19,7 +18,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "calibre.${wildcardDomain}" = mkVirtualHost config.services.calibre-web.listen.port;
+    "calibre.${domain}" = helpers.mkVirtualHost config.services.calibre-web.listen.port;
   };
 
 }

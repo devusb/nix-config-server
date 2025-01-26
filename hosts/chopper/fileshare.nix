@@ -1,4 +1,4 @@
-{ caddyHelpers, wildcardDomain, ... }:
+{ caddyHelpers, ... }:
 {
   services.nfs.server = {
     enable = true;
@@ -49,7 +49,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "syncthing.${wildcardDomain}" = mkVirtualHost 8384;
+    "syncthing.${domain}" = helpers.mkVirtualHost 8384;
   };
 
 }

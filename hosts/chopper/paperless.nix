@@ -2,7 +2,6 @@
   config,
   lib,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -20,7 +19,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "paperless.${wildcardDomain}" = mkVirtualHost config.services.paperless.port;
+    "paperless.${domain}" = helpers.mkVirtualHost config.services.paperless.port;
   };
 
   services.deploy-backup.backups.paperless = lib.mkIf config.services.deploy-backup.enable {

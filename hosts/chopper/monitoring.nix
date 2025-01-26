@@ -2,7 +2,6 @@
   lib,
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 let
@@ -315,10 +314,10 @@ in
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "prometheus.${wildcardDomain}" = mkVirtualHost config.services.prometheus.port;
-    "loki.${wildcardDomain}" = mkVirtualHost 3100;
-    "grafana.${wildcardDomain}" = mkSocketVirtualHost "/run/grafana/grafana.sock";
-    "scrutiny.${wildcardDomain}" = mkVirtualHost config.services.scrutiny.settings.web.listen.port;
+    "prometheus.${domain}" = helpers.mkVirtualHost config.services.prometheus.port;
+    "loki.${domain}" = helpers.mkVirtualHost 3100;
+    "grafana.${domain}" = helpers.mkSocketVirtualHost "/run/grafana/grafana.sock";
+    "scrutiny.${domain}" = helpers.mkVirtualHost config.services.scrutiny.settings.web.listen.port;
   };
 
 }

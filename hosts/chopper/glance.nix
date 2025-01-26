@@ -2,7 +2,6 @@
   config,
   lib,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -105,7 +104,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "glance.${wildcardDomain}" = mkVirtualHost config.services.glance.settings.server.port;
+    "glance.${domain}" = helpers.mkVirtualHost config.services.glance.settings.server.port;
   };
 
 }

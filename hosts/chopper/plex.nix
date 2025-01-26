@@ -3,7 +3,6 @@
   lib,
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 let
@@ -34,8 +33,8 @@ in
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "plex.${wildcardDomain}" = mkVirtualHost 32400;
-    "tautulli.${wildcardDomain}" = mkVirtualHost config.services.tautulli.port;
+    "plex.${domain}" = helpers.mkVirtualHost 32400;
+    "tautulli.${domain}" = helpers.mkVirtualHost config.services.tautulli.port;
   };
 
   services.deploy-backup.backups.plex = lib.mkIf config.services.deploy-backup.enable {

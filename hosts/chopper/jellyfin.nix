@@ -1,7 +1,6 @@
 {
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -22,7 +21,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "jellyfin.${wildcardDomain}" = mkSocketVirtualHost "/run/jellyfin/jellyfin.sock";
+    "jellyfin.${domain}" = helpers.mkSocketVirtualHost "/run/jellyfin/jellyfin.sock";
   };
 
   services.jellyplex-watched = {

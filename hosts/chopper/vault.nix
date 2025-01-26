@@ -2,7 +2,6 @@
   pkgs,
   config,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -27,7 +26,7 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "vault.${wildcardDomain}" = mkVirtualHost 8200;
+    "vault.${domain}" = helpers.mkVirtualHost 8200;
   };
 
 }

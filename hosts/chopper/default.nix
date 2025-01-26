@@ -23,8 +23,8 @@ let
     "buildbot_nix_worker_password"
     "buildbot_nix_workers"
   ];
-  wildcardDomain = "chopper.devusb.us";
-  caddyHelpers = import ../../lib/caddy-helpers.nix { inherit wildcardDomain; };
+  domain = "chopper.devusb.us";
+  caddyHelpers = import ../../lib/caddy-helpers.nix { inherit domain; };
 
   importList = [
     ./hardware-configuration.nix
@@ -50,9 +50,7 @@ let
   ];
 in
 {
-  imports = builtins.map (
-    path: import path (args // { inherit wildcardDomain caddyHelpers; })
-  ) importList;
+  imports = builtins.map (path: import path (args // { inherit caddyHelpers; })) importList;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -133,8 +131,8 @@ in
     acceptTerms = true;
     defaults.email = "devusb@devusb.us";
     certs = {
-      "${wildcardDomain}" = {
-        domain = "*.${wildcardDomain}";
+      "${domain}" = {
+        domain = "*.${domain}";
         dnsProvider = "cloudflare";
         environmentFile = config.sops.secrets.cloudflare.path;
       };
@@ -144,8 +142,8 @@ in
   services.caddy = {
     enable = true;
     virtualHosts = with caddyHelpers; {
-      "cockpit.${wildcardDomain}" = mkVirtualHost 9090;
-      "pingshutdown.${wildcardDomain}" = mkVirtualHost 9081;
+      "cockpit.${domain}" = helpers.mkVirtualHost 9090;
+      "pingshutdown.${domain}" = helpers.mkVirtualHost 9081;
     };
   };
 

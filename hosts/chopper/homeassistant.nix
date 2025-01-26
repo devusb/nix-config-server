@@ -2,7 +2,6 @@
   config,
   lib,
   caddyHelpers,
-  wildcardDomain,
   ...
 }:
 {
@@ -41,8 +40,8 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "hass.${wildcardDomain}" = mkVirtualHost 8123;
-    "node-red.${wildcardDomain}" = mkVirtualHost 1880;
+    "hass.${domain}" = helpers.mkVirtualHost 8123;
+    "node-red.${domain}" = helpers.mkVirtualHost 1880;
   };
 
   services.deploy-backup.backups.homeassistant = {
