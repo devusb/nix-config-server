@@ -47,6 +47,7 @@ let
     ./glance.nix
     ./buildbot.nix
     ./calibre.nix
+    ./hoarder.nix
   ];
 in
 {

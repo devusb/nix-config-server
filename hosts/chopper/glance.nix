@@ -33,6 +33,10 @@
                         url = "https://hass.devusb.us";
                       }
                       {
+                        title = "Hoarder";
+                        url = "https://hoarder.chopper.devusb.us";
+                      }
+                      {
                         title = "GitHub";
                         url = "https://github.com";
                       }
