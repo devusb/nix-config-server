@@ -7,6 +7,7 @@
     ../common
     ./disko-config.nix
     ../common/builder.nix
+    ./authentik.nix
   ];
 
   deployment = {
