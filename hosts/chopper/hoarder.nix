@@ -166,6 +166,16 @@
     "hoarder.${domain}" = helpers.mkVirtualHost 3000;
   };
 
+  sops.secrets.hoarder_miniflux = { };
+  services.hoarder-miniflux-webhook = {
+    enable = true;
+    environmentFile = config.sops.secrets.hoarder_miniflux.path;
+    settings = {
+      PORT = ":24234";
+      HOARDER_API_URL = "http://localhost:3000";
+    };
+  };
+
   services.deploy-backup.backups.hoarder = {
     files = [
       "/var/lib/hoarder"
