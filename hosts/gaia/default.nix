@@ -17,13 +17,6 @@ with lib;
   ];
   sdImage.compressImage = false;
 
-  # https://github.com/NixOS/nixpkgs/issues/375937
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linuxKernel.kernels.linux_rpi4.override {
-      ignoreConfigErrors = true;
-    }
-  );
-
   services.fstrim.enable = true;
 
   networking.firewall.enable = false;
