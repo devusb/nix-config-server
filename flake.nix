@@ -308,7 +308,6 @@
                   nix-packages.darwinModules.default
                   lix-module.nixosModules.default
                   { nixpkgs.pkgs = pkgs; }
-                  ./hosts/common/darwin.nix
                   ./hosts/cortana
                 ];
               }

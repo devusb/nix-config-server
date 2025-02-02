@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 {
   imports = [
+    ../common/darwin.nix
     ../common/builder.nix
   ];
 
