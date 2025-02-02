@@ -12,11 +12,12 @@
 
   networking.hostName = "cortana";
 
-  launchd.agents.vm-kube1 = {
+  launchd.user.agents.vm-kube1 = {
     command = "${lib.getExe pkgs.tart} run talos --net-bridged=en0 --no-graphics";
     serviceConfig = {
-      UserName = "mhelton";
       KeepAlive = true;
+      RunAtLoad = true;
+      ProcessType = "Background";
     };
   };
 
