@@ -48,6 +48,7 @@ let
     ./buildbot.nix
     ./calibre.nix
     ./hoarder.nix
+    ./changedetection.nix
   ];
 in
 {
