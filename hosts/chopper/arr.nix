@@ -27,6 +27,18 @@
     user = "media";
     group = "media";
   };
+  sops.secrets.sonarr_api_key.owner = "media";
+  services.unpackerr = {
+    enable = true;
+    user = "media";
+    group = "media";
+    settings.sonarr = lib.singleton {
+      url = "http://localhost:8989";
+      api_key = "filepath:${config.sops.secrets.sonarr_api_key.path}";
+      protocols = "usenet";
+      paths = [ "/r2d2_0/media/nzbget/dst/Series" ];
+    };
+  };
 
   services.caddy.virtualHosts = with caddyHelpers; {
     "sonarr.${domain}" = helpers.mkVirtualHost 8989;
