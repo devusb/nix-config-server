@@ -22,7 +22,7 @@
         environment = {
           TZ = "US/Central";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2024.12.3";
+        image = "ghcr.io/home-assistant/home-assistant:2025.2.5";
         extraOptions = [
           "--network=host"
         ];
@@ -30,7 +30,7 @@
       node-red = {
         volumes = [ "/var/lib/node-red:/data:U" ];
         environment.TZ = "US/Central";
-        image = "nodered/node-red:3.1.14";
+        image = "nodered/node-red:3.1.15";
         extraOptions = [
           "--network=host"
         ];
