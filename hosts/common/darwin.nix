@@ -17,7 +17,6 @@
         "nix-command"
         "flakes"
       ];
-      auto-optimise-store = true;
       warn-dirty = false;
       trusted-users = [ "mhelton" ];
       substituters = [
@@ -41,6 +40,7 @@
       automatic = true;
       options = "--delete-older-than 14d";
     };
+    optimise.automatic = true;
   };
 
   users.knownUsers = [ "nix" ];
