@@ -49,6 +49,7 @@ let
     ./calibre.nix
     ./hoarder.nix
     ./changedetection.nix
+    ./owncast.nix
   ];
 in
 {
