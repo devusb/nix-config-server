@@ -48,7 +48,6 @@ let
     ./buildbot.nix
     ./calibre.nix
     ./hoarder.nix
-    ./changedetection.nix
     ./owncast.nix
   ];
 in
