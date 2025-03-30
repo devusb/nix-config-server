@@ -39,6 +39,7 @@
     };
     buildbot-nix = {
       url = "github:nix-community/buildbot-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     pingshutdown = {
       url = "github:devusb/pingshutdown";
@@ -87,7 +88,6 @@
         nix-packages.nixosModules.default
         buildbot-nix.nixosModules.buildbot-master
         buildbot-nix.nixosModules.buildbot-worker
-        lix-module.nixosModules.default
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix
