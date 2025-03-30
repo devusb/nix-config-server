@@ -306,7 +306,6 @@
                 modules = [
                   sops-nix.darwinModules.sops
                   nix-packages.darwinModules.default
-                  lix-module.nixosModules.default
                   { nixpkgs.pkgs = pkgs; }
                   ./hosts/cortana
                 ];
