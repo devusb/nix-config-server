@@ -92,7 +92,7 @@
     ];
   };
   virtualisation.oci-containers.containers."hoarder-web" = {
-    image = "ghcr.io/hoarder-app/hoarder:0.22.0";
+    image = "ghcr.io/hoarder-app/hoarder:0.23.0";
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
