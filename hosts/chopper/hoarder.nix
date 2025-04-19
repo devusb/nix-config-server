@@ -58,7 +58,7 @@
     ];
   };
   virtualisation.oci-containers.containers."hoarder-meilisearch" = {
-    image = "getmeili/meilisearch:v1.11.1";
+    image = "getmeili/meilisearch:v1.11.3";
     environment = {
       "MEILI_NO_ANALYTICS" = "true";
     };
@@ -92,7 +92,7 @@
     ];
   };
   virtualisation.oci-containers.containers."hoarder-web" = {
-    image = "ghcr.io/hoarder-app/hoarder:0.23.0";
+    image = "ghcr.io/karakeep-app/karakeep:0.23.1";
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
