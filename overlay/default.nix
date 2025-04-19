@@ -17,4 +17,12 @@ final: prev: {
     });
   };
 
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (self: super: {
+      flask-limiter = super.flask-limiter.overridePythonAttrs (old: {
+        pythonRelaxDeps = [ "rich" ];
+      });
+    })
+  ];
+
 }

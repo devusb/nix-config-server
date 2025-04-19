@@ -151,11 +151,9 @@ in
 
   services.cockpit = {
     enable = true;
-    settings = {
-      WebService = {
-        Origins = "https://cockpit.chopper.devusb.us";
-      };
-    };
+    allowed-origins = [
+      "https://cockpit.chopper.devusb.us"
+    ];
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
