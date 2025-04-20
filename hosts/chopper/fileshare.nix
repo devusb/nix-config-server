@@ -4,6 +4,7 @@
     enable = true;
     exports = ''
       /r2d2_0/media 192.168.0.0/16(rw,async,no_subtree_check,no_root_squash,insecure)
+      /r2d2_0/media/Roms 100.64.0.0/10(rw,async,no_subtree_check,no_root_squash,insecure)
       /r2d2_0/backup 192.168.0.0/16(rw,async,no_subtree_check,no_root_squash,insecure)
       /r2d2_0/homes 192.168.0.0/16(rw,async,subtree_check,no_root_squash,crossmnt)
     '';
