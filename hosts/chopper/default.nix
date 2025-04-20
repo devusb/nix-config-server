@@ -49,6 +49,7 @@ let
     ./calibre.nix
     ./hoarder.nix
     ./owncast.nix
+    ./csi.nix
   ];
 in
 {
