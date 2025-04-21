@@ -50,6 +50,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "media"
     ];
   };
   users.users.mhelton.openssh.authorizedKeys.keys = [
