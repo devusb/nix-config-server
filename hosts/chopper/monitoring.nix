@@ -215,6 +215,24 @@ in
           }
         ];
       }
+      {
+        job_name = "kube-prom";
+        scrape_interval = "30s";
+        honor_labels = true;
+        metrics_path = "/federate";
+        params."match[]" = lib.singleton "{job!=\"\"}";
+        scheme = "https";
+        static_configs = [
+          {
+            targets = [
+              "kube-prom.springhare-egret.ts.net"
+            ];
+            labels = {
+              alias = "kube-prom";
+            };
+          }
+        ];
+      }
     ];
   };
 
