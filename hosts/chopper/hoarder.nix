@@ -92,7 +92,7 @@
     ];
   };
   virtualisation.oci-containers.containers."hoarder-web" = {
-    image = "ghcr.io/karakeep-app/karakeep:0.23.1";
+    image = "ghcr.io/karakeep-app/karakeep:0.24.1";
     environment = {
       "BROWSER_WEB_URL" = "http://chrome:9222";
       "DATA_DIR" = "/data";
