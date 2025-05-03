@@ -1,6 +1,7 @@
 { ... }:
 {
   services.target.enable = true;
+  environment.etc."target/saveconfig.json".enable = false;
   users.users.csi = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
