@@ -92,6 +92,7 @@ in
     extraTailscaleArgs = [
       "--advertise-exit-node"
       "--accept-routes"
+      "--operator=caddy"
     ];
     authKeyFile = config.sops.secrets.ts_key.path;
   };
