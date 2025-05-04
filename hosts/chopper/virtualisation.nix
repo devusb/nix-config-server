@@ -2,6 +2,8 @@
 {
   virtualisation.libvirtd = {
     enable = true;
+    parallelShutdown = 3;
+    onShutdown = "shutdown";
     allowedBridges = [
       "br0"
     ];
