@@ -16,6 +16,7 @@
       dns_enabled = true;
     };
   };
+  hardware.nvidia-container-toolkit.enable = true;
 
   users.users.mhelton.extraGroups = [ "libvirtd" ];
 

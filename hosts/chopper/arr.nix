@@ -51,12 +51,15 @@
     backend = "podman";
     containers = {
       whisper-asr-webservice = {
-        image = "onerahmet/openai-whisper-asr-webservice:latest";
+        image = "onerahmet/openai-whisper-asr-webservice:latest-gpu";
         ports = [
           "9000:9000"
         ];
+        extraOptions = [
+          "--device=nvidia.com/gpu=all"
+        ];
         environment = {
-          ASR_MODEL = "small";
+          ASR_MODEL = "medium";
           ASR_ENGINE = "faster_whisper";
         };
       };
