@@ -72,20 +72,24 @@ in
 
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
 
   networking.hostName = "chopper"; # Define your hostname.
   networking.hostId = "bf399afd";
 
   networking.useNetworkd = true;
   systemd.network.networks."18-ipmi" = {
-    matchConfig.Name = "enp11s0u9u3c2";
+    matchConfig.Name = "enp12s0u9u3c2";
     linkConfig.Unmanaged = true;
   };
 
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
-  networking.nat.externalInterface = "enp5s0";
+  networking.nat.externalInterface = "enp6s0";
 
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
