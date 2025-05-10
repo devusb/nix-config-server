@@ -59,7 +59,7 @@
           "--device=nvidia.com/gpu=all"
         ];
         environment = {
-          ASR_MODEL = "medium";
+          ASR_MODEL = "base";
           ASR_ENGINE = "faster_whisper";
         };
       };
