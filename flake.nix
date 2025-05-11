@@ -328,6 +328,8 @@
             )
             // builtins.mapAttrs (name: value: { imports = value._module.args.modules; }) conf;
 
+          colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+
           checks."x86_64-linux" = {
             sophia = withSystem "x86_64-linux" (
               { pkgs, ... }:
