@@ -7,6 +7,13 @@
   services.coturn = {
     enable = true;
     static-auth-secret-file = config.sops.secrets.coturn_auth_secret.path;
+    extraConfig = ''
+      fingerprint
+      stale-nonce
+      no-multicast-peers
+      total-quota=0
+      bps-capacity=0
+    '';
   };
 
   networking.firewall = {
