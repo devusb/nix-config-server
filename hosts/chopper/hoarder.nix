@@ -1,6 +1,7 @@
 {
   config,
   caddyHelpers,
+  pkgs,
   ...
 }:
 
@@ -18,6 +19,7 @@
     };
     environmentFile = config.sops.secrets.hoarder.path;
   };
+  services.meilisearch.package = pkgs.meilisearch;
 
   services.caddy.virtualHosts = with caddyHelpers; {
     "hoarder.${domain}" = helpers.mkVirtualHost 3000;
