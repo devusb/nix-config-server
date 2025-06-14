@@ -86,6 +86,16 @@ in
 
   time.timeZone = "US/Eastern";
 
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
   # tailscale
   sops.secrets.ts_key = {
     sopsFile = ../../secrets/tailscale.yaml;
