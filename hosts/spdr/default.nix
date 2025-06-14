@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -12,7 +13,7 @@ in
   imports = [
     ../common
     ./hardware-configuration.nix
-    ./disko-config.nix
+    inputs.nixos-hardware.nixosModules.apple-t2
   ];
 
   deployment = {
@@ -21,8 +22,10 @@ in
     targetUser = "mhelton";
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.efiSysMountPoint = "/boot";
+    systemd-boot.enable = true;
+  };
   boot.loader.timeout = 10;
 
   # zfs
