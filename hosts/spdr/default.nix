@@ -30,6 +30,7 @@ in
 
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
+  boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ];
   networking.hostId = "9141a4f1";
 
   services.zfs.autoScrub = {
