@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -12,7 +13,7 @@ in
   imports = [
     ../common
     ./hardware-configuration.nix
-    ./disko-config.nix
+    inputs.nixos-hardware.nixosModules.apple-t2
   ];
 
   deployment = {
@@ -21,12 +22,15 @@ in
     targetUser = "mhelton";
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.efiSysMountPoint = "/boot";
+    systemd-boot.enable = true;
+  };
   boot.loader.timeout = 10;
 
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
+  boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ];
   networking.hostId = "9141a4f1";
 
   services.zfs.autoScrub = {
@@ -82,6 +86,18 @@ in
   system.stateVersion = "23.05";
 
   time.timeZone = "US/Eastern";
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-media-sdk
+      intel-compute-runtime-legacy1
+    ];
+  };
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
 
   # tailscale
   sops.secrets.ts_key = {
