@@ -16,36 +16,54 @@
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
-    "ehci_pci"
-    "ahci"
+    "nvme"
     "usbhid"
     "usb_storage"
     "sd_mod"
     "sr_mod"
+    "sdhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/" = {
+    device = "rpool/local/root";
+    fsType = "zfs";
+  };
+
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
+    fsType = "zfs";
+  };
+
+  fileSystems."/persist" = {
+    device = "rpool/safe/persist";
+    fsType = "zfs";
+    neededForBoot = true;
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/5F66-17ED";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/7f3d5588-fecd-43f4-8032-f2c56e38f758"; }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0f0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
 }
