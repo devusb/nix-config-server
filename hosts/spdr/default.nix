@@ -76,6 +76,12 @@ in
     };
   };
 
+  sops.secrets.mhelton_password = { };
+  users = {
+    mutableUsers = false;
+    users.mhelton.hashedPasswordFile = config.sops.secrets.mhelton_password.path;
+  };
+
   # networking
   networking.hostName = "spdr";
   networking.networkmanager.enable = true;
