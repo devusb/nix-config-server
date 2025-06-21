@@ -22,7 +22,7 @@
         environment = {
           TZ = "US/Central";
         };
-        image = "ghcr.io/home-assistant/home-assistant:2025.2.5";
+        image = "ghcr.io/home-assistant/home-assistant:2025.6.1";
         extraOptions = [
           "--network=host"
         ];
