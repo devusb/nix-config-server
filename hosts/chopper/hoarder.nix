@@ -19,7 +19,10 @@
     };
     environmentFile = config.sops.secrets.hoarder.path;
   };
-  services.meilisearch.package = pkgs.meilisearch;
+  services.meilisearch = {
+    package = pkgs.meilisearch;
+    dumplessUpgrade = true;
+  };
 
   services.caddy.virtualHosts = with caddyHelpers; {
     "hoarder.${domain}" = helpers.mkVirtualHost 3000;
