@@ -56,6 +56,7 @@
           "9000:9000"
         ];
         extraOptions = [
+          "--cdi-spec-dir=/run/cdi"
           "--device=nvidia.com/gpu=all"
         ];
         environment = {
