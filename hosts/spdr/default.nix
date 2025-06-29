@@ -76,7 +76,11 @@ in
     };
   };
 
-  sops.secrets.mhelton_password = { };
+  sops.age.sshKeyPaths = map (x: "/persist" + x.path) config.services.openssh.hostKeys;
+
+  sops.secrets.mhelton_password = {
+    neededForUsers = true;
+  };
   users = {
     mutableUsers = false;
     users.mhelton.hashedPasswordFile = config.sops.secrets.mhelton_password.path;
