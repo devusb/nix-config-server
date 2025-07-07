@@ -164,6 +164,11 @@ in
   services.jellyfin = {
     enable = true;
   };
+  sops.secrets.zz-sdjson.owner = "zz-sdjson";
+  services.zz-sdjson = {
+    enable = true;
+    configFile = config.sops.secrets.zz-sdjson.path;
+  };
 
   services.caddy = {
     enable = true;
