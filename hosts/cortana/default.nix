@@ -9,6 +9,7 @@
 
   environment.systemPackages = with pkgs; [
     tart
+    utm
   ];
 
   networking.hostName = "cortana";
