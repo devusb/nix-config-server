@@ -36,7 +36,7 @@
       SYNC_FROM_JELLYFIN_TO_JELLYFIN = "False";
       JELLYFIN_BASEURL = "http://localhost:8096";
       PLEX_BASEURL = "http://localhost:32400";
-      USER_MAPPING = ''{ "devusb": "mhelton" }'';
+      USER_MAPPING = ''{ "devusb": "mhelton", "ilonka": "ilona" }'';
       LIBRARY_MAPPING = ''{ "Shows": "TV Shows" }'';
     };
   };
