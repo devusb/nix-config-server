@@ -119,6 +119,7 @@
                   "aspnetcore-runtime-wrapped-6.0.36"
                   "dotnet-sdk-6.0.428"
                   "dotnet-sdk-wrapped-6.0.428"
+                  "jitsi-meet-1.0.8043"
                 ];
               };
             };
