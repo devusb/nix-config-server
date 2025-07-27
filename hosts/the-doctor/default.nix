@@ -9,6 +9,7 @@
     ../common/builder.nix
     ./authentik.nix
     ./coturn.nix
+    ./jitsi.nix
   ];
 
   deployment = {
