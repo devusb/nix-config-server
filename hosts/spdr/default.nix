@@ -101,7 +101,6 @@ in
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      intel-media-sdk
       intel-compute-runtime-legacy1
     ];
   };
