@@ -15,11 +15,11 @@ creation_rules:
   - path_regex: secrets.*$
     key_groups:
       - age:
-          - *admin_mhelton 
-          - *sophia 
-          - *gaia0 
-          - *gaia1 
-          - *spdr 
-          - *chopper 
-          - *the-doctor 
-          - *cortana 
+          - *admin_mhelton
+          - *sophia
+          - *gaia0
+          - *gaia1
+          - *spdr
+          - *chopper
+          - *the-doctor
+          - *cortana
