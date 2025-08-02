@@ -91,17 +91,15 @@ in
           Type = "oneshot";
           User = value.user;
         };
-        script =
-          "${value.backupScript}"
-          + ''
-            ${
-              deployBackup {
-                inherit name;
-                filesList = value.files;
-                url = cfg.url;
-              }
-            }/bin/deployBackup
-          '';
+        script = "${value.backupScript}" + ''
+          ${
+            deployBackup {
+              inherit name;
+              filesList = value.files;
+              url = cfg.url;
+            }
+          }/bin/deployBackup
+        '';
       }
     ) cfg.backups;
 
