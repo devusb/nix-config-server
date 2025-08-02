@@ -17,14 +17,6 @@ final: prev: {
     });
   };
 
-  coturn = prev.coturn.overrideAttrs (old: rec {
-    version = "4.7.0";
-    src = old.src.override {
-      tag = version;
-      hash = "sha256-nvImelAvcbHpv6JTxX+sKpldVXG6u9Biu+VDt95r9I4=";
-    };
-  });
-
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (self: super: {
       flask-limiter = super.flask-limiter.overridePythonAttrs (old: {
