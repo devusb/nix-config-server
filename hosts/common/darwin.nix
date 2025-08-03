@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -76,6 +77,7 @@
       enable = true;
     };
   };
+  users.users._prometheus-node-exporter.home = lib.mkForce "/private/var/lib/prometheus-node-exporter";
 
   services.tailscale = {
     enable = true;
