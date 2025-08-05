@@ -51,6 +51,7 @@ in
       "/var/lib/plex"
       "/var/lib/jellyfin"
       "/var/lib/acme"
+      "/var/lib/zz-sdjson"
       "/var/log"
       "/etc/NetworkManager/system-connections"
       "/var/lib/systemd/coredump"
