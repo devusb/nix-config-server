@@ -96,6 +96,10 @@ in
     secrets = lib.genAttrs secrets (_: { });
   };
 
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.nvidia
+  ];
+
   # tailscale
   services.tailscale = {
     enable = true;
