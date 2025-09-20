@@ -43,6 +43,7 @@
       frontend = true;
       serial = {
         port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_281736b2e112ec118bd021c7bd930c07-if00-port0";
+        adapter = "zstack";
       };
       mqtt = {
         server = "mqtt://chopper:1883";
