@@ -44,11 +44,6 @@ in
   services.couchdb = {
     inherit configFile;
     enable = true;
-    package = pkgs.couchdb3.override {
-      spidermonkey_91 = pkgs.spidermonkey_91.override {
-        python3 = pkgs.python311;
-      };
-    };
     user = "couchdb";
     group = "couchdb";
     extraConfig = {
