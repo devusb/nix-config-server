@@ -2,6 +2,7 @@
   config,
   caddyHelpers,
   pkgs,
+  lib,
   ...
 }:
 
@@ -21,8 +22,11 @@
   };
   services.meilisearch = {
     package = pkgs.meilisearch;
-    dumplessUpgrade = true;
+    settings = {
+      experimental_dumpless_upgrade = true;
+    };
   };
+  systemd.services.meilisearch.serviceConfig.ProcSubset = lib.mkForce "all";
 
   services.caddy.virtualHosts = with caddyHelpers; {
     "hoarder.${domain}" = helpers.mkVirtualHost 3000;
