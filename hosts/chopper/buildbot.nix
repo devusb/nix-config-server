@@ -30,10 +30,8 @@
     ];
 
     github = {
-      authType.app = {
-        id = 1016931;
-        secretKeyFile = config.sops.secrets.buildbot_github_app_secret_key.path;
-      };
+      appId = 1016931;
+      appSecretKeyFile = config.sops.secrets.buildbot_github_app_secret_key.path;
       oauthId = "Iv23liDS2QmUZzhs73tk";
       oauthSecretFile = config.sops.secrets.buildbot_github_oauth_secret.path;
       webhookSecretFile = config.sops.secrets.buildbot_github_webhook_secret.path;
