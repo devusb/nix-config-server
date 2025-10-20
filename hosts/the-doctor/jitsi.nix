@@ -6,13 +6,9 @@ in
   services.jitsi-meet = {
     inherit hostName;
     enable = true;
-    config = {
-      videobridge = {
-        health = {
-          require-valid-address = false;
-        };
-      };
-    };
+  };
+  services.jitsi-videobridge.config = {
+    videobridge.health.require-valid-address = false;
   };
 
   networking.firewall = {
