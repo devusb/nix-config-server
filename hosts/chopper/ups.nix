@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   services.apcupsd = {
     enable = true;
   };
