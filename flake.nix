@@ -41,10 +41,6 @@
       url = "github:nix-community/buildbot-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pingshutdown = {
-      url = "github:devusb/pingshutdown";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +67,6 @@
       disko,
       colmena,
       buildbot-nix,
-      pingshutdown,
       lix-module,
       treefmt-nix,
       ...
@@ -84,7 +79,6 @@
         sops-nix.nixosModules.sops
         impermanence.nixosModule
         disko.nixosModules.disko
-        pingshutdown.nixosModules.pingshutdown
         nix-packages.nixosModules.default
         buildbot-nix.nixosModules.buildbot-master
         buildbot-nix.nixosModules.buildbot-worker
