@@ -188,6 +188,17 @@ in
         ];
       }
       {
+        job_name = "apcupsd";
+        scrape_interval = "15s";
+        static_configs = [
+          (mkConfig {
+            hostname = "localhost";
+            alias = "chopper";
+            exporter = "apcupsd";
+          })
+        ];
+      }
+      {
         job_name = "blocky";
         scrape_interval = "30s";
         static_configs = [

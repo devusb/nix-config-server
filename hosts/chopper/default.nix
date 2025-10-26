@@ -49,6 +49,7 @@ let
     ./calibre.nix
     ./hoarder.nix
     ./csi.nix
+    ./ups.nix
   ];
 in
 {
@@ -125,18 +126,6 @@ in
     };
   };
 
-  services.pingshutdown = {
-    enable = true;
-    environmentFile = config.sops.secrets.pushover.path;
-    settings = {
-      PINGSHUTDOWN_DELAY = "10m";
-      PINGSHUTDOWN_TARGET = "192.168.20.1";
-      PINGSHUTDOWN_NOTIFICATION = "true";
-      PINGSHUTDOWN_DRYRUN = "false";
-      PINGSHUTDOWN_STATUSPORT = "9081";
-    };
-  };
-
   security.acme = {
     acceptTerms = true;
     defaults.email = "devusb@devusb.us";
@@ -153,7 +142,6 @@ in
     enable = true;
     virtualHosts = with caddyHelpers; {
       "cockpit.${domain}" = helpers.mkVirtualHost 9090;
-      "pingshutdown.${domain}" = helpers.mkVirtualHost 9081;
     };
   };
 
