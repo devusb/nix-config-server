@@ -17,6 +17,10 @@ final: prev: {
     });
   };
 
+  fish = prev.fish.overrideAttrs {
+    doCheck = false;
+  };
+
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (self: super: {
       flask-limiter = super.flask-limiter.overridePythonAttrs (old: {
