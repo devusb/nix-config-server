@@ -6,9 +6,24 @@ in
   services.jitsi-meet = {
     inherit hostName;
     enable = true;
+    prosody.lockdown = true;
+    config = {
+      enableWelcomePage = false;
+      prejoinPageEnabled = true;
+      defaultLang = "en";
+    };
+    interfaceConfig = {
+      SHOW_JITSI_WATERMARK = false;
+      SHOW_WATERMARK_FOR_GUESTS = false;
+    };
   };
-  services.jitsi-videobridge.config = {
-    videobridge.health.require-valid-address = false;
+
+  services.jitsi-videobridge = {
+    openFirewall = true;
+  };
+  systemd.services.jitsi-videobridge2 = {
+    after = [ "prosody.service" ];
+    requires = [ "prosody.service" ];
   };
 
   networking.firewall = {
@@ -30,5 +45,4 @@ in
       };
     };
   };
-  services.jitsi-videobridge.openFirewall = true;
 }
