@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   virtualisation.libvirtd = {
     enable = true;
@@ -17,6 +17,11 @@
     };
   };
   hardware.nvidia-container-toolkit.enable = true;
+  # https://github.com/NixOS/nixpkgs/issues/463645
+  systemd.services.nvidia-container-toolkit-cdi-generator = {
+    unitConfig.DefaultDependencies = false;
+    after = lib.mkForce [ ];
+  };
 
   users.users.mhelton.extraGroups = [ "libvirtd" ];
 
