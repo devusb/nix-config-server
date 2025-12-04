@@ -18,7 +18,14 @@ in
     };
   };
 
-  services.jitsi-videobridge.openFirewall = true;
+  services.jitsi-videobridge = {
+    openFirewall = true;
+  };
+  systemd.services.jitsi-videobridge2 = {
+    after = [ "prosody.service" ];
+    requires = [ "prosody.service" ];
+  };
+
   networking.firewall = {
     allowedTCPPorts = [
       80
