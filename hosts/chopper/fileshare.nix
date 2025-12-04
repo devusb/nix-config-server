@@ -1,4 +1,4 @@
-{ caddyHelpers, ... }:
+{ ... }:
 {
   services.nfs.server = {
     enable = true;
@@ -28,29 +28,6 @@
         "directory mask" = "0777";
       };
     };
-  };
-
-  services.syncthing = {
-    enable = true;
-    settings = {
-      gui.insecureSkipHostcheck = true;
-      options.relaysEnabled = false;
-      options.globalAnnounceEnabled = false;
-      folders = {
-        ryujinx = {
-          path = "/r2d2_0/homes/mhelton/Sync/ryujinx";
-          type = "receiveonly";
-          versioning = {
-            type = "simple";
-            params.keep = "10";
-          };
-        };
-      };
-    };
-  };
-
-  services.caddy.virtualHosts = with caddyHelpers; {
-    "syncthing.${domain}" = helpers.mkVirtualHost 8384;
   };
 
 }
