@@ -6,11 +6,19 @@ in
   services.jitsi-meet = {
     inherit hostName;
     enable = true;
-  };
-  services.jitsi-videobridge.config = {
-    videobridge.health.require-valid-address = false;
+    prosody.lockdown = true;
+    config = {
+      enableWelcomePage = false;
+      prejoinPageEnabled = true;
+      defaultLang = "en";
+    };
+    interfaceConfig = {
+      SHOW_JITSI_WATERMARK = false;
+      SHOW_WATERMARK_FOR_GUESTS = false;
+    };
   };
 
+  services.jitsi-videobridge.openFirewall = true;
   networking.firewall = {
     allowedTCPPorts = [
       80
@@ -30,5 +38,4 @@ in
       };
     };
   };
-  services.jitsi-videobridge.openFirewall = true;
 }

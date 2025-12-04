@@ -8,7 +8,6 @@
     ./disko-config.nix
     ../common/builder.nix
     ./authentik.nix
-    ./coturn.nix
     ./jitsi.nix
   ];
 
