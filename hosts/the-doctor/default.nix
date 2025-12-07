@@ -9,6 +9,7 @@
     ../common/builder.nix
     ./authentik.nix
     ./jitsi.nix
+    ./proxy.nix
   ];
 
   deployment = {
