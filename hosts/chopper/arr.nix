@@ -16,11 +16,17 @@
     enable = true;
     user = "media";
     group = "media";
+    settings = {
+      auth.method = "External";
+    };
   };
   services.radarr = {
     enable = true;
     user = "media";
     group = "media";
+    settings = {
+      auth.method = "External";
+    };
   };
   services.bazarr = {
     enable = true;
