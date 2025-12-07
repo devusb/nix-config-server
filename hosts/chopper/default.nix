@@ -50,6 +50,7 @@ let
     ./hoarder.nix
     ./csi.nix
     ./ups.nix
+    ./memos.nix
   ];
 in
 {
