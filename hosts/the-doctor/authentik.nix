@@ -6,10 +6,12 @@
 }:
 let
   authHost = "auth.devusb.us";
+  backupPath = "/tmp/authentik.tar";
 in
 {
   imports = [
     inputs.authentik-nix.nixosModules.default
+    ../../modules/deploy-backup.nix
   ];
 
   networking.firewall = {
@@ -46,6 +48,18 @@ in
         environmentFile = config.sops.secrets.cloudflare.path;
         webroot = null;
       };
+    };
+  };
+
+  services.deploy-backup = {
+    enable = true;
+    backups.authentik = {
+      files = [
+        backupPath
+      ];
+      backupScript = with pkgs; ''
+        ${config.security.wrapperDir}/sudo -u postgres ${postgresql}/bin/pg_dump -d authentik -F t -f ${backupPath}
+      '';
     };
   };
 
