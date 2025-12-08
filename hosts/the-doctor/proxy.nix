@@ -92,7 +92,9 @@ in
     virtualHosts =
       let
         hosts = {
+          "radarr.devusb.us" = "https://radarr.chopper.devusb.us";
           "sonarr.devusb.us" = "https://sonarr.chopper.devusb.us";
+          "rss.devusb.us" = "https://miniflux.chopper.devusb.us";
         };
       in
       builtins.mapAttrs (_: value: mkAuthentikHost value) hosts;
