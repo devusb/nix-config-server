@@ -97,4 +97,11 @@ in
       in
       builtins.mapAttrs (_: value: mkAuthentikHost value) hosts;
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [
+      80
+      443
+    ];
+  };
 }
