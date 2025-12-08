@@ -5,21 +5,6 @@
     linkConfig.Unmanaged = true;
   };
 
-  containers.obsidian = {
-    enableTun = true;
-    privateNetwork = true;
-    hostAddress = "10.10.100.1";
-    localAddress = "10.10.100.2";
-    restartIfChanged = true;
-    autoStart = true;
-    bindMounts = {
-      "${config.sops.secrets.ts_key.path}".isReadOnly = true;
-      "${config.sops.secrets.couchdb_admin.path}".isReadOnly = true;
-      "/var/lib/couchdb".isReadOnly = false;
-    };
-    config = import ./obsidian.nix;
-  };
-
   containers.attic = {
     specialArgs = {
       inherit inputs;
