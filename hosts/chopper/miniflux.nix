@@ -14,7 +14,7 @@ in
     adminCredentialsFile = config.sops.secrets.miniflux_creds.path;
     config = {
       LISTEN_ADDR = "/run/miniflux/miniflux.sock";
-      AUTH_PROXY_HEADER = "X-Pomerium-Claim-Email";
+      AUTH_PROXY_HEADER = "X-authentik-email";
     };
   };
   systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
