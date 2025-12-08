@@ -3,6 +3,7 @@ let
   mkAuthentikHost = proxyPass: {
     forceSSL = true;
     enableACME = true;
+    acmeRoot = null;
 
     locations."/" = {
       inherit proxyPass;
