@@ -13,6 +13,9 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    nixos-apple-silicon = {
+      url = "github:nix-community/nixos-apple-silicon";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -291,6 +294,20 @@
                 extraModules = [ colmena.nixosModules.deploymentOptions ];
                 modules = defaultImports ++ [
                   ./hosts/the-doctor
+                ];
+              }
+            );
+
+            superintendent = withSystem "aarch64-linux" (
+              { pkgs, ... }:
+              nixpkgs.lib.nixosSystem {
+                inherit pkgs;
+                specialArgs = {
+                  inherit inputs;
+                };
+                extraModules = [ colmena.nixosModules.deploymentOptions ];
+                modules = defaultImports ++ [
+                  ./hosts/superintendent
                 ];
               }
             );
