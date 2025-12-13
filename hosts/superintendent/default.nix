@@ -29,6 +29,8 @@
 
   hardware.asahi.extractPeripheralFirmware = false;
 
+  services.btrfs.autoScrub.enable = true;
+
   networking.hostName = "superintendent";
 
   systemd.network.enable = true;
