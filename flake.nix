@@ -150,6 +150,7 @@
                     "gaia0"
                     "gaia1"
                     "sophia"
+                    "superintendent"
                   ];
                 };
                 darwinMachinesPerSystem = {
