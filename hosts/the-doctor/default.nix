@@ -6,7 +6,6 @@
     ./hardware-configuration.nix
     ../common
     ./disko-config.nix
-    ../common/builder.nix
     ./authentik.nix
     ./jitsi.nix
     ./proxy.nix

@@ -52,7 +52,7 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "the-doctor";
+      hostName = "superintendent";
       protocol = "ssh-ng";
       sshUser = "nix";
       systems = [

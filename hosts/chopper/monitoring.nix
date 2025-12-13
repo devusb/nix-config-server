@@ -163,6 +163,11 @@ in
             alias = "cortana";
             exporter = "node";
           })
+          (mkConfig {
+            hostname = "superintendent";
+            alias = "superintendent";
+            exporter = "node";
+          })
         ];
       }
       {

@@ -11,6 +11,7 @@ keys:
   - &chopper age1dkzr6l9t3nx4j0vhk4nwce6f9836gfhx35xr8hnu9qxp36mt6esstlful7
   - &the-doctor age19wl9469xemumue4fentzp7pyh97tddcp85lh7jsm5vdm3asw7qlsd0rqze
   - &cortana age18xa36s9536dz0m8knmu7nqndk5g6eqlsphn7f2226zc52s5wcphsg5k0k9
+  - &superintendent age1z7ygz2gvhle4txmensjaev005qk4eky9xvmwgwkj7ylhk0l9gyvstt2w88
 creation_rules:
   - path_regex: secrets.*$
     key_groups:
@@ -23,3 +24,4 @@ creation_rules:
           - *chopper
           - *the-doctor
           - *cortana
+          - *superintendent
