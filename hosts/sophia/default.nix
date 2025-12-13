@@ -435,6 +435,11 @@ with lib;
                   "ip-address" = "192.168.20.109";
                   hostname = "chopper";
                 }
+                {
+                  "hw-address" = "14:98:77:64:4f:eb";
+                  "ip-address" = "192.168.20.105";
+                  hostname = "superintendent";
+                }
               ];
             }
             {
