@@ -48,6 +48,7 @@
       "--advertise-tags=tag:server,tag:remote-builder"
     ];
     authKeyFile = config.sops.secrets.ts_key.path;
+    authKeyParameters.ephemeral = false;
   };
 
   time.timeZone = "US/Central";
