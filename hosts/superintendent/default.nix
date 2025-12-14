@@ -29,6 +29,22 @@
 
   hardware.asahi.extractPeripheralFirmware = false;
 
+  boot.kernelPackages =
+    let
+      pkgs' = config.hardware.asahi.pkgs;
+      linux-asahi = (
+        pkgs'.linux-asahi.kernel.overrideAttrs {
+          target = "Image";
+        }
+      );
+      linux-asahi' = pkgs.linuxPackagesFor (
+        linux-asahi.override {
+          _kernelPatches = config.boot.kernelPatches;
+        }
+      );
+    in
+    lib.mkForce (linux-asahi');
+
   services.btrfs.autoScrub.enable = true;
 
   networking.hostName = "superintendent";
