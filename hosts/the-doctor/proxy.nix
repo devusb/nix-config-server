@@ -1,5 +1,14 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
+  cloudflareOriginConfig = ''
+    ssl_verify_client on;
+    ssl_client_certificate ${
+      pkgs.fetchurl {
+        url = "https://developers.cloudflare.com/ssl/static/authenticated_origin_pull_ca.pem";
+        hash = "sha256-wU/tDOUhDbBxn+oR0fELM3UNwX1gmur0fHXp7/DXuEM";
+      }
+    };
+  '';
   mkAuthentikHost = proxyPass: {
     forceSSL = true;
     enableACME = true;
@@ -64,7 +73,8 @@ let
         add_header Set-Cookie $auth_cookie;
         return 302 /outpost.goauthentik.io/start?rd=$scheme://$http_host$request_uri;
       }
-    '';
+    ''
+    + cloudflareOriginConfig;
   };
 in
 {
