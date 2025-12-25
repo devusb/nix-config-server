@@ -125,6 +125,21 @@ in
             recommendedProxySettings = false;
           };
         };
+        "chopper.jellyfin.devusb.us" = {
+          forceSSL = true;
+          enableACME = true;
+          acmeRoot = null;
+          locations."/" = {
+            proxyPass = "https://jellyfin.chopper.devusb.us";
+            extraConfig = ''
+              proxy_ssl_server_name on;
+
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection $connection_upgrade_keepalive;
+            '';
+            recommendedProxySettings = false;
+          };
+        };
       };
   };
 
