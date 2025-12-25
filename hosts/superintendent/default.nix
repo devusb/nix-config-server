@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     ../common
     ../common/builder.nix
+    ./incus.nix
     inputs.nixos-apple-silicon.nixosModules.default
   ];
 
