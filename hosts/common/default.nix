@@ -51,6 +51,7 @@
       "wheel"
       "networkmanager"
       "media"
+      "incus-admin"
     ];
   };
   users.users.mhelton.openssh.authorizedKeys.keys = [
