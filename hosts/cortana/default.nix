@@ -13,4 +13,6 @@
 
   networking.hostName = "cortana";
 
+  services.message-bridge.enable = true;
+
 }
