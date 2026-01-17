@@ -15,6 +15,7 @@ in
     config = {
       LISTEN_ADDR = "/run/miniflux/miniflux.sock";
       AUTH_PROXY_HEADER = "X-authentik-email";
+      TRUSTED_REVERSE_PROXY_NETWORKS = "100.64.0.0/10,127.0.0.0/8,192.168.20.0/23";
     };
   };
   systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
