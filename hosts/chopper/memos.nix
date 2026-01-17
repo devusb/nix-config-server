@@ -23,9 +23,13 @@
       MEMOS_DATA = config.services.memos.dataDir;
     };
   };
-  systemd.services.memos.serviceConfig = {
-    RuntimeDirectory = "memos";
-    RuntimeDirectoryMode = "0777";
+  systemd.services.memos = {
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
+    serviceConfig = {
+      RuntimeDirectory = "memos";
+      RuntimeDirectoryMode = "0777";
+    };
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
