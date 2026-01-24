@@ -22,6 +22,7 @@ let
     "buildbot_github_webhook_secret"
     "buildbot_nix_worker_password"
     "buildbot_nix_workers"
+    "grafana"
   ];
   domain = "chopper.devusb.us";
   caddyHelpers = import ../../lib/caddy-helpers.nix { inherit domain; };
