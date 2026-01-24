@@ -38,6 +38,7 @@ in
         protocol = "socket";
         socket = "/run/grafana/grafana.sock";
         socket_mode = "0666";
+        root_url = "https://grafana.chopper.devusb.us";
       };
       database = {
         type = "postgres";
@@ -49,12 +50,17 @@ in
         auto_assign_org = true;
         auto_assign_org_role = "Admin";
       };
-      "auth.jwt" = {
+      auth = {
+        signout_redirect_url = "https://auth.devusb.us/application/o/grafana/end-session/";
+        oauth_auto_login = true;
+      };
+      "auth.generic_oauth" = {
+        name = "authentik";
         enabled = true;
-        header_name = "X-Pomerium-Jwt-Assertion";
-        email_claim = "email";
-        auto_sign_up = false;
-        jwk_set_url = "https://authenticate.devusb.us/.well-known/pomerium/jwks.json";
+        scopes = "openid email profile";
+        auth_url = "https://auth.devusb.us/application/o/authorize/";
+        token_url = "https://auth.devusb.us/application/o/token/";
+        api_url = "https://auth.devusb.us/application/o/userinfo/";
       };
       panels = {
         disable_sanitize_html = true;
@@ -101,7 +107,7 @@ in
       ];
     };
   };
-  systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.secrets.pushover.path;
+  systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.secrets.grafana.path;
 
   services.prometheus = {
     enable = true;
