@@ -11,6 +11,9 @@
     enable = true;
     user = "media";
     group = "media";
+    settings = {
+      ControlPassword = "";
+    };
   };
   services.sonarr = {
     enable = true;
