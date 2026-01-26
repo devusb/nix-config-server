@@ -20,6 +20,13 @@ in
 
   services.jitsi-videobridge = {
     openFirewall = true;
+    nat = {
+      localAddress = "10.0.0.71";
+      publicAddress = "meet.goon.ventures";
+    };
+    extraProperties = {
+      "org.ice4j.ice.harvest.BLOCKED_INTERFACES" = "tailscale0";
+    };
   };
   systemd.services.jitsi-videobridge2 = {
     after = [ "prosody.service" ];
