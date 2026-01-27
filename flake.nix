@@ -126,7 +126,6 @@
               programs.nixfmt.enable = true;
               programs.nixfmt.package = pkgs.nixfmt-rfc-style;
               programs.yamlfmt.enable = true;
-              programs.mdformat.enable = true;
               programs.toml-sort.enable = true;
               programs.black.enable = true;
               programs.shfmt.enable = true;
