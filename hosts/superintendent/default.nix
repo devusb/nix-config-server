@@ -5,7 +5,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -27,6 +26,16 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
+
+  boot.kernelPatches = [
+    {
+      name = "disable-nova";
+      patch = null;
+      structuredExtraConfig = with lib.kernel; {
+        DRM_NOVA = no;
+      };
+    }
+  ];
 
   hardware.asahi.extractPeripheralFirmware = false;
 
