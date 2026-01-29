@@ -19,6 +19,15 @@
     enable = true;
     user = "media";
     group = "media";
+    package = pkgs.sonarr.override {
+      sqlite = pkgs.sqlite.overrideAttrs (old: {
+        version = "3.51.2";
+        src = pkgs.fetchurl {
+          url = "https://sqlite.org/2026/sqlite-autoconf-3510200.tar.gz";
+          hash = "sha256-+9ifhmsUA7tmoUMGVEAInddhAPIjgxTZInSggtTyt7s=";
+        };
+      });
+    };
     settings = {
       auth.method = "External";
     };
