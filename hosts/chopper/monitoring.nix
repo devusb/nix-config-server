@@ -224,20 +224,6 @@ in
         ];
       }
       {
-        job_name = "pomerium";
-        scrape_interval = "30s";
-        static_configs = [
-          {
-            targets = [
-              "pomerium:9091"
-            ];
-            labels = {
-              alias = "pomerium";
-            };
-          }
-        ];
-      }
-      {
         job_name = "kube-prom";
         scrape_interval = "30s";
         honor_labels = true;
