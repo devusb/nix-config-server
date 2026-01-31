@@ -20,7 +20,7 @@
 
   virtualisation.oci-containers.containers = {
     zwave-js-ui = {
-      image = "zwavejs/zwave-js-ui:9.28.0";
+      image = "zwavejs/zwave-js-ui:11.10.1";
       ports = [
         "8091:8091"
         "3000:3000"
