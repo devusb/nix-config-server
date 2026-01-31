@@ -205,9 +205,6 @@
                 format = "sd-aarch64-installer";
               }
             );
-            pomerium = withSystem "x86_64-linux" (
-              { pkgs, ... }: pkgs.dockerTools.buildLayeredImage (import ./images/pomerium pkgs)
-            );
           };
 
           nixosConfigurations = {
