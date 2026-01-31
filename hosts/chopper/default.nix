@@ -17,6 +17,7 @@ let
     "pushover"
     "mosquitto"
     "paperless_admin"
+    "paperless_config"
     "buildbot_github_app_secret_key"
     "buildbot_github_oauth_secret"
     "buildbot_github_webhook_secret"
