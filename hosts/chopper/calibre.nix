@@ -4,7 +4,7 @@
 }:
 {
   virtualisation.oci-containers.containers.calibre-web-automated = {
-    image = "crocodilestick/calibre-web-automated:v4.0.1";
+    image = "crocodilestick/calibre-web-automated:v4.0.2";
     environment = {
       NETWORK_SHARE_MODE = "false";
       TZ = "US/Central";
