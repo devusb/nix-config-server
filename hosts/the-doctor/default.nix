@@ -9,6 +9,7 @@
     ./authentik.nix
     ./jitsi.nix
     ./proxy.nix
+    ./jellyswarm.nix
   ];
 
   deployment = {
