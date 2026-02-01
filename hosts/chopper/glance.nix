@@ -30,27 +30,18 @@
                       }
                       {
                         title = "Home Assistant";
-                        url = "https://hass.devusb.us";
+                        url = "https://hass.chopper.devusb.us";
                       }
                       {
-                        title = "Hoarder";
+                        title = "Karakeep";
                         url = "https://hoarder.chopper.devusb.us";
                       }
                       {
                         title = "GitHub";
                         url = "https://github.com";
                       }
-                      {
-                        title = "NixOS Status";
-                        url = "https://status.nixos.org";
-                      }
                     ];
                   };
-                }
-                {
-                  type = "clock";
-                  hour-format = "12h";
-                  timezones = [ { timezone = "Israel"; } ];
                 }
                 { type = "calendar"; }
                 {
