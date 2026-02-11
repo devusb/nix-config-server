@@ -15,9 +15,10 @@
       ];
     });
     listen.ip = "127.0.0.1";
-    dataDir = "calibre-web";
+    dataDir = "/var/lib/calibre-web";
     options.calibreLibrary = "/var/lib/calibre-web";
     options.enableBookConversion = true;
+    options.enableBookUploading = true;
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
