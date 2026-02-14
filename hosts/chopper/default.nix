@@ -53,6 +53,7 @@ let
     ./csi.nix
     ./ups.nix
     ./memos.nix
+    ./ollama.nix
   ];
 in
 {
