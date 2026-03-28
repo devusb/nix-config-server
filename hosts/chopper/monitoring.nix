@@ -50,6 +50,7 @@ in
         auto_assign_org = true;
         auto_assign_org_role = "Admin";
       };
+      security.secret_key = config.sops.secrets.grafana_secret_key.path;
       auth = {
         signout_redirect_url = "https://auth.devusb.us/application/o/grafana/end-session/";
         oauth_auto_login = true;
