@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   services.nfs.server = {
     enable = true;
@@ -14,6 +14,9 @@
 
   services.samba = {
     enable = true;
+    package = pkgs.samba.overrideAttrs (prevAttrs: {
+      hardeningDisable = prevAttrs.hardeningDisable or [ ] ++ [ "strictflexarrays1" ];
+    });
     settings = {
       homes = {
         "browsable" = "no";
