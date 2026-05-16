@@ -40,9 +40,18 @@ in
   services.zfs.trim.enable = true;
 
   # erase your darlings
-  boot.initrd.postResumeCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
-  '';
+  boot.initrd.systemd.services.rollback = {
+    description = "Rollback root filesystem to a pristine state on boot";
+    wantedBy = [ "initrd.target" ];
+    after = [ "zfs-import-rpool.service" ];
+    before = [ "sysroot.mount" ];
+    path = [ pkgs.zfs ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      zfs rollback -r rpool/local/root@blank
+    '';
+  };
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
