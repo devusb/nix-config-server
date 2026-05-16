@@ -116,7 +116,7 @@ with lib;
     dhcpV4Config = {
       RouteMetric = 1;
     };
-    dhcpV6Config = {
+    ipv6AcceptRAConfig = {
       RouteMetric = 1;
     };
   };
@@ -133,7 +133,7 @@ with lib;
     dhcpV4Config = {
       RouteMetric = 2;
     };
-    dhcpV6Config = {
+    ipv6AcceptRAConfig = {
       RouteMetric = 2;
     };
   };
