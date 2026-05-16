@@ -28,8 +28,6 @@ in
   };
   boot.loader.timeout = 10;
 
-  hardware.apple-t2.kernelChannel = "latest";
-
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
   boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ];
