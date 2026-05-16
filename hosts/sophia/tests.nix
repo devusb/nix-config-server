@@ -21,7 +21,7 @@
             matchConfig.OriginalName = "eth0";
             linkConfig.Name = "wan0";
           };
-          services.promtail.enable = lib.mkForce false;
+          services.alloy.enable = lib.mkForce false;
         };
 
       lanClient =
