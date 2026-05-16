@@ -32,31 +32,34 @@ with lib;
   services.journald.extraConfig = ''
     Storage=volatile
   '';
-  services.promtail = with lib; {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 9080;
-        grpc_listen_port = 0;
-      };
-      clients = singleton { url = "https://loki.chopper.devusb.us/loki/api/v1/push"; };
-      scrape_configs = singleton {
-        job_name = "sophia-journal";
-        journal = {
-          json = true;
-          max_age = "12h";
-          path = "/run/log/journal";
-          labels = {
-            job = "sophia-journal";
-          };
-        };
-        relabel_configs = singleton {
-          source_labels = singleton "__journal__systemd_unit";
-          target_label = "unit";
-        };
-      };
-    };
-  };
+  services.alloy.enable = true;
+  environment.etc."alloy/config.alloy".text = ''
+    discovery.relabel "sophia_journal" {
+      targets = []
+
+      rule {
+        source_labels = ["__journal__systemd_unit"]
+        target_label  = "unit"
+      }
+    }
+
+    loki.source.journal "sophia_journal" {
+      format_as_json = true
+      max_age        = "12h"
+      path           = "/run/log/journal"
+      relabel_rules  = discovery.relabel.sophia_journal.rules
+      forward_to     = [loki.write.default.receiver]
+      labels         = {
+        job = "sophia-journal",
+      }
+    }
+
+    loki.write "default" {
+      endpoint {
+        url = "https://loki.chopper.devusb.us/loki/api/v1/push"
+      }
+    }
+  '';
 
   # DNS
   services.unbound = {
