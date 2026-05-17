@@ -23,6 +23,16 @@ final: prev: {
     }
   );
 
+  # https://github.com/NixOS/nixpkgs/issues/520485
+  systemd-patched = prev.systemd.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (prev.fetchpatch {
+        url = "https://github.com/systemd/systemd/commit/df45055942330fcd2b77389e449905e7f6ca34ec.patch";
+        hash = "sha256-PDh4mP9rYGCglp25346nExU2v6P0WYPfLZgu+YwzZ9c=";
+      })
+    ];
+  });
+
   fish = prev.fish.overrideAttrs {
     doCheck = false;
   };

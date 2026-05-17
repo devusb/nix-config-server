@@ -124,7 +124,7 @@
 
             treefmt = {
               programs.nixfmt.enable = true;
-              programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+              programs.nixfmt.package = pkgs.nixfmt;
               programs.yamlfmt.enable = true;
               programs.mdformat.enable = true;
               programs.toml-sort.enable = true;

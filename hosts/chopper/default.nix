@@ -157,6 +157,8 @@ in
     ];
   };
 
+  systemd.package = pkgs.systemd-patched;
+
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
