@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-packages = {
-      url = "github:devusb/nix-packages";
+      url = "github:devusb/nix-packages/feat/openjkdf2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
