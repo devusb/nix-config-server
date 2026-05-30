@@ -12,7 +12,18 @@
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "unifi.${domain}" = helpers.mkHttpsVirtualHost 8443;
+    "unifi.${domain}" = {
+      useACMEHost = domain;
+      extraConfig = ''
+        reverse_proxy localhost:8443 {
+            transport http {
+                    tls
+                    tls_insecure_skip_verify
+            }
+            header_up Host {host}
+        }
+      '';
+    };
   };
 
   services.deploy-backup.backups.unifi = {
