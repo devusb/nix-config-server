@@ -70,26 +70,26 @@
 
                   ];
                 }
-                {
-                  type = "group";
-                  widgets =
-                    let
-                      subreddits = [
-                        "houston"
-                        "gamedeals"
-                        "buildapcsales"
-                        "nixos"
-                        "selfhosted"
-                        "steamdeck"
-                        "ockytop"
-                      ];
-                      mkRedditWidget = subreddit: {
-                        inherit subreddit;
-                        type = "reddit";
-                      };
-                    in
-                    map mkRedditWidget subreddits;
-                }
+                # {
+                #   type = "group";
+                #   widgets =
+                #     let
+                #       subreddits = [
+                #         "houston"
+                #         "gamedeals"
+                #         "buildapcsales"
+                #         "nixos"
+                #         "selfhosted"
+                #         "steamdeck"
+                #         "ockytop"
+                #       ];
+                #       mkRedditWidget = subreddit: {
+                #         inherit subreddit;
+                #         type = "reddit";
+                #       };
+                #     in
+                #     map mkRedditWidget subreddits;
+                # }
               ];
             }
           ];
