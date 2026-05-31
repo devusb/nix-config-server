@@ -23,6 +23,15 @@ final: prev: {
     }
   );
 
+  glance = prev.glance.overrideAttrs (old: rec {
+    version = "0.8.5";
+    src = old.src.override {
+      tag = "v${version}";
+      hash = "sha256-2WFX1Gca7ign9i1zOQ9lRdtOSGq9QG33vIA5QTnq9E8=";
+    };
+    vendorHash = "sha256-a92V/duqvrWEb8QSJLA5rHYYZCcJ4fBC962SEr4FJDA=";
+  });
+
   # https://github.com/NixOS/nixpkgs/issues/520485
   systemd-patched = prev.systemd.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ [
