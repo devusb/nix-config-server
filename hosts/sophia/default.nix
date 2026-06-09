@@ -125,6 +125,50 @@ with lib;
     linkConfig.Name = "wan0";
   };
 
+  systemd.network.networks."11-fallback" = {
+    matchConfig.Name = "wan1";
+    networkConfig = {
+      DHCP = "yes";
+    };
+    dhcpV4Config = {
+      RouteMetric = 2;
+    };
+    ipv6AcceptRAConfig = {
+      RouteMetric = 2;
+    };
+  };
+
+  # backup WAN failover
+  sops.secrets.pushover = { };
+  systemd.services.wan-check = {
+    description = "Checking that primary internet is up";
+    serviceConfig = {
+      Type = "oneshot";
+      EnvironmentFile = config.sops.secrets.pushover.path;
+    };
+    script = ''
+      wan0_status=$(${lib.getExe' pkgs.systemd "networkctl"} status wan0 --json=short | ${lib.getExe pkgs.jq} -r .OperationalState)
+      if [[ "''${wan0_status}" == "routable" ]]; then
+        if ! ${lib.getExe pkgs.unixtools.ping} -c 1 -w 5 1.1.1.1 > /dev/null 2>&1; then
+          echo "Shutting down wan0"
+          ${lib.getExe' pkgs.systemd "networkctl"} down wan0
+          sleep 5
+          ${lib.getExe pkgs.curl} -s --form-string "token=$PINGSHUTDOWN_NOTIFICATIONTOKEN" \
+          --form-string "user=$PINGSHUTDOWN_NOTIFICATIONUSER" --form-string "message=sophia: wan0 has been shut down" \
+          http://api.pushover.net/1/messages.json > /dev/null 2>&1
+        fi
+      fi
+    '';
+  };
+  systemd.timers.wan-check = {
+    description = "Checking that primary internet is up";
+    timerConfig = {
+      OnBootSec = "30sec";
+      OnUnitActiveSec = "30sec";
+    };
+    wantedBy = [ "timers.target" ];
+  };
+
   services.openssh.openFirewall = false;
 
   networking = {
@@ -152,6 +196,7 @@ with lib;
       ];
       interfaces = {
         wan0.allowedTCPPorts = [ ];
+        wan1.allowedTCPPorts = [ ];
         guest.allowedTCPPorts = [ 53 ];
         guest.allowedUDPPorts = [ 53 ];
       };
@@ -159,6 +204,8 @@ with lib;
         iptables -I FORWARD 1 -i guest -d 192.168.0.0/16 -j DROP
         iptables -I FORWARD 1 -i isolated -p udp --dport 123 -j ACCEPT
         iptables -I FORWARD 1 -i isolated -o wan0 -j DROP
+        iptables -I FORWARD 1 -i isolated -o wan1 -j DROP
+        iptables -t nat -A POSTROUTING -o wan1 -j MASQUERADE -m mark --mark 0x1
       '';
     };
 
@@ -193,6 +240,10 @@ with lib;
       };
       mgmt = {
         id = 99;
+        interface = "enp1s0";
+      };
+      wan1 = {
+        id = 1000;
         interface = "enp1s0";
       };
     };
