@@ -173,6 +173,34 @@ in
   services.jellyfin = {
     enable = true;
   };
+  systemd.services.jellyfin.serviceConfig = {
+    ProtectSystem = lib.mkForce "strict";
+    ReadWritePaths = [
+      "/var/lib/jellyfin"
+      "/var/cache/jellyfin"
+    ];
+
+    TemporaryFileSystem = [ "/var/lib:ro" ];
+    BindReadOnlyPaths = [ "/var/lib/zz-sdjson" ];
+    BindPaths = [ "/var/lib/jellyfin" ];
+    InaccessiblePaths = [ "/run/secrets.d" ];
+
+    ProtectHome = true;
+
+    IPAddressAllow = [
+      "any"
+      "192.168.1.148"
+    ];
+    IPAddressDeny = [
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+      "169.254.0.0/16"
+      "100.64.0.0/10"
+      "fc00::/7"
+      "fe80::/10"
+    ];
+  };
   sops.secrets.zz-sdjson.owner = "zz-sdjson";
   services.zz-sdjson = {
     enable = true;
