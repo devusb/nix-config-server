@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   caddyHelpers,
   ...
 }:
@@ -18,6 +19,45 @@
     "JELLYFIN_kestrel__socketPermissions" = "0666";
     "JELLYFIN_kestrel__socketPath" = "/run/jellyfin/jellyfin.sock";
     "JELLYFIN_kestrel__socket" = "true";
+  };
+
+  systemd.services.jellyfin.serviceConfig = {
+    ProtectSystem = lib.mkForce "strict";
+    ReadWritePaths = [
+      "/var/lib/jellyfin"
+      "/var/cache/jellyfin"
+      "/run/jellyfin"
+    ];
+
+    TemporaryFileSystem = [
+      "/var/lib:ro"
+      "/r2d2_0:ro"
+    ];
+    BindReadOnlyPaths = [
+      "/var/lib/zz-sdjson"
+      "/r2d2_0/media/Movies"
+      "/r2d2_0/media/TV"
+      "/r2d2_0/media/TV_archive"
+    ];
+    BindPaths = [ "/var/lib/jellyfin" ];
+    InaccessiblePaths = [ "/run/secrets.d" ];
+
+    ProtectHome = true;
+
+    RestrictNetworkInterfaces = [ "~lo" ];
+    IPAddressAllow = [
+      "any"
+      "192.168.10.137"
+    ];
+    IPAddressDeny = [
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+      "169.254.0.0/16"
+      "100.64.0.0/10"
+      "fc00::/7"
+      "fe80::/10"
+    ];
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
