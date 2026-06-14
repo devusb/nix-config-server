@@ -40,4 +40,20 @@
     config = import ./atuin.nix;
   };
 
+  containers.hermes = {
+    specialArgs = {
+      inherit inputs;
+    };
+    enableTun = true;
+    privateNetwork = true;
+    hostAddress = "10.10.100.7";
+    localAddress = "10.10.100.8";
+    restartIfChanged = true;
+    autoStart = true;
+    bindMounts = {
+      "${config.sops.secrets.ts_key.path}".isReadOnly = true;
+    };
+    config = import ./hermes.nix;
+  };
+
 }

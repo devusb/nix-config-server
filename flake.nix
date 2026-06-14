@@ -54,6 +54,9 @@
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
     };
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+    };
   };
 
   outputs =
