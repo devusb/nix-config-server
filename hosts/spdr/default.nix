@@ -215,6 +215,4 @@ in
     };
   };
 
-  systemd.package = pkgs.systemd-patched;
-
 }
