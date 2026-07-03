@@ -49,7 +49,6 @@ let
     ./paperless.nix
     ./glance.nix
     ./buildbot.nix
-    ./calibre.nix
     ./hoarder.nix
     ./csi.nix
     ./ups.nix
