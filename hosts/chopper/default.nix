@@ -55,6 +55,7 @@ let
     ./ups.nix
     ./memos.nix
     ./ollama.nix
+    ./stump.nix
   ];
 in
 {
