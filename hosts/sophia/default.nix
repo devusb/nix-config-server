@@ -305,18 +305,10 @@ with lib;
       };
     in
     {
-      ctrl-agent = {
-        enable = true;
-        settings = {
-          "http-host" = "127.0.0.1";
-          "http-port" = 9090;
-          "control-sockets".dhcp4 = socket4Config;
-        };
-      };
       dhcp4 = {
         enable = true;
         settings = {
-          "control-socket" = socket4Config;
+          "control-sockets" = [ socket4Config ];
           "hooks-libraries" = [
             { library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so"; }
           ];
