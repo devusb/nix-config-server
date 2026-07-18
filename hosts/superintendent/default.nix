@@ -4,8 +4,6 @@
 
 {
   config,
-  lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -28,6 +26,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  hardware.asahi.enable = true;
   hardware.asahi.extractPeripheralFirmware = false;
 
   services.btrfs.autoScrub.enable = true;
