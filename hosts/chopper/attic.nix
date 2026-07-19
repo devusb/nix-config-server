@@ -25,7 +25,7 @@
         avg-size = 131072;
         max-size = 262144;
       };
-      database.url = "postgresql:///atticd?host=/run/postgresql";
+      database.url = "postgresql:///atticd?host=/run/postgresql&user=atticd";
       garbage-collection.interval = "14 days";
     };
   };
