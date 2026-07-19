@@ -44,10 +44,10 @@
 
     ProtectHome = true;
 
-    RestrictNetworkInterfaces = [ "~lo" ];
     IPAddressAllow = [
       "any"
       "192.168.10.137"
+      "192.168.20.109"
     ];
     IPAddressDeny = [
       "10.0.0.0/8"
