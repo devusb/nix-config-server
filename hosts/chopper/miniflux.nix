@@ -18,7 +18,21 @@ in
       TRUSTED_REVERSE_PROXY_NETWORKS = "100.64.0.0/10,127.0.0.0/8,192.168.20.0/23";
     };
   };
-  systemd.services.miniflux.serviceConfig.RuntimeDirectoryMode = lib.mkForce "0755";
+
+  # put miniflux in a stable group such that caddy can be in it to access the socket
+  users.groups.miniflux = { };
+  users.users.miniflux = {
+    isSystemUser = true;
+    group = "miniflux";
+  };
+  users.users.caddy.extraGroups = [ "miniflux" ];
+
+  systemd.services.miniflux.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "miniflux";
+    Group = "miniflux";
+    RuntimeDirectoryMode = lib.mkForce "0750";
+  };
 
   services.caddy.virtualHosts = with caddyHelpers; {
     "miniflux.${domain}" = helpers.mkSocketVirtualHost "/run/miniflux/miniflux.sock";
