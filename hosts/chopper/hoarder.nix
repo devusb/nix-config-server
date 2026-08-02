@@ -22,9 +22,21 @@
   };
   services.meilisearch = {
     package = pkgs.meilisearch;
-    settings = {
-      experimental_dumpless_upgrade = true;
-    };
+    settings = lib.mkForce (
+      let
+        stateDir = "/var/lib/meilisearch";
+      in
+      {
+        http_addr = "${config.services.meilisearch.listenAddress}:${toString config.services.meilisearch.listenPort}";
+
+        db_path = stateDir;
+        dump_dir = "${stateDir}/dumps";
+        snapshot_dir = "${stateDir}/snapshots";
+
+        no_analytics = true;
+        upgrade_db = true;
+      }
+    );
   };
   systemd.services.meilisearch.serviceConfig.ProcSubset = lib.mkForce "all";
 
