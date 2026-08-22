@@ -9,10 +9,10 @@ final: prev: {
 
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
-      version = "1.41.3.9314-a0bfb8370";
+      version = "1.43.3.10896-cb3ebc72d";
       src = prev.fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-        hash = "sha256-ku16UwIAAdtMO1ju07DwuWzfDLg/BjqauWhVDl68/DI=";
+        hash = "sha256-qgnyZt3PQI4Qz3ulYbbkVObhCbqUFjlraWW9THnzcUk=";
       };
     });
   };
