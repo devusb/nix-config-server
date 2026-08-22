@@ -69,6 +69,7 @@ in
   ];
 
   boot.zfs.extraPools = [ "r2d2_0" ];
+  boot.zfs.forceImportRoot = true;
   services.zfs.autoScrub = {
     enable = true;
     interval = "*-*-01,15 00:00:00";

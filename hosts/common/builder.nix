@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   inherit (lib) mkMerge mkIf mkDefault;
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 in
 {
   users.users.nix = mkMerge [
