@@ -43,6 +43,19 @@
   services.buildbot-nix.worker = {
     enable = true;
     workerPasswordFile = config.sops.secrets.buildbot_nix_worker_password.path;
+    nixEvalJobs.package =
+      (pkgs.nix-eval-jobs.override {
+        nixComponents = pkgs.nixVersions.nixComponents_2_34;
+      }).overrideAttrs
+        (_: rec {
+          version = "2.34.3";
+          src = pkgs.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nix-eval-jobs";
+            tag = "v${version}";
+            hash = "sha256-YaVQAgBxWbUBFHXLBLzdUyVvuA/DDw80SEnn9iq0Veo=";
+          };
+        });
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
