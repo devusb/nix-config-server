@@ -45,9 +45,9 @@
 
   systemd.network.networks."20-lan-bridge" = {
     matchConfig.Name = "br0";
-    networkConfig = {
-      DHCP = "yes";
-    };
+    address = [ "192.168.20.109/23" ];
+    gateway = [ "192.168.20.1" ];
+    dns = [ "192.168.20.1" ];
     linkConfig.RequiredForOnline = "routable";
   };
 
