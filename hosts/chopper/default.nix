@@ -26,6 +26,7 @@ let
     "grafana"
     "grafana_secret_key"
     "stump"
+    "heb_mcp"
   ];
   domain = "chopper.devusb.us";
   caddyHelpers = import ../../lib/caddy-helpers.nix { inherit domain; };
@@ -56,6 +57,7 @@ let
     ./memos.nix
     ./ollama.nix
     ./stump.nix
+    ./heb-mcp.nix
   ];
 in
 {
