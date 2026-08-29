@@ -27,7 +27,7 @@
 
   systemd.network.networks."20-lan" = {
     matchConfig.Name = [
-      "enp7s0"
+      "enp6s0"
       "vm-*"
     ];
     networkConfig = {
@@ -39,6 +39,7 @@
     netdevConfig = {
       Name = "br0";
       Kind = "bridge";
+      MACAddress = "9c:6b:00:22:1d:20";
     };
   };
 
@@ -47,7 +48,6 @@
     networkConfig = {
       DHCP = "yes";
     };
-    dhcpV4Config.RouteMetric = 2000;
     linkConfig.RequiredForOnline = "routable";
   };
 

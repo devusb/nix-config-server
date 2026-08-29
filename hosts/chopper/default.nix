@@ -97,9 +97,14 @@ in
     linkConfig.Unmanaged = true;
   };
 
+  systemd.network.networks."18-unused-lan" = {
+    matchConfig.Name = "enp7s0";
+    linkConfig.Unmanaged = true;
+  };
+
   networking.nat.enable = true;
   networking.nat.internalInterfaces = [ "ve-+" ];
-  networking.nat.externalInterface = "enp6s0";
+  networking.nat.externalInterface = "br0";
 
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
