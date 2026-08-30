@@ -19,7 +19,7 @@
       {
         image = "state.img";
         mountPoint = "/var/lib";
-        size = 1024;
+        size = 16384;
       }
     ];
   };
