@@ -44,10 +44,6 @@
     ];
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD+tZ4hf4MhEW+akoZbXPN3Zi4cijSkQlX6bZlnV+Aq mhelton@gmail.com"
-  ];
-
   networking.useNetworkd = true;
   networking.useDHCP = false;
   systemd.network.networks."20-lan" = {
