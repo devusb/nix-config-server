@@ -1,5 +1,7 @@
 { ... }:
 {
+  imports = [ ../../common/mhelton.nix ];
+
   microvm = {
     registerWithMachined = true;
     vsock.ssh.enable = true;
