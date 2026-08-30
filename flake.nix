@@ -54,6 +54,10 @@
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
     };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
