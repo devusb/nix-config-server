@@ -58,6 +58,7 @@ let
     ./ollama.nix
     ./stump.nix
     ./heb-mcp.nix
+    ./microvm
   ];
 in
 {
@@ -106,9 +107,16 @@ in
   networking.nat.internalInterfaces = [ "ve-+" ];
   networking.nat.externalInterface = "br0";
 
+  users.groups.tailscale-key = { };
+
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
-    secrets = lib.genAttrs secrets (_: { });
+    secrets = lib.genAttrs secrets (_: { }) // {
+      ts_key = {
+        group = "tailscale-key";
+        mode = "0440";
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
