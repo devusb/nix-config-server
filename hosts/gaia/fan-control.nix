@@ -1,10 +1,9 @@
 { pkgs, ... }:
 {
-  hardware.raspberry-pi."4" = {
-    poe-plus-hat.enable = true;
-  };
+  hardware.raspberry-pi."4".apply-overlays-dtmerge.enable = true;
 
   hardware.deviceTree = {
+    filter = "bcm2711-rpi-4*.dtb";
     overlays = pkgs.lib.mkForce [
       {
         name = "rpi-poe-plus-overlay";
