@@ -20,9 +20,7 @@ in
   };
 
   hardware.raspberry-pi."4" = {
-    dwc2.enable = true;
     fkms-3d.enable = true;
-    audio.enable = true;
   };
 
   networking.hostName = "gaia1";
