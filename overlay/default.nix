@@ -7,6 +7,16 @@ final: prev: {
 
   makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
 
+  # retries transient upload failures, https://github.com/zhaofengli/attic/pull/246
+  attic-client = prev.attic-client.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      (prev.fetchpatch {
+        url = "https://github.com/devusb/attic/commit/4a479e1.patch";
+        hash = "sha256-qPpijvya8jrgldgSD2hIkxJDMwSV6GRE3gWaa51B8ZY=";
+      })
+    ];
+  });
+
   plexpass = prev.plex.override {
     plexRaw = prev.plexRaw.overrideAttrs (old: rec {
       version = "1.43.3.10896-cb3ebc72d";
