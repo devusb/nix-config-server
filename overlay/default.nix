@@ -17,11 +17,6 @@ final: prev: {
     });
   };
 
-  # needed until https://github.com/NixOS/nixpkgs/pull/554776 lands
-  karakeep = prev.karakeep.override {
-    nodejs = prev.nodejs_22;
-  };
-
   python314Packages = prev.python314Packages.overrideScope (
     final: prev: {
       python-ldap = prev.python-ldap.overridePythonAttrs { doCheck = false; };

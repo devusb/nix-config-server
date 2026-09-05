@@ -7,7 +7,6 @@
     ../common
     ./disko-config.nix
     ./authentik.nix
-    ./jitsi.nix
     ./proxy.nix
   ];
 

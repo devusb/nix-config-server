@@ -29,9 +29,9 @@ with lib;
   networking.useNetworkd = true;
   services.resolved.enable = false;
 
-  services.journald.extraConfig = ''
-    Storage=volatile
-  '';
+  services.journald.settings.Journal = {
+    Storage = "volatile";
+  };
   services.alloy.enable = true;
   environment.etc."alloy/config.alloy".text = ''
     discovery.relabel "sophia_journal" {
