@@ -27,6 +27,7 @@
       };
       database.url = "postgresql:///atticd?host=/run/postgresql&user=atticd";
       garbage-collection.interval = "14 days";
+      garbage-collection.default-retention-period = "90 days";
     };
   };
 
