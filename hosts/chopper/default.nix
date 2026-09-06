@@ -27,6 +27,7 @@ let
     "grafana_secret_key"
     "stump"
     "heb_mcp"
+    "jellyswarrm"
   ];
   domain = "chopper.devusb.us";
   caddyHelpers = import ../../lib/caddy-helpers.nix { inherit domain; };
@@ -112,6 +113,7 @@ in
   sops = {
     defaultSopsFile = ../../secrets/default.yaml;
     secrets = lib.genAttrs secrets (_: { }) // {
+      jellyswarrm.owner = "microvm";
       ts_key = {
         group = "tailscale-key";
         mode = "0440";

@@ -58,6 +58,10 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jellyswarrm = {
+      url = "github:LLukas22/Jellyswarrm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
