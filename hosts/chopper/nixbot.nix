@@ -4,6 +4,13 @@
   caddyHelpers,
   ...
 }:
+let
+  atticPush = pkgs.writeShellScript "nixbot-attic-push" ''
+    set -eu -o pipefail
+    attic login r2d2 https://attic.springhare-egret.ts.net "$(< "$CREDENTIALS_DIRECTORY/attic-token")"
+    exec attic push --stdin r2d2
+  '';
+in
 {
   sops.secrets.buildbot_github_app_secret_key.owner = "nixbot";
   sops.secrets.buildbot_github_oauth_secret.owner = "nixbot";
@@ -33,7 +40,20 @@
       webhookSecretFile = config.sops.secrets.buildbot_github_webhook_secret.path;
     };
 
+    uploaders = [
+      {
+        name = "attic";
+        command = [ "${atticPush}" ];
+        pathsVia = "stdin";
+      }
+    ];
+
     nginx.enable = false;
+  };
+
+  systemd.services.nixbot = {
+    path = [ pkgs.attic-client ];
+    serviceConfig.LoadCredential = [ "attic-token:${config.sops.secrets.attic_token.path}" ];
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
@@ -70,34 +90,4 @@
       ];
     }
   ];
-
-  systemd.services.attic-watch-store = {
-    wantedBy = [ "multi-user.target" ];
-    after = [
-      "network-online.target"
-      "tailscaled.service"
-      config.systemd.services."container@attic".name
-    ];
-    requires = [
-      "network-online.target"
-    ];
-    environment.HOME = "/var/lib/attic-watch-store";
-    serviceConfig = {
-      DynamicUser = true;
-      MemoryHigh = "5%";
-      MemoryMax = "10%";
-      LoadCredential = "prod-auth-token:${config.sops.secrets.attic_token.path}";
-      StateDirectory = "attic-watch-store";
-      Restart = "on-failure";
-      RestartSec = "60";
-    };
-    path = [ pkgs.attic-client ];
-    script = ''
-      set -eux -o pipefail
-      ATTIC_TOKEN=$(< $CREDENTIALS_DIRECTORY/prod-auth-token)
-      attic login r2d2 https://attic.springhare-egret.ts.net $ATTIC_TOKEN
-      attic use r2d2
-      exec attic watch-store r2d2
-    '';
-  };
 }
