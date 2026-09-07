@@ -20,10 +20,10 @@
         path = "/nix-cache";
       };
       chunking = {
-        nar-size-threshold = 131072;
-        min-size = 65536;
-        avg-size = 131072;
-        max-size = 262144;
+        nar-size-threshold = 33554432;
+        min-size = 4194304;
+        avg-size = 16777216;
+        max-size = 67108864;
       };
       database.url = "postgresql:///atticd?host=/run/postgresql&user=atticd";
       garbage-collection.interval = "14 days";
