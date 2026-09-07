@@ -44,10 +44,6 @@
       url = "github:Mic92/nixbot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
     };
@@ -78,7 +74,6 @@
       disko,
       colmena,
       nixbot,
-      lix-module,
       treefmt-nix,
       ...
     }@inputs:
