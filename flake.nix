@@ -40,8 +40,8 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    buildbot-nix = {
-      url = "github:nix-community/buildbot-nix";
+    nixbot = {
+      url = "github:Mic92/nixbot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lix-module = {
@@ -77,7 +77,7 @@
       blocky-tailscale,
       disko,
       colmena,
-      buildbot-nix,
+      nixbot,
       lix-module,
       treefmt-nix,
       ...
@@ -91,8 +91,7 @@
         impermanence.nixosModule
         disko.nixosModules.disko
         nix-packages.nixosModules.default
-        buildbot-nix.nixosModules.buildbot-master
-        buildbot-nix.nixosModules.buildbot-worker
+        nixbot.nixosModules.nixbot
         ./modules/tailscale-autoconnect.nix
         ./modules/tailscale-serve.nix
         ./modules/deploy-backup.nix

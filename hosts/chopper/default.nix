@@ -21,8 +21,6 @@ let
     "buildbot_github_app_secret_key"
     "buildbot_github_oauth_secret"
     "buildbot_github_webhook_secret"
-    "buildbot_nix_worker_password"
-    "buildbot_nix_workers"
     "grafana"
     "grafana_secret_key"
     "stump"
@@ -51,7 +49,7 @@ let
     ../common/builder.nix
     ./paperless.nix
     ./glance.nix
-    ./buildbot.nix
+    ./nixbot.nix
     ./hoarder.nix
     ./csi.nix
     ./ups.nix
