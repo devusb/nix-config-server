@@ -1,23 +1,18 @@
 {
   config,
   pkgs,
-  lib,
   caddyHelpers,
   ...
 }:
 {
-  sops.secrets.buildbot_github_app_secret_key.owner = "buildbot";
-  sops.secrets.buildbot_github_oauth_secret.owner = "buildbot";
-  sops.secrets.buildbot_github_webhook_secret.owner = "buildbot";
-  sops.secrets.buildbot_nix_worker_password.owner = "buildbot";
-  sops.secrets.buildbot_nix_workers.owner = "buildbot";
+  sops.secrets.buildbot_github_app_secret_key.owner = "nixbot";
+  sops.secrets.buildbot_github_oauth_secret.owner = "nixbot";
+  sops.secrets.buildbot_github_webhook_secret.owner = "nixbot";
 
-  services.buildbot-nix.master = {
+  services.nixbot = {
     enable = true;
     domain = "buildbot.devusb.us";
     useHTTPS = true;
-
-    workersFile = config.sops.secrets.buildbot_nix_workers.path;
 
     buildSystems = [
       "x86_64-linux"
@@ -26,40 +21,23 @@
     ];
 
     admins = [
-      "devusb"
+      "github:devusb"
     ];
 
     github = {
+      enable = true;
       appId = 1016931;
       appSecretKeyFile = config.sops.secrets.buildbot_github_app_secret_key.path;
       oauthId = "Iv23liDS2QmUZzhs73tk";
       oauthSecretFile = config.sops.secrets.buildbot_github_oauth_secret.path;
       webhookSecretFile = config.sops.secrets.buildbot_github_webhook_secret.path;
     };
-  };
 
-  services.nginx.enable = lib.mkForce false;
-
-  services.buildbot-nix.worker = {
-    enable = true;
-    workerPasswordFile = config.sops.secrets.buildbot_nix_worker_password.path;
-    nixEvalJobs.package =
-      (pkgs.nix-eval-jobs.override {
-        nixComponents = pkgs.nixVersions.nixComponents_2_34;
-      }).overrideAttrs
-        (_: rec {
-          version = "2.34.3";
-          src = pkgs.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nix-eval-jobs";
-            tag = "v${version}";
-            hash = "sha256-YaVQAgBxWbUBFHXLBLzdUyVvuA/DDw80SEnn9iq0Veo=";
-          };
-        });
+    nginx.enable = false;
   };
 
   services.caddy.virtualHosts = with caddyHelpers; {
-    "buildbot.${domain}" = helpers.mkVirtualHost config.services.buildbot-master.port;
+    "buildbot.${domain}" = helpers.mkVirtualHost config.services.nixbot.port;
   };
 
   nix.distributedBuilds = true;
