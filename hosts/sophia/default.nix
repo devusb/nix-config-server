@@ -24,6 +24,7 @@ with lib;
     ethtool
     tcpdump
     conntrack-tools
+    frp
   ];
 
   networking.useNetworkd = true;
