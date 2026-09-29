@@ -389,11 +389,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1789544394,
-        "narHash": "sha256-hGLXHVV7BLOnFeBUgPfNp1N5e292TcbZQT2vFCP1rlI=",
+        "lastModified": 1790427786,
+        "narHash": "sha256-8+Ip0HFW2oZiRr0zCZmPPIHfTdxxHy4CmSF1uOkM3Bw=",
         "owner": "LLukas22",
         "repo": "Jellyswarrm",
-        "rev": "3556d780def848f2bb1aae2bcb2548f620e37f3d",
+        "rev": "9e67c5ad12116add867ba6c1bf69f767879e9147",
         "type": "github"
       },
       "original": {
