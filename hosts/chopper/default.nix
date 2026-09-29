@@ -156,6 +156,7 @@ in
         domain = "*.${domain}";
         dnsProvider = "cloudflare";
         environmentFile = config.sops.secrets.cloudflare.path;
+        extraLegoFlags = [ "--dns.propagation.disable-rns" ];
       };
     };
   };
