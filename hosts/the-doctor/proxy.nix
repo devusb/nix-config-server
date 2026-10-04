@@ -85,6 +85,7 @@ in
       dnsProvider = "cloudflare";
       environmentFile = config.sops.secrets.cloudflare.path;
       webroot = null;
+      extraLegoFlags = [ "--dns.propagation.disable-rns" ];
     };
   };
 
