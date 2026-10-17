@@ -41,14 +41,24 @@ in
     in
     lib.mkForce (
       pkgs.linuxPackagesFor (
-        pkgs.callPackage "${linuxT2}/generic.nix" { } {
+        (pkgs.callPackage "${linuxT2}/generic.nix" { } {
           kernel = pkgs.linux_6_18;
           patchesFile = builtins.toFile "stable.json" (
             builtins.toJSON (
               patchset // { patches = lib.filter (p: !(builtins.elem p.name dropped)) patchset.patches; }
             )
           );
-        }
+        }).override
+          (old: {
+            argsOverride = old.argsOverride // rec {
+              version = "6.18.52";
+              modDirVersion = version;
+              src = pkgs.fetchurl {
+                url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+                hash = "sha256-K2lWT31P6gyFmxlZujNwnubpE5vRAOMKhTtXFZqCIbg=";
+              };
+            };
+          })
       )
     );
 
