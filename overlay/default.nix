@@ -33,6 +33,38 @@ final: prev: {
     }
   );
 
+  # 0.31 migrations require postgresql 16+
+  memos = prev.memos.overrideAttrs (
+    finalAttrs: old: {
+      version = "0.30.0";
+      src = prev.fetchFromGitHub {
+        owner = "usememos";
+        repo = "memos";
+        rev = "v${finalAttrs.version}";
+        hash = "sha256-MXvEMJN/XyZux/qL/9qZYkbo6fQzYFeCWHxFCtN1M8o=";
+      };
+      memos-web = old.memos-web.overrideAttrs (webOld: {
+        pnpmDeps = prev.fetchPnpmDeps {
+          inherit (webOld) pname version src;
+          pnpm = prev.pnpm_10;
+          sourceRoot = "${webOld.src.name}/web";
+          fetcherVersion = 3;
+          hash = "sha256-4oUA0z6VXL0belhK23wZgwCpGmLqDnEez3nMA/uHUTw=";
+        };
+        nativeBuildInputs = [
+          prev.nodejs
+          prev.pnpmConfigHook
+          prev.pnpm_10
+        ];
+      });
+      vendorHash = "sha256-nyUBXPC8nt+7s2jFHohF0PWBGky24ZSXWtSI4XVf2kU=";
+      preBuild = ''
+        rm -rf server/router/frontend/dist
+        cp -r ${finalAttrs.memos-web} server/router/frontend/dist
+      '';
+    }
+  );
+
   fish = prev.fish.overrideAttrs {
     doCheck = false;
   };
