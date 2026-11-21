@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   microvm.vms.vm-jellyswarrm = {
     extraModules = [
@@ -27,6 +27,7 @@
         host = "127.0.0.1";
         passwordFile = "/run/credentials/@system/JELLYSWARRM_PASSWORD";
         package = inputs.jellyswarrm.packages.x86_64-linux.jellyswarrm.overrideAttrs (old: {
+          buildInputs = old.buildInputs ++ [ pkgs.zstd ];
           preBuild = old.preBuild + ''
             sed -i 's/^UI_VERSION=.*/UI_VERSION=12.0.0/' crates/jellyswarrm-proxy/static/ui-version.env
           '';
