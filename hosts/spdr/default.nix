@@ -28,40 +28,6 @@ in
   };
   boot.loader.timeout = 10;
 
-  # kernel
-  boot.kernelPackages =
-    let
-      linuxT2 = "${inputs.nixos-hardware}/apple/t2/pkgs/linux-t2";
-      patchset = builtins.fromJSON (builtins.readFile "${linuxT2}/stable.json");
-      dropped = [
-        "4001-asahi-trackpad.patch"
-        "4004-HID-magicmouse-Add-support-for-trackpads-found-on-T2.patch"
-        "4005-HID-magicmouse-fix-regression-breaking-support-for-M.patch"
-      ];
-    in
-    lib.mkForce (
-      pkgs.linuxPackagesFor (
-        (pkgs.callPackage "${linuxT2}/generic.nix" { } {
-          kernel = pkgs.linux_6_18;
-          patchesFile = builtins.toFile "stable.json" (
-            builtins.toJSON (
-              patchset // { patches = lib.filter (p: !(builtins.elem p.name dropped)) patchset.patches; }
-            )
-          );
-        }).override
-          (old: {
-            argsOverride = old.argsOverride // rec {
-              version = "6.18.52";
-              modDirVersion = version;
-              src = pkgs.fetchurl {
-                url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-                hash = "sha256-K2lWT31P6gyFmxlZujNwnubpE5vRAOMKhTtXFZqCIbg=";
-              };
-            };
-          })
-      )
-    );
-
   # zfs
   boot.supportedFilesystems = [ "zfs" ];
   boot.kernelParams = [ "zfs.zfs_arc_max=2147483648" ];
