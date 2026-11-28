@@ -65,6 +65,28 @@ final: prev: {
     }
   );
 
+  stump = prev.stump.overrideAttrs (
+    finalAttrs: old: {
+      version = "0.1.14";
+      src = prev.fetchFromGitHub {
+        owner = "stumpapp";
+        repo = "stump";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-EkQId7cnqG0LGntwy8rEbrkPfqduGbD9VqlhGWsLuwk=";
+      };
+      frontend = old.frontend.overrideAttrs {
+        yarnOfflineCache = prev.fetchYarnDeps {
+          yarnLock = finalAttrs.src + "/yarn.lock";
+          hash = "sha256-a48gfef+LHb/KW1cV8qTKjMwva3v18Oz7fiRhzoq+QI=";
+        };
+      };
+      cargoDeps = prev.rustPlatform.fetchCargoVendor {
+        inherit (finalAttrs) pname src version;
+        hash = "sha256-Ht7dueO7J7TAnMZnK0P36oDBlJYiTpKfJixq4ptCXJw=";
+      };
+    }
+  );
+
   fish = prev.fish.overrideAttrs {
     doCheck = false;
   };
