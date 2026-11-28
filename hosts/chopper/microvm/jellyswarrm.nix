@@ -28,6 +28,12 @@
         passwordFile = "/run/credentials/@system/JELLYSWARRM_PASSWORD";
         package = inputs.jellyswarrm.packages.x86_64-linux.jellyswarrm.overrideAttrs (old: {
           buildInputs = old.buildInputs ++ [ pkgs.zstd ];
+          patches = (old.patches or [ ]) ++ [
+            (pkgs.fetchpatch {
+              url = "https://github.com/devusb/Jellyswarrm/commit/77dd4b6f3750e4d2c9d5022adea0574cf97cd58f.patch";
+              hash = "sha256-91bupQR0pNK3wZIIZlq4PUVwt7EA8ivC8WUuu8UR0vs=";
+            })
+          ];
           preBuild = old.preBuild + ''
             sed -i 's/^UI_VERSION=.*/UI_VERSION=12.0.0/' crates/jellyswarrm-proxy/static/ui-version.env
           '';
